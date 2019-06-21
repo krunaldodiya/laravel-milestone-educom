@@ -5,9 +5,13 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
+use App\Events\UserWasCreated;
+
+use Carbon\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends \TCG\Voyager\Models\User implements JWTSubject
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -17,8 +21,10 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'mobile', 'uid', 'gender', 'avatar', 'dob', 'school_id', 'education', 'account_status', 'status'
+        'name', 'email', 'email_verified_at', 'mobile', 'password', 'dob', 'gender', 'avatar', 'school_id', 'education', 'status', 'account_status', 'remember_token'
     ];
+
+    protected $dates = ['created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -38,14 +44,84 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function getAvatarAttribute($avatar)
+    protected $appends = ['age'];
+
+    protected $dispatchesEvents = [
+        'created' => UserWasCreated::class
+    ];
+
+    public function getAgeAttribute()
     {
-        return $avatar == null ? "default.png" : $avatar;
+        return $this->dob ? Carbon::parse($this->dob)->age : 0;
     }
 
-    public function school()
+    public function getAvatarAttribute($avatar)
     {
-        return $this->belongsTo(School::class);
+        return $avatar == null ? "default.jpeg" : $avatar;
+    }
+
+    public function stores()
+    {
+        return $this->hasMany(Store::class);
+    }
+
+    public function timer_history()
+    {
+        return $this->hasMany(Timer::class);
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function subscription()
+    {
+        return $this->hasOne(PlanSubscription::class);
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+    public function isAdminOrMerchant()
+    {
+        return $this->isAdmin() || $this->isMerchant();
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin || in_array($this->email, ['kunal.dodiya1@gmail.com']);
+    }
+
+    public function isMerchant()
+    {
+        return $this->is_merchant;
+    }
+
+    public function searchableAs()
+    {
+        return 'name';
+    }
+
+    public function upgradeLevel()
+    {
+        $credits = $this->wallet->transactions()
+            ->whereIn('transaction_type', ['deposit'])
+            ->where('status', true)
+            ->sum('amount');
+
+        $level = Level::where('points', "<=", $credits)
+            ->get()
+            ->last();
+
+        $this->update(['level_id' => $level->id]);
     }
 
     /**

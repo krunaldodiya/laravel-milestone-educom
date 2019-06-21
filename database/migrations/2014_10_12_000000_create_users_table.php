@@ -24,14 +24,15 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
 
             $table->string('dob')->default("01-01-1990");
-            $table->enum('gender', ["Male", "Female"])->default("Male");
+            $table->enum('gender', ['Male', 'Female'])->default('Male');
+            $table->string('avatar')->nullable();
 
             $table->integer("school_id")->default(1);
-
-            $table->string('avatar')->nullable();
             $table->string('education')->nullable();
-            $table->enum('account_status', ["Approved", "Rejected", "Pending"])->default("Pending");
+
+            $table->enum('account_status', ["Approved", "Rejected", "Pending"])->default("Approved");
             $table->boolean('status')->default(false);
+
             $table->rememberToken();
             $table->timestamps();
         });
