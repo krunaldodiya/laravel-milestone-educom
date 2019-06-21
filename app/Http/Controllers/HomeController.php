@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\FeedbackMail;
 use Spatie\DbDumper\Databases\MySql;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function home()
     {
         return view('home');
     }
@@ -76,5 +78,16 @@ class HomeController extends Controller
         User::where('id', $request->id)->update(['uid' => null, 'account_status' => 'Pending']);
 
         return redirect()->back();
+    }
+
+    public function getAssets(Request $request)
+    {
+        $defaultAsset = $request->url ? $request->url : 'assets/default.png';
+
+        $storageExists = Storage::disk('public')->exists($defaultAsset);
+
+        $assetPath = $storageExists ? public_path("storage/$defaultAsset") : public_path("images/default.png");
+
+        return Image::make($assetPath)->response();
     }
 }

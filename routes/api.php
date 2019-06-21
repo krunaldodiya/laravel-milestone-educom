@@ -4,6 +4,11 @@ Route::group(['prefix' => 'test'], function () {
     Route::get('/categories', 'CategoryController@getCategories');
 });
 
+Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
+    Route::post('/request-otp', 'OtpController@requestOtp');
+    Route::post('/verify-otp', 'OtpController@verifyOtp');
+});
+
 Route::group(['prefix' => 'device', 'middleware' => 'guest:api'], function () {
     Route::post('/authenticate', 'UserController@authenticate');
 });

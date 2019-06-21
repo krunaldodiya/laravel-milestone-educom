@@ -60,68 +60,9 @@ class User extends Authenticatable implements JWTSubject
         return $avatar == null ? "default.jpeg" : $avatar;
     }
 
-    public function stores()
+    public function school()
     {
-        return $this->hasMany(Store::class);
-    }
-
-    public function timer_history()
-    {
-        return $this->hasMany(Timer::class);
-    }
-
-    public function plan()
-    {
-        return $this->belongsTo(Plan::class);
-    }
-
-    public function subscription()
-    {
-        return $this->hasOne(PlanSubscription::class);
-    }
-
-    public function level()
-    {
-        return $this->belongsTo(Level::class);
-    }
-
-    public function location()
-    {
-        return $this->belongsTo(Location::class);
-    }
-
-    public function isAdminOrMerchant()
-    {
-        return $this->isAdmin() || $this->isMerchant();
-    }
-
-    public function isAdmin()
-    {
-        return $this->is_admin || in_array($this->email, ['kunal.dodiya1@gmail.com']);
-    }
-
-    public function isMerchant()
-    {
-        return $this->is_merchant;
-    }
-
-    public function searchableAs()
-    {
-        return 'name';
-    }
-
-    public function upgradeLevel()
-    {
-        $credits = $this->wallet->transactions()
-            ->whereIn('transaction_type', ['deposit'])
-            ->where('status', true)
-            ->sum('amount');
-
-        $level = Level::where('points', "<=", $credits)
-            ->get()
-            ->last();
-
-        $this->update(['level_id' => $level->id]);
+        return $this->belongsTo(School::class);
     }
 
     /**

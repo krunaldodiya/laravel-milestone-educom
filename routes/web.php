@@ -11,9 +11,14 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
     Route::get("/export", "HomeController@export")->name("export");
 });
+
+Route::get("/storage/{url}", "HomeController@getAssets")->name("get-assets-from-storage")->where('url', '.*$');
+
+Route::get('/home', 'HomeController@home')->name('home');
+Route::get('/terms', 'HomeController@terms')->name('terms');
+Route::get('/privacy', 'HomeController@privacy')->name('privacy');
 
 Route::get('/about', 'HomeController@about')->name('about');
 Route::get('/feedback', 'HomeController@feedbackForm')->name('feedback');
