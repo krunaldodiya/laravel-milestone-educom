@@ -6,10 +6,10 @@
 	<string>SPNoCompression</string>
 	<key>customFilename</key>
 	<array>
-		<string>voyager</string>
+		<string>milestone</string>
 	</array>
 	<key>exportPath</key>
-	<string>/Volumes/Softwares/Code/milestone/public/database</string>
+	<string>/Volumes/Softwares/Code/laravel-milestone-educom/public/database</string>
 	<key>exportSource</key>
 	<string>SPTableExport</string>
 	<key>exportType</key>
@@ -21,6 +21,12 @@
 	<key>schemaObjects</key>
 	<dict>
 		<key>categories</key>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
+		<key>chapters</key>
 		<array>
 			<string>structure</string>
 			<string>content</string>

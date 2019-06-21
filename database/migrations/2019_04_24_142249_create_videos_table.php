@@ -19,7 +19,7 @@ class CreateVideosTable extends Migration
             $table->bigInteger("topic_id")->unsigned();
             $table->foreign('topic_id')->references('id')->on('topics')
                 ->onUpdate('cascade')->onDelete('cascade');
-                
+
             $table->string("thumbnail")->nullable();
             $table->string("title");
             $table->text("description");

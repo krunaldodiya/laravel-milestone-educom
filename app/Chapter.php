@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Topic extends Model
+class Chapter extends Model
 {
     protected $fillable = [
-        'name', 'description', 'category_id', 'chapter_id', 'image', 'order'
+        'name', 'description', 'category_id', 'image', 'order'
     ];
 
     protected $dates = [
@@ -19,8 +19,8 @@ class Topic extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function videos()
+    public function topics()
     {
-        return $this->hasMany(Video::class);
+        return $this->hasMany(Topic::class);
     }
 }
