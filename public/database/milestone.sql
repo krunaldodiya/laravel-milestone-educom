@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.13)
 # Database: milestone_educom
-# Generation Time: 2019-06-22 05:35:38 +0000
+# Generation Time: 2019-06-22 07:56:00 +0000
 # ************************************************************
 
 
@@ -441,15 +441,6 @@ CREATE TABLE `users` (
   CONSTRAINT `users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-
-INSERT INTO `users` (`id`, `role_id`, `name`, `mobile`, `imei`, `email`, `email_verified_at`, `password`, `dob`, `gender`, `avatar`, `school_id`, `education`, `account_status`, `status`, `remember_token`, `settings`, `created_at`, `updated_at`)
-VALUES
-	(1,NULL,NULL,'9426726815','866462038392648',NULL,NULL,'$2y$10$hk2mPTZAb8DEXthSQopmuuRGGvHOcwS8i8M4YamVLjLIZKUmD1Fui','01-01-1990','Male',NULL,1,NULL,'Approved',0,NULL,NULL,'2019-06-22 05:34:24','2019-06-22 05:34:24');
-
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table videos
