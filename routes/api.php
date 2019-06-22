@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'test'], function () {
-    Route::get('/categories', 'CategoryController@getCategories');
+    Route::get('/check', 'CategoryController@getCategories');
 });
 
 Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {

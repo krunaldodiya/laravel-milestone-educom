@@ -14,8 +14,8 @@ class Category extends Model
         'created_at', 'updated_at',
     ];
 
-    public function topics()
+    public function chapters()
     {
-        return $this->hasMany(Topic::class);
+        return $this->hasMany(Chapter::class);
     }
 }
