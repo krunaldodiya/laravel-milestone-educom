@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 5438
+# Version 5446
 #
 # https://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
 # Host: 127.0.0.1 (MySQL 8.0.13)
-# Database: milestone
-# Generation Time: 2019-04-25 06:22:20 +0000
+# Database: milestone_educom
+# Generation Time: 2019-06-22 07:58:57 +0000
 # ************************************************************
 
 
@@ -21,31 +21,25 @@ SET NAMES utf8mb4;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table categories
+# Dump of table chapters
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `categories`;
+DROP TABLE IF EXISTS `chapters`;
 
-CREATE TABLE `categories` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `order` int(11) NOT NULL DEFAULT '1',
+CREATE TABLE `chapters` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` bigint(20) unsigned NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `order` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `chapters_category_id_foreign` (`category_id`),
+  CONSTRAINT `chapters_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `categories` WRITE;
-/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-
-INSERT INTO `categories` (`id`, `image`, `name`, `order`, `created_at`, `updated_at`)
-VALUES
-	(1,'categories/April2019/mMfVcXVUuiGTwSKtc0l1.png','Spoken English',1,'2019-04-25 03:27:55','2019-04-25 04:38:08'),
-	(2,'categories/April2019/ZSn57LYS58omkUptAijJ.png','Standard 8',1,'2019-04-25 03:27:55','2019-04-25 04:38:48');
-
-/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 
