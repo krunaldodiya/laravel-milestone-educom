@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.13)
 # Database: milestone_educom
-# Generation Time: 2019-06-21 08:07:06 +0000
+# Generation Time: 2019-06-22 02:31:05 +0000
 # ************************************************************
 
 
@@ -398,7 +398,7 @@ CREATE TABLE `users` (
   `role_id` bigint(20) unsigned DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imei` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -415,21 +415,12 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_mobile_unique` (`mobile`),
-  UNIQUE KEY `users_uid_unique` (`uid`),
+  UNIQUE KEY `users_imei_unique` (`imei`),
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `users_role_id_foreign` (`role_id`),
   CONSTRAINT `users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-
-INSERT INTO `users` (`id`, `role_id`, `name`, `mobile`, `uid`, `email`, `email_verified_at`, `password`, `dob`, `gender`, `avatar`, `school_id`, `education`, `account_status`, `status`, `remember_token`, `settings`, `created_at`, `updated_at`)
-VALUES
-	(1,NULL,'krunal dodiya','9426726815',NULL,'kunal.dodiya1@gmail.com',NULL,'$2y$10$fE.0CuxahP6Q7/vZTh1nIuNYth1YW89wd4HhYz59GCVj3Aa4YJ6zG','01-01-1990','Male',NULL,1,NULL,'Approved',0,NULL,NULL,'2019-06-21 08:06:23','2019-06-21 08:06:23');
-
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table videos
