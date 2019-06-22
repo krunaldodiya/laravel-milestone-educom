@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function getCategories(Request $request)
     {
-        $categories = Category::with('topics.videos')->get();
+        $categories = Category::with('chapters.topics.videos')->get();
 
         return compact('categories');
     }

@@ -47,6 +47,8 @@ class UserController extends Controller
             'email' => $request->email,
             'dob' => $request->dob,
             'gender' => $request->gender,
+            'education' => $request->education,
+            'school_id' => $request->school_id,
             'status' => true
         ]);
 
