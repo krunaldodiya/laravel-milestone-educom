@@ -6,10 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use App\Events\UserWasCreated;
 
 use Carbon\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Events\UserWasCreated;
 
 class User extends Authenticatable implements JWTSubject
 {
