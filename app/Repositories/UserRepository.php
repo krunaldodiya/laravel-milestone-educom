@@ -14,7 +14,7 @@ class UserRepository implements UserRepositoryInterface
             ->first();
     }
 
-    protected function register($mobile)
+    protected function register($imei, $mobile)
     {
         $authUser = User::create([
             'mobile' => $mobile,
@@ -23,35 +23,46 @@ class UserRepository implements UserRepositoryInterface
 
         $user = $this->getUserById($authUser->id);
 
-        return $this->login($user);
+        return $this->login($imei, $user);
     }
 
-    protected function login($user)
+    protected function login($imei, $user)
     {
+        if ($user->imei == null) {
+            $user->update(['imei' => $imei]);
+        }
+
         $token = auth('api')->tokenById($user->id);
 
         return $this->generateToken($token, $user);
     }
 
-    public function basicAuth($email, $password)
+    public function basicAuth($request)
     {
+        $email = $request->email;
+        $password = $request->password;
+        $imei = $request->imei;
+
         $user = User::firstOrCreate(['email' => $email], [
             'email' => $email,
             'password' => $password
         ]);
 
-        return $this->login($user);
+        return $this->login($imei, $user);
     }
 
-    public function otpAuth($mobile)
+    public function otpAuth($request)
     {
+        $mobile = $request->mobile;
+        $imei = $request->imei;
+
         $user = User::where(['mobile' => $mobile])->first();
 
         if ($user) {
-            return $this->login($user);
+            return $this->login($imei, $user);
         }
 
-        return $this->register($mobile);
+        return $this->register($imei, $mobile);
     }
 
     public function refreshToken()
