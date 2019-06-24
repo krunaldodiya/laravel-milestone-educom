@@ -9,13 +9,15 @@ class UserRepository implements UserRepositoryInterface
 {
     public function getUserById($user_id)
     {
-        return User::with('school', 'subscriptions')
+        return User::with('location', 'level')
             ->where(['id' => $user_id])
             ->first();
     }
 
-    protected function register($imei, $mobile)
+    protected function register($request)
     {
+        $mobile = $request->mobile;
+
         $authUser = User::create([
             'mobile' => $mobile,
             'password' => bcrypt(str_random(8))
@@ -23,15 +25,11 @@ class UserRepository implements UserRepositoryInterface
 
         $user = $this->getUserById($authUser->id);
 
-        return $this->login($imei, $user);
+        return $this->login($user, $request);
     }
 
-    protected function login($imei, $user)
+    protected function login($user, $request)
     {
-        if ($user->imei == null) {
-            $user->update(['imei' => $imei]);
-        }
-
         $token = auth('api')->tokenById($user->id);
 
         return $this->generateToken($token, $user);
@@ -41,28 +39,24 @@ class UserRepository implements UserRepositoryInterface
     {
         $email = $request->email;
         $password = $request->password;
-        $imei = $request->imei;
 
         $user = User::firstOrCreate(['email' => $email], [
             'email' => $email,
             'password' => $password
         ]);
 
-        return $this->login($imei, $user);
+        return $this->login($user, $request);
     }
 
     public function otpAuth($request)
     {
-        $mobile = $request->mobile;
-        $imei = $request->imei;
-
-        $user = User::where(['mobile' => $mobile])->first();
+        $user = User::where(['mobile' => $request->mobile])->first();
 
         if ($user) {
-            return $this->login($imei, $user);
+            return $this->login($user, $request);
         }
 
-        return $this->register($imei, $mobile);
+        return $this->register($request);
     }
 
     public function refreshToken()
