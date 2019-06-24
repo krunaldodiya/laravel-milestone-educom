@@ -30,6 +30,10 @@ class UserRepository implements UserRepositoryInterface
 
     protected function login($user, $request)
     {
+        $imei = $request->imei;
+
+        $user->update(['imei' => $imei]);
+
         $token = auth('api')->tokenById($user->id);
 
         return $this->generateToken($token, $user);
