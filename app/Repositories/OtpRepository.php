@@ -28,8 +28,6 @@ class OtpRepository implements OtpRepositoryInterface
     {
         $url = $this->generateUrl("request_otp", $mobile, $otp, $message);
 
-        dump($url);
-
         $client = new \GuzzleHttp\Client();
 
         $response = $client->get($url);
