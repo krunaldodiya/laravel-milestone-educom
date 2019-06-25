@@ -32,7 +32,9 @@ class UserRepository implements UserRepositoryInterface
     {
         $imei = $request->imei;
 
-        $user->update(['imei' => $imei]);
+        if ($user->imei == null) {
+            $user->update(['imei' => $imei]);
+        }
 
         $token = auth('api')->tokenById($user->id);
 
