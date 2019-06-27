@@ -16,6 +16,14 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->bigInteger("category_id")->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->bigInteger("chapter_id")->unsigned();
+            $table->foreign('chapter_id')->references('id')->on('chapters')
+                ->onUpdate('cascade')->onDelete('cascade');
+
             $table->bigInteger("topic_id")->unsigned();
             $table->foreign('topic_id')->references('id')->on('topics')
                 ->onUpdate('cascade')->onDelete('cascade');

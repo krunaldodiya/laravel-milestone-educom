@@ -5,9 +5,9 @@
 # https://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 8.0.13)
+# Host: 127.0.0.1 (MySQL 8.0.16)
 # Database: milestone_educom
-# Generation Time: 2019-06-22 07:58:57 +0000
+# Generation Time: 2019-06-27 05:05:07 +0000
 # ************************************************************
 
 
@@ -21,25 +21,31 @@ SET NAMES utf8mb4;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table chapters
+# Dump of table categories
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `chapters`;
+DROP TABLE IF EXISTS `categories`;
 
-CREATE TABLE `chapters` (
+CREATE TABLE `categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` bigint(20) unsigned NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `order` int(11) DEFAULT NULL,
+  `order` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `chapters_category_id_foreign` (`category_id`),
-  CONSTRAINT `chapters_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+
+INSERT INTO `categories` (`id`, `image`, `name`, `order`, `created_at`, `updated_at`)
+VALUES
+	(1,'test','hello',1,NULL,NULL),
+	(2,'test','english',1,NULL,NULL);
+
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 

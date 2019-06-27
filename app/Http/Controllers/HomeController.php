@@ -33,7 +33,7 @@ class HomeController extends Controller
                 ->setDbName(env('DB_DATABASE'))
                 ->setUserName(env('DB_USERNAME'))
                 ->setPassword(env('DB_PASSWORD'))
-                ->includeTables(['users', 'schools', 'categories', 'topics', 'videos'])
+                ->includeTables(['users', 'categories', 'chapters', 'topics', 'videos'])
                 ->dumpToFile('dump.sql');
 
             $file = public_path() . "/dump.sql";

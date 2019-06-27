@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Events\UserWasCreated;
 
-class User extends Authenticatable implements JWTSubject
+class User extends \TCG\Voyager\Models\User implements JWTSubject
 {
     use Notifiable;
 
@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'email_verified_at', 'mobile', 'password', 'imei', 'dob', 'gender', 'avatar', 'school_id', 'education', 'status', 'account_status', 'remember_token'
+        'name', 'email', 'email_verified_at', 'mobile', 'password', 'imei', 'dob', 'gender', 'avatar', 'school', 'education', 'status', 'account_status', 'remember_token'
     ];
 
     protected $dates = ['created_at', 'updated_at'];

@@ -29,7 +29,7 @@ class UpdateUser extends FormRequest
             'email' => "required|email",
             'dob' => "required",
             'gender' => "required",
-            'school_id' => "required",
+            'school' => "required",
             'education' => "required",
         ];
     }
