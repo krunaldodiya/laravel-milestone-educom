@@ -75,7 +75,7 @@ class HomeController extends Controller
 
     public function resetDevice(Request $request)
     {
-        User::where('id', $request->id)->update(['imei' => null, 'account_status' => 'Pending']);
+        User::where('id', $request->id)->update(['imei' => null]);
 
         return redirect()->back();
     }
