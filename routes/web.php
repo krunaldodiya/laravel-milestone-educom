@@ -7,7 +7,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get("/export", "HomeController@export")->name("export");
+    Route::get("/export/users", "HomeController@exportUsers")->name("export.users");
 });
 
 Route::get('/home', 'HomeController@home')->name('home');

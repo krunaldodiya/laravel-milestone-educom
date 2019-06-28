@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.16)
 # Database: milestone_educom
-# Generation Time: 2019-06-27 08:24:15 +0000
+# Generation Time: 2019-06-28 04:25:34 +0000
 # ************************************************************
 
 
@@ -246,7 +246,8 @@ VALUES
 	(14,1,'Hooks','','_self','voyager-hook',NULL,5,5,'2019-04-25 03:27:56','2019-04-25 03:59:12','voyager.hooks',NULL),
 	(17,1,'Topics','','_self','voyager-categories','#000000',NULL,10,'2019-04-25 04:04:51','2019-06-27 06:33:33','voyager.topics.index','null'),
 	(18,1,'Videos','','_self','voyager-categories','#000000',NULL,11,'2019-04-25 04:05:21','2019-06-27 06:33:33','voyager.videos.index','null'),
-	(19,1,'Chapter','','_self','voyager-categories','#000000',NULL,9,'2019-06-27 06:32:44','2019-06-27 06:35:45','voyager.chapters.index','null');
+	(19,1,'Chapter','','_self','voyager-categories','#000000',NULL,9,'2019-06-27 06:32:44','2019-06-27 06:35:45','voyager.chapters.index','null'),
+	(21,1,'Export Users','export/users','_self','voyager-categories','#000000',NULL,14,'2019-06-28 04:22:55','2019-06-28 04:23:22',NULL,'');
 
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -24,23 +24,33 @@ class HomeController extends Controller
         return view('about');
     }
 
-    public function export(Request $request)
+    public function exportUsers(Request $request)
     {
         $user = auth()->user();
 
         if ($user->role->name == "admin") {
-            MySql::create()
-                ->setDbName(env('DB_DATABASE'))
-                ->setUserName(env('DB_USERNAME'))
-                ->setPassword(env('DB_PASSWORD'))
-                ->includeTables(['users', 'categories', 'chapters', 'topics', 'videos'])
-                ->dumpToFile('dump.sql');
+            $users = User::all();
 
-            $file = public_path() . "/dump.sql";
-            $headers = array('Content-Type: application/sql');
-            $file_name = Carbon::now()->format('d-m-Y-h:s:i');
+            $file_name = "users.csv";
 
-            return response()->download($file, "milestone-${file_name}.sql", $headers);
+            $handle = fopen($file_name, 'w+');
+
+            fputcsv($handle, [
+                'id', 'name', 'email', 'mobile', 'dob', 'gender', 'school', 'education', 'status', 'account_status', 'created at'
+            ]);
+
+            foreach ($users as $user) {
+                fputcsv($handle, [
+                    $user['id'], $user['name'], $user['email'], $user['mobile'], $user['dob'], $user['gender'],
+                    $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at']
+                ]);
+            }
+
+            fclose($handle);
+
+            $headers = array('Content-Type' => 'text/csv');
+
+            return response()->download($file_name, "milestone-${file_name}.csv", $headers);
         };
 
         return abort(403);

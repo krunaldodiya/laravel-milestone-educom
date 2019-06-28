@@ -1,0 +1,3 @@
+id,name,email,mobile,dob,gender,school,education,status,account_status,"created at"
+1,"krunal dodiya",,9426726815,01-01-1990,Male,ShreeJi,"web developer",1,Approved,"2019-06-27 05:21:01"
+2,admin,admin@admin.com,,01-01-1990,Male,,,1,Approved,"2019-06-27 05:23:27"
