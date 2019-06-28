@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.16)
 # Database: milestone_educom
-# Generation Time: 2019-06-28 04:25:34 +0000
+# Generation Time: 2019-06-28 04:58:43 +0000
 # ************************************************************
 
 
@@ -581,7 +581,8 @@ VALUES
 	(7,'admin.description','Admin Description','Welcome to Voyager. The Missing Admin for Laravel','','text',2,'Admin'),
 	(8,'admin.loader','Admin Loader','','','image',3,'Admin'),
 	(9,'admin.icon_image','Admin Icon Image','','','image',4,'Admin'),
-	(10,'admin.google_analytics_client_id','Google Analytics Client ID (used for admin dashboard)','','','text',1,'Admin');
+	(10,'admin.google_analytics_client_id','Google Analytics Client ID (used for admin dashboard)','','','text',1,'Admin'),
+	(11,'site.video_url','Video URL','',NULL,'text',6,'Site');
 
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
