@@ -14,11 +14,12 @@ class Video extends Model
         'created_at', 'updated_at',
     ];
 
-    protected $appends = ['video_url'];
+    protected $appends = ['link'];
 
-    public function getVideoUrlAttribute($url)
+    public function getLinkAttribute()
     {
         $setting = setting('site.video_url');
+        $url = $this->url;
 
         return "$setting/$url";
     }
