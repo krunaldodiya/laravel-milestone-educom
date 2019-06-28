@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'test'], function () {
-    Route::get('/check', 'CategoryController@getCategories');
+    echo env('APP_ENV');
 });
 
 Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
