@@ -16,7 +16,9 @@ class Video extends Model
 
     public function getUrlAttribute($url)
     {
-        return "https://api.milestoneducation.com/$url";
+        $setting = setting('site.video_url');
+
+        return "$setting/$url";
     }
 
     public function topic()
