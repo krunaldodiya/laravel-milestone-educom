@@ -14,7 +14,9 @@ class Video extends Model
         'created_at', 'updated_at',
     ];
 
-    public function getUrlAttribute($url)
+    protected $appends = ['video_url'];
+
+    public function getVideoUrlAttribute($url)
     {
         $setting = setting('site.video_url');
 
