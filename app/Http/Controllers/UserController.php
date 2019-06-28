@@ -40,11 +40,11 @@ class UserController extends Controller
 
     public function update(UpdateUser $request)
     {
-        $user_id = auth('api')->user()->id;
+        $user = auth('api')->user();
 
-        User::where('id', $user_id)->update([
+        User::where('id', $user->id)->update([
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $request->email ? $request->email : $user->email,
             'dob' => $request->dob,
             'gender' => $request->gender,
             'education' => $request->education,
@@ -52,7 +52,7 @@ class UserController extends Controller
             'status' => true
         ]);
 
-        $user = $this->user->getUserById($user_id);
+        $user = $this->user->getUserById($user->id);
 
         return ['user' => $user];
     }
