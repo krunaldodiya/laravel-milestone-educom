@@ -1,9 +1,5 @@
 <?php
 
-Route::group(['prefix' => 'test'], function () {
-    echo env('APP_ENV');
-});
-
 Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
     Route::post('/request-otp', 'OtpController@requestOtp');
     Route::post('/verify-otp', 'OtpController@verifyOtp');
