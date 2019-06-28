@@ -60,11 +60,6 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $avatar == null ? "default.jpeg" : $avatar;
     }
 
-    public function school()
-    {
-        return $this->belongsTo(School::class);
-    }
-
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class);

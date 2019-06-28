@@ -5,9 +5,9 @@
 # https://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 8.0.16)
+# Host: 127.0.0.1 (MySQL 8.0.13)
 # Database: milestone_educom
-# Generation Time: 2019-06-28 04:58:43 +0000
+# Generation Time: 2019-06-28 05:17:16 +0000
 # ************************************************************
 
 
@@ -103,14 +103,9 @@ VALUES
 	(53,6,'created_at','timestamp','Created At',1,1,1,0,0,0,NULL,10),
 	(54,6,'updated_at','timestamp','Updated At',1,0,0,0,0,0,NULL,11),
 	(55,6,'image','image','Page Image',0,1,1,1,1,1,NULL,12),
-	(56,7,'id','text','Id',1,0,0,0,0,0,'{}',1),
-	(57,7,'name','text','Name',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',2),
-	(58,7,'location','text','Location',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',3),
-	(59,7,'created_at','timestamp','Created At',0,1,1,1,0,1,'{}',4),
-	(60,7,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',5),
 	(61,8,'id','text','Id',1,0,0,0,0,0,'{}',1),
 	(62,8,'category_id','text','Category Id',1,1,1,1,1,1,'{}',2),
-	(63,8,'image','image','Image',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',3),
+	(63,8,'image','image','Image',0,1,1,1,1,1,'null',3),
 	(64,8,'name','text','Name',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',4),
 	(65,8,'description','text_area','Description',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',5),
 	(66,8,'order','text','Order',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',6),
@@ -118,24 +113,21 @@ VALUES
 	(68,8,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',8),
 	(69,9,'id','text','Id',1,0,0,0,0,0,'{}',1),
 	(71,9,'topic_id','text','Topic Id',1,1,1,1,1,1,'{}',3),
-	(72,9,'thumbnail','image','Thumbnail',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',4),
+	(72,9,'thumbnail','image','Thumbnail',0,1,1,1,1,1,'null',4),
 	(73,9,'title','text','Title',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',5),
 	(74,9,'description','text_area','Description',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',6),
 	(75,9,'url','text','Url',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',7),
 	(76,9,'order','text','Order',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',8),
 	(77,9,'created_at','timestamp','Created At',0,1,1,1,0,1,'{}',9),
 	(78,9,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',10),
-	(79,4,'image','image','Image',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',4),
+	(79,4,'image','image','Image',0,1,1,1,1,1,'null',4),
 	(80,4,'category_hasone_topic_relationship','relationship','topics',0,1,1,1,1,1,'{\"model\":\"App\\\\Topic\",\"table\":\"topics\",\"type\":\"hasOne\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',8),
-	(82,7,'school_hasmany_user_relationship','relationship','students',0,1,1,1,1,1,'{\"model\":\"App\\\\User\",\"table\":\"users\",\"type\":\"hasMany\",\"column\":\"school_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',6),
 	(83,8,'topic_belongsto_category_relationship','relationship','category',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',9),
 	(84,8,'topic_hasmany_video_relationship','relationship','videos',0,1,1,1,1,1,'{\"model\":\"App\\\\Video\",\"table\":\"videos\",\"type\":\"hasMany\",\"column\":\"topic_id\",\"key\":\"id\",\"label\":\"title\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',10),
-	(85,1,'user_belongsto_school_relationship','relationship','school',0,1,1,1,1,1,'{\"model\":\"App\\\\School\",\"table\":\"schools\",\"type\":\"belongsTo\",\"column\":\"school_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',13),
 	(86,1,'mobile','text','Mobile',0,1,1,1,1,1,'{}',4),
 	(88,1,'email_verified_at','timestamp','Email Verified At',0,1,1,0,0,1,'{}',7),
 	(89,1,'dob','text','Dob',1,1,1,1,1,1,'{}',9),
 	(90,1,'gender','select_dropdown','Gender',1,1,1,1,1,1,'{\"default\":\"Male\",\"options\":{\"Male\":\"Male\",\"Female\":\"Female\"}}',10),
-	(91,1,'school_id','text','School Id',1,0,0,0,0,0,'{}',11),
 	(92,1,'education','text','Education',0,1,1,1,1,1,'{}',13),
 	(93,1,'account_status','select_dropdown','Account Status',1,1,1,1,1,1,'{\"default\":\"Pending\",\"options\":{\"Pending\":\"Pending\",\"Approved\":\"Approved\",\"Rejected\":\"Rejected\"}}',14),
 	(94,1,'status','checkbox','Status',1,1,1,1,1,1,'{\"on\":\"Enabled\",\"off\":\"Disabled\",\"checked\":\"true\"}',15),
@@ -143,7 +135,7 @@ VALUES
 	(97,1,'imei','text','Imei',0,1,1,0,0,0,'{}',5),
 	(98,10,'id','text','Id',1,0,0,0,0,0,'{}',1),
 	(99,10,'category_id','text','Category Id',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',2),
-	(100,10,'image','image','Image',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',3),
+	(100,10,'image','image','Image',0,1,1,1,1,1,'null',3),
 	(101,10,'name','text','Name',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',4),
 	(102,10,'description','text','Description',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',5),
 	(103,10,'order','text','Order',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',6),
@@ -151,7 +143,8 @@ VALUES
 	(105,10,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',8),
 	(106,10,'chapter_belongsto_category_relationship','relationship','categories',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',9),
 	(107,8,'topic_belongsto_chapter_relationship','relationship','chapters',0,1,1,1,1,1,'{\"model\":\"App\\\\Chapter\",\"table\":\"chapters\",\"type\":\"belongsTo\",\"column\":\"chapter_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',11),
-	(108,8,'chapter_id','text','Chapter Id',1,1,1,1,1,1,'{}',3);
+	(108,8,'chapter_id','text','Chapter Id',1,1,1,1,1,1,'{}',3),
+	(109,1,'school','text','School',1,1,1,1,1,1,'{}',12);
 
 /*!40000 ALTER TABLE `data_rows` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -188,16 +181,15 @@ LOCK TABLES `data_types` WRITE;
 
 INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `details`, `created_at`, `updated_at`)
 VALUES
-	(1,'users','users','User','Users','voyager-person','App\\User','TCG\\Voyager\\Policies\\UserPolicy','TCG\\Voyager\\Http\\Controllers\\VoyagerUserController',NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:51','2019-06-27 05:27:07'),
+	(1,'users','users','User','Users','voyager-person','App\\User','TCG\\Voyager\\Policies\\UserPolicy','TCG\\Voyager\\Http\\Controllers\\VoyagerUserController',NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:51','2019-06-28 05:14:15'),
 	(2,'menus','menus','Menu','Menus','voyager-list','TCG\\Voyager\\Models\\Menu',NULL,'','',1,0,NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
 	(3,'roles','roles','Role','Roles','voyager-lock','TCG\\Voyager\\Models\\Role',NULL,'','',1,0,NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(4,'categories','categories','Category','Categories','voyager-categories','App\\Category',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:55','2019-05-09 05:43:28'),
+	(4,'categories','categories','Category','Categories','voyager-categories','App\\Category',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:55','2019-06-28 05:15:31'),
 	(5,'posts','posts','Post','Posts','voyager-news','TCG\\Voyager\\Models\\Post','TCG\\Voyager\\Policies\\PostPolicy','','',1,0,NULL,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
 	(6,'pages','pages','Page','Pages','voyager-file-text','TCG\\Voyager\\Models\\Page',NULL,'','',1,0,NULL,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(7,'schools','schools','School','Schools','voyager-categories','App\\School',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:02:28','2019-05-09 05:43:41'),
-	(8,'topics','topics','Topic','Topics','voyager-categories','App\\Topic',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:04:50','2019-06-27 06:44:37'),
-	(9,'videos','videos','Video','Videos','voyager-categories','App\\Video',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:05:21','2019-05-09 05:42:32'),
-	(10,'chapters','chapters','Chapter','Chapters',NULL,'App\\Chapter',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-27 06:35:01','2019-06-27 06:40:00');
+	(8,'topics','topics','Topic','Topics','voyager-categories','App\\Topic',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:04:50','2019-06-28 05:16:25'),
+	(9,'videos','videos','Video','Videos','voyager-categories','App\\Video',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:05:21','2019-06-28 05:16:37'),
+	(10,'chapters','chapters','Chapter','Chapters',NULL,'App\\Chapter',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-27 06:35:01','2019-06-28 05:15:53');
 
 /*!40000 ALTER TABLE `data_types` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -372,11 +364,6 @@ VALUES
 	(39,1),
 	(40,1),
 	(41,1),
-	(42,1),
-	(43,1),
-	(44,1),
-	(45,1),
-	(46,1),
 	(47,1),
 	(48,1),
 	(49,1),
@@ -458,11 +445,6 @@ VALUES
 	(39,'add_pages','pages','2019-04-25 03:27:55','2019-04-25 03:27:55'),
 	(40,'delete_pages','pages','2019-04-25 03:27:55','2019-04-25 03:27:55'),
 	(41,'browse_hooks',NULL,'2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(42,'browse_schools','schools','2019-04-25 04:02:28','2019-04-25 04:02:28'),
-	(43,'read_schools','schools','2019-04-25 04:02:28','2019-04-25 04:02:28'),
-	(44,'edit_schools','schools','2019-04-25 04:02:28','2019-04-25 04:02:28'),
-	(45,'add_schools','schools','2019-04-25 04:02:28','2019-04-25 04:02:28'),
-	(46,'delete_schools','schools','2019-04-25 04:02:28','2019-04-25 04:02:28'),
 	(47,'browse_topics','topics','2019-04-25 04:04:50','2019-04-25 04:04:50'),
 	(48,'read_topics','topics','2019-04-25 04:04:50','2019-04-25 04:04:50'),
 	(49,'edit_topics','topics','2019-04-25 04:04:50','2019-04-25 04:04:50'),
@@ -575,14 +557,14 @@ VALUES
 	(1,'site.title','Site Title','Site Title','','text',1,'Site'),
 	(2,'site.description','Site Description','Site Description','','text',2,'Site'),
 	(3,'site.logo','Site Logo','','','image',3,'Site'),
-	(4,'site.google_analytics_tracking_id','Google Analytics Tracking ID','','','text',4,'Site'),
+	(4,'site.google_analytics_tracking_id','Google Analytics Tracking ID',NULL,'','text',4,'Site'),
 	(5,'admin.bg_image','Admin Background Image','','','image',5,'Admin'),
 	(6,'admin.title','Admin Title','Voyager','','text',1,'Admin'),
 	(7,'admin.description','Admin Description','Welcome to Voyager. The Missing Admin for Laravel','','text',2,'Admin'),
 	(8,'admin.loader','Admin Loader','','','image',3,'Admin'),
 	(9,'admin.icon_image','Admin Icon Image','','','image',4,'Admin'),
-	(10,'admin.google_analytics_client_id','Google Analytics Client ID (used for admin dashboard)','','','text',1,'Admin'),
-	(11,'site.video_url','Video URL','',NULL,'text',6,'Site');
+	(10,'admin.google_analytics_client_id','Google Analytics Client ID (used for admin dashboard)',NULL,'','text',1,'Admin'),
+	(11,'site.video_url','Video URL','https://api.milestoneducation.com',NULL,'text',6,'Site');
 
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;

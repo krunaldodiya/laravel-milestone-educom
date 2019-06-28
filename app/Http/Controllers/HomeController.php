@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\School;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FeedbackMail;
@@ -74,13 +73,6 @@ class HomeController extends Controller
         Mail::to(env('MAIL_USERNAME'))->send(new FeedbackMail($user, $subject, $body));
 
         return redirect()->back()->with(['message' => 'Feedback sent successfully.']);
-    }
-
-    public function getSchools(Request $request)
-    {
-        $schools = School::get();
-
-        return ['schools' => $schools];
     }
 
     public function resetDevice(Request $request)
