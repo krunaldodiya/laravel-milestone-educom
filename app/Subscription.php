@@ -19,7 +19,7 @@ class Subscription extends Model
 
     public function getStatusAttribute()
     {
-        return $this->expires_at > Carbon::now() ? "Expired" : "Active";
+        return $this->expires_at > Carbon::now() ? "Active" : "Expired";
     }
 
     public function category()

@@ -27,8 +27,6 @@ class SubscriptionController extends Controller
             'expires_at' => Carbon::now()->addDays(2)
         ]);
 
-        return request([
-            'user' => $this->userRepo->getUserById($user->id)
-        ], 200);
+        return response(['user' => $this->userRepo->getUserById($user->id)], 200);
     }
 }
