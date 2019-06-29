@@ -1,6 +1,12 @@
 <?php
 
+use App\User;
+
 Auth::routes();
+
+Route::get('/test', function () {
+    return User::with('subscriptions')->where('id', 2)->first();
+});
 
 Route::get('/', function () {
     return view('welcome');
