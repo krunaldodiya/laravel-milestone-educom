@@ -19,6 +19,10 @@ Route::group(['prefix' => 'home', 'middleware' => 'auth:api'], function () {
     Route::post('/schools', 'HomeController@getSchools');
 });
 
+Route::group(['prefix' => 'subscriptions', 'middleware' => 'auth:api'], function () {
+    Route::post('/create', 'SubscriptionController@createSubscription');
+});
+
 Route::group(['prefix' => 'categories', 'middleware' => 'auth:api'], function () {
     Route::post('/all', 'CategoryController@getCategories');
 });
