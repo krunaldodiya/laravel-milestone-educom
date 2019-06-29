@@ -24,6 +24,7 @@ class CreateSubscriptionsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
+            $table->timestamp('expires_at');
             $table->timestamps();
         });
     }

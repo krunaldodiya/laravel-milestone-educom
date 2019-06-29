@@ -13,4 +13,16 @@ class Subscription extends Model
     protected $dates = [
         'created_at', 'updated_at',
     ];
+
+    protected $appends = ['status'];
+
+    public function getStatusAttribute()
+    {
+        return $this->expires_at > Carbon::now() ? "Expired" : "Active";
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
