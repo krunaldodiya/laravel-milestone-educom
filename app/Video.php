@@ -14,7 +14,7 @@ class Video extends Model
         'created_at', 'updated_at',
     ];
 
-    protected $appends = ['link'];
+    protected $appends = ['link', 'subscription_url'];
 
     public function getLinkAttribute()
     {
@@ -22,6 +22,11 @@ class Video extends Model
         $url = $this->url;
 
         return "$setting/$url";
+    }
+
+    public function getSubscriptionUrlAttribute()
+    {
+        return setting('site.subscription_url');
     }
 
     public function topic()
