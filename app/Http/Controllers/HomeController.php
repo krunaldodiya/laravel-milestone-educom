@@ -34,13 +34,13 @@ class HomeController extends Controller
         if ($type == 2) { // Active subscription
             $subscriptions =  Subscription::where('expires_at', '>', Carbon::now())
                 ->pluck('user_id');
-            return User::whereNotIn('id', $subscriptions)->get();
+            return User::whereIn('id', $subscriptions)->get();
         }
 
         if ($type == 3) { // Expired subscription
             $subscriptions =  Subscription::where('expires_at', '<=', Carbon::now())
                 ->pluck('user_id');
-            return User::whereNotIn('id', $subscriptions)->get();
+            return User::whereIn('id', $subscriptions)->get();
         }
     }
 
