@@ -19,6 +19,11 @@ class Topic extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function chapter()
+    {
+        return $this->belongsTo(Chapter::class);
+    }
+
     public function videos()
     {
         return $this->hasMany(Video::class);

@@ -28,4 +28,14 @@ class Video extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+
+    public function chapter()
+    {
+        return $this->belongsTo(Chapter::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
