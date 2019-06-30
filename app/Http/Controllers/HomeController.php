@@ -27,15 +27,20 @@ class HomeController extends Controller
     private function getExportableUsers($type)
     {
         if ($type == 1) { // No subscription
-            return Subscription::where('status', 'Active')->get();
+            $subscriptions = Subscription::pluck('user_id');
+            return User::whereNotIn('id', $subscriptions)->get();
         }
 
         if ($type == 2) { // Active subscription
-            return Subscription::where('status', 'Active')->get();
+            $subscriptions =  Subscription::where('expires_at', '>', Carbon::now())
+                ->pluck('user_id');
+            return User::whereNotIn('id', $subscriptions)->get();
         }
 
         if ($type == 3) { // Expired subscription
-            return Subscription::where('status', 'Expired')->get();
+            $subscriptions =  Subscription::where('expires_at', '<=', Carbon::now())
+                ->pluck('user_id');
+            return User::whereNotIn('id', $subscriptions)->get();
         }
     }
 
@@ -44,14 +49,20 @@ class HomeController extends Controller
         $user = auth()->user();
         $type = $request->type;
 
-        // $users = User::all();
-
         $users = $this->getExportableUsers($type);
-        dd($users);
 
         if ($user->role->name == "admin") {
+            $user_type = "";
 
-            $file_name = "users.csv";
+            if ($type == 1) {
+                $user_type = "no-subscription";
+            } else if ($type == 2) {
+                $user_type = "active-subscription";
+            } else if ($type == 3) {
+                $user_type = "expired-subscription";
+            }
+
+            $file_name = "$user_type-users.csv";
 
             $handle = fopen($file_name, 'w+');
 
