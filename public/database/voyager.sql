@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.16)
 # Database: milestone_educom
-# Generation Time: 2019-06-30 06:00:24 +0000
+# Generation Time: 2019-06-30 06:45:39 +0000
 # ************************************************************
 
 
@@ -144,8 +144,8 @@ VALUES
 	(107,8,'topic_belongsto_chapter_relationship','relationship','chapters',0,1,1,1,1,1,'{\"model\":\"App\\\\Chapter\",\"table\":\"chapters\",\"type\":\"belongsTo\",\"column\":\"chapter_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',11),
 	(108,8,'chapter_id','text','Chapter Id',1,1,1,1,1,1,'{}',3),
 	(109,1,'school','text','School',1,1,1,1,1,1,'{}',12),
-	(110,9,'video_belongsto_category_relationship','relationship','categories',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"name\",\"label\":\"id\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',13),
-	(111,9,'video_belongsto_chapter_relationship','relationship','chapters',0,1,1,1,1,1,'{\"model\":\"App\\\\Chapter\",\"table\":\"chapters\",\"type\":\"belongsTo\",\"column\":\"chapter_id\",\"key\":\"name\",\"label\":\"id\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',14),
+	(110,9,'video_belongsto_category_relationship','relationship','categories',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',13),
+	(111,9,'video_belongsto_chapter_relationship','relationship','chapters',0,1,1,1,1,1,'{\"model\":\"App\\\\Chapter\",\"table\":\"chapters\",\"type\":\"belongsTo\",\"column\":\"chapter_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',14),
 	(112,9,'category_id','text','Category Id',1,1,1,1,1,1,'{}',2),
 	(113,9,'chapter_id','text','Chapter Id',1,1,1,1,1,1,'{}',3),
 	(114,10,'chapter_belongsto_category_relationship','relationship','categories',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',9),
@@ -196,11 +196,11 @@ VALUES
 	(1,'users','users','User','Users','voyager-person','App\\User','TCG\\Voyager\\Policies\\UserPolicy','TCG\\Voyager\\Http\\Controllers\\VoyagerUserController',NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:51','2019-06-28 05:14:15'),
 	(2,'menus','menus','Menu','Menus','voyager-list','TCG\\Voyager\\Models\\Menu',NULL,'','',1,0,NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
 	(3,'roles','roles','Role','Roles','voyager-lock','TCG\\Voyager\\Models\\Role',NULL,'','',1,0,NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(4,'categories','categories','Category','Categories','voyager-categories','App\\Category',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:55','2019-06-30 03:23:56'),
+	(4,'categories','categories','Category','Categories','voyager-categories','App\\Category',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:55','2019-06-30 06:19:51'),
 	(5,'posts','posts','Post','Posts','voyager-news','TCG\\Voyager\\Models\\Post','TCG\\Voyager\\Policies\\PostPolicy','','',1,0,NULL,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
 	(6,'pages','pages','Page','Pages','voyager-file-text','TCG\\Voyager\\Models\\Page',NULL,'','',1,0,NULL,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(8,'topics','topics','Topic','Topics','voyager-categories','App\\Topic',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:04:50','2019-06-30 03:26:22'),
-	(9,'videos','videos','Video','Videos','voyager-categories','App\\Video',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:05:21','2019-06-30 03:33:28'),
+	(8,'topics','topics','Topic','Topics','voyager-categories','App\\Topic',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:04:50','2019-06-30 06:15:37'),
+	(9,'videos','videos','Video','Videos','voyager-categories','App\\Video',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:05:21','2019-06-30 06:03:44'),
 	(10,'chapters','chapters','Chapter','Chapters',NULL,'App\\Chapter',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-27 06:35:01','2019-06-30 05:59:00'),
 	(11,'subscriptions','subscriptions','Subscription','Subscriptions',NULL,'App\\Subscription',NULL,NULL,NULL,1,0,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-30 03:35:43','2019-06-30 03:54:21');
 
@@ -247,13 +247,16 @@ VALUES
 	(8,1,'Compass','','_self','voyager-compass',NULL,5,3,'2019-04-25 03:27:51','2019-04-25 03:59:12','voyager.compass.index',NULL),
 	(9,1,'BREAD','','_self','voyager-bread',NULL,5,4,'2019-04-25 03:27:51','2019-04-25 03:59:12','voyager.bread.index',NULL),
 	(10,1,'Settings','','_self','voyager-settings',NULL,NULL,11,'2019-04-25 03:27:51','2019-06-30 03:50:56','voyager.settings.index',NULL),
-	(11,1,'Categories','','_self','voyager-categories','#000000',NULL,5,'2019-04-25 03:27:55','2019-06-30 03:50:56','voyager.categories.index','null'),
+	(11,1,'Category','','_self','voyager-categories','#000000',NULL,5,'2019-04-25 03:27:55','2019-06-30 06:20:47','voyager.categories.index','null'),
 	(14,1,'Hooks','','_self','voyager-hook',NULL,5,5,'2019-04-25 03:27:56','2019-04-25 03:59:12','voyager.hooks',NULL),
-	(17,1,'Topics','','_self','voyager-categories','#000000',NULL,7,'2019-04-25 04:04:51','2019-06-30 03:50:56','voyager.topics.index','null'),
-	(18,1,'Videos','','_self','voyager-categories','#000000',NULL,8,'2019-04-25 04:05:21','2019-06-30 03:50:56','voyager.videos.index','null'),
-	(19,1,'Chapter','','_self','voyager-categories','#000000',NULL,6,'2019-06-27 06:32:44','2019-06-30 03:50:56','voyager.chapters.index','null'),
-	(21,1,'Export Users','export/users','_self','voyager-categories','#000000',NULL,12,'2019-06-28 04:22:55','2019-06-30 03:50:56',NULL,''),
-	(22,1,'Subscriptions','','_self','voyager-categories','#000000',NULL,9,'2019-06-30 03:35:43','2019-06-30 03:51:59','voyager.subscriptions.index','null');
+	(17,1,'Topic','','_self','voyager-categories','#000000',NULL,7,'2019-04-25 04:04:51','2019-06-30 06:21:07','voyager.topics.index','null'),
+	(18,1,'Video','','_self','voyager-categories','#000000',NULL,8,'2019-04-25 04:05:21','2019-06-30 06:21:15','voyager.videos.index','null'),
+	(19,1,'Chapter','','_self','voyager-categories','#000000',NULL,6,'2019-06-27 06:32:44','2019-06-30 06:20:56','voyager.chapters.index','null'),
+	(21,1,'No Subscription','export/users/1','_self','voyager-categories','#000000',23,1,'2019-06-28 04:22:55','2019-06-30 06:44:34',NULL,''),
+	(22,1,'Subscriptions','','_self','voyager-categories','#000000',NULL,9,'2019-06-30 03:35:43','2019-06-30 03:51:59','voyager.subscriptions.index','null'),
+	(23,1,'Export Users','','_self','voyager-people','#000000',NULL,12,'2019-06-30 06:39:42','2019-06-30 06:42:57',NULL,''),
+	(24,1,'Active Subscription','export/users/2','_self','voyager-categories','#000000',23,2,'2019-06-30 06:42:18','2019-06-30 06:44:21',NULL,''),
+	(25,1,'Expired Subscription','export/users/3','_self','voyager-categories','#000000',23,3,'2019-06-30 06:42:33','2019-06-30 06:44:06',NULL,'');
 
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
 UNLOCK TABLES;

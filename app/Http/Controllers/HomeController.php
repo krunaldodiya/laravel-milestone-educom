@@ -26,6 +26,9 @@ class HomeController extends Controller
     public function exportUsers(Request $request)
     {
         $user = auth()->user();
+        $type = $request->type;
+
+        dd($type);
 
         if ($user->role->name == "admin") {
             $users = User::all();
