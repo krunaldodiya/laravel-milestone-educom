@@ -81,7 +81,7 @@ class HomeController extends Controller
 
             $headers = array('Content-Type' => 'text/csv');
 
-            return response()->download($file_name, "milestone-${file_name}.csv", $headers);
+            return response()->download($file_name, $file_name, $headers);
         };
 
         return abort(403);
