@@ -10,6 +10,7 @@ use Spatie\DbDumper\Databases\MySql;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use App\Subscription;
 
 class HomeController extends Controller
 {
@@ -23,15 +24,32 @@ class HomeController extends Controller
         return view('about');
     }
 
+    private function getExportableUsers($type)
+    {
+        if ($type == 1) { // No subscription
+            return Subscription::where('status', 'Active')->get();
+        }
+
+        if ($type == 2) { // Active subscription
+            return Subscription::where('status', 'Active')->get();
+        }
+
+        if ($type == 3) { // Expired subscription
+            return Subscription::where('status', 'Expired')->get();
+        }
+    }
+
     public function exportUsers(Request $request)
     {
         $user = auth()->user();
         $type = $request->type;
 
-        dd($type);
+        // $users = User::all();
+
+        $users = $this->getExportableUsers($type);
+        dd($users);
 
         if ($user->role->name == "admin") {
-            $users = User::all();
 
             $file_name = "users.csv";
 
