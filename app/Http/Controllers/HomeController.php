@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Subscription;
+use App\Http\Requests\Feedback;
 
 class HomeController extends Controller
 {
@@ -94,15 +95,15 @@ class HomeController extends Controller
         return view('feedback', ['user' => $user]);
     }
 
-    public function sendFeedback(Request $request)
+    public function sendFeedback(Feedback $request)
     {
         $user_id = $request->user_id;
         $user = User::find($user_id);
 
         $subject = "Feedback from {$user->name}";
-        $body = $request->body;
+        $feedback = $request->feedback;
 
-        Mail::to(env('MAIL_USERNAME'))->send(new FeedbackMail($user, $subject, $body));
+        Mail::to(env('MAIL_USERNAME'))->send(new FeedbackMail($user, $subject, $feedback));
         return response(['message' => 'Feedback sent successfully.'], 200);
     }
 
