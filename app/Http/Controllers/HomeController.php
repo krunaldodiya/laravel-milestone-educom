@@ -103,7 +103,7 @@ class HomeController extends Controller
         $body = $request->body;
 
         Mail::to(env('MAIL_USERNAME'))->send(new FeedbackMail($user, $subject, $body));
-        return redirect()->back()->with(['message' => 'Feedback sent successfully.']);
+        return response(['message' => 'Feedback sent successfully.'], 200);
     }
 
     public function resetDevice(Request $request)
