@@ -17,6 +17,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
 
 Route::group(['prefix' => 'home', 'middleware' => 'auth:api'], function () {
     Route::post('/schools', 'HomeController@getSchools');
+    Route::post('/feedback', 'HomeController@sendFeedback');
 });
 
 Route::group(['prefix' => 'subscriptions', 'middleware' => 'auth:api'], function () {
