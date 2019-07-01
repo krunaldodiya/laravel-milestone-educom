@@ -14,7 +14,7 @@ class Video extends Model
         'created_at', 'updated_at',
     ];
 
-    protected $appends = ['link', 'subscription_url'];
+    protected $appends = ['link', 'no_subscription_url', 'expire_subscription_url'];
 
     public function getLinkAttribute()
     {
@@ -24,9 +24,14 @@ class Video extends Model
         return "$setting/$url";
     }
 
-    public function getSubscriptionUrlAttribute()
+    public function getNoSubscriptionUrlAttribute()
     {
-        return setting('site.subscription_url');
+        return setting('site.no_subscription_url');
+    }
+
+    public function getExpireSubscriptionUrlAttribute()
+    {
+        return setting('site.expire_subscription_url');
     }
 
     public function topic()

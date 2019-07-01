@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.16)
 # Database: milestone_educom
-# Generation Time: 2019-06-30 06:45:39 +0000
+# Generation Time: 2019-07-01 10:13:20 +0000
 # ************************************************************
 
 
@@ -19,6 +19,37 @@ SET NAMES utf8mb4;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table chapters
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `chapters`;
+
+CREATE TABLE `chapters` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` bigint(20) unsigned NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `order` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `chapters_category_id_foreign` (`category_id`),
+  CONSTRAINT `chapters_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `chapters` WRITE;
+/*!40000 ALTER TABLE `chapters` DISABLE KEYS */;
+
+INSERT INTO `chapters` (`id`, `category_id`, `image`, `name`, `description`, `order`, `created_at`, `updated_at`)
+VALUES
+	(1,1,'chapters/June2019/gkNUCu1FaM5DvUQFaOOR.png','સંમેય સંખ્યાઓ','આ ડિસ્ક્રીપ્શન છે.',1,'2019-06-30 06:00:37','2019-06-30 06:00:37'),
+	(2,2,'chapters/June2019/m7zJvSZZGIvpLhpAXCT2.png','વાસ્તવિક સંખ્યાઓ','3 સ્વાધ્યાય, 10 ઉદાહરણો અને 2 નોટ્સ',1,'2019-06-30 17:51:12','2019-06-30 17:51:12');
+
+/*!40000 ALTER TABLE `chapters` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table data_rows
@@ -591,10 +622,39 @@ VALUES
 	(8,'admin.loader','Admin Loader','','','image',3,'Admin'),
 	(9,'admin.icon_image','Admin Icon Image','','','image',4,'Admin'),
 	(10,'admin.google_analytics_client_id','Google Analytics Client ID (used for admin dashboard)',NULL,'','text',1,'Admin'),
-	(11,'site.video_url','Video URL','https://api.milestoneducation.com',NULL,'text',6,'Site'),
-	(12,'site.subscription_url','Subscription URL','https://ia802801.us.archive.org/22/items/Httpswww.youtube.comwatchvNeyOFGZyVmU/JrDara%20SC.mp4',NULL,'text',7,'Site');
+	(11,'site.video_url','Video URL','https://api.milestoneducation.com',NULL,'text',7,'Site'),
+	(13,'site.expire_subscription_url','Subscription Expire URL','https://wappspecial.com/uploadfile/video/Plan%20Expire%20Video.mp4',NULL,'text',8,'Site'),
+	(14,'site.no_subscription_url','No Subscription URL','https://wappspecial.com/uploadfile/video/Plan%20Expire%20Video.mp4',NULL,'text',9,'Site');
 
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table subscriptions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `subscriptions`;
+
+CREATE TABLE `subscriptions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `expires_at` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `subscriptions` WRITE;
+/*!40000 ALTER TABLE `subscriptions` DISABLE KEYS */;
+
+INSERT INTO `subscriptions` (`id`, `category_id`, `user_id`, `expires_at`, `created_at`, `updated_at`)
+VALUES
+	(1,1,3,'2019-07-02 06:05:28','2019-06-30 06:05:28','2019-06-30 06:05:28'),
+	(2,1,2,'2019-06-29 06:05:00','2019-06-30 06:05:00','2019-06-30 06:11:20'),
+	(3,2,3,'2019-07-02 06:11:29','2019-06-30 06:11:29','2019-06-30 06:11:29');
+
+/*!40000 ALTER TABLE `subscriptions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
