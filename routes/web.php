@@ -1,7 +1,13 @@
 <?php
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'testing', 'middleware' => 'auth'], function () {
+    Route::get('/mail', 'HomeController@test');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -22,5 +28,3 @@ Route::get("/storage/{url}", "HomeController@getAssets")->name("get-assets-from-
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
-
-Auth::routes();
