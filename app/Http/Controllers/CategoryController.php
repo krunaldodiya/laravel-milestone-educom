@@ -9,7 +9,9 @@ class CategoryController extends Controller
 {
     public function getCategories(Request $request)
     {
-        $categories = Category::with('chapters.topics.videos')->get();
+        $categories = Category::with('chapters.topics.videos')
+            ->orderBy('order')
+            ->get();
 
         return compact('categories');
     }
