@@ -97,6 +97,11 @@ class HomeController extends Controller
 
     public function test(Feedback $request)
     {
+        return 'test';
+    }
+
+    public function sendFeedback(Feedback $request)
+    {
         $user_id = $request->user_id;
         $user = User::find($user_id);
 
@@ -105,20 +110,6 @@ class HomeController extends Controller
 
         Mail::to(env('MAIL_USERNAME'))->send(new FeedbackMail($user, $subject, $feedback));
         return response(['message' => 'Feedback sent successfully.'], 200);
-    }
-
-    public function sendFeedback(Feedback $request)
-    {
-        return  "test";
-
-        // $user_id = $request->user_id;
-        // $user = User::find($user_id);
-
-        // $subject = "Feedback from {$user->name}";
-        // $feedback = $request->feedback;
-
-        // Mail::to(env('MAIL_USERNAME'))->send(new FeedbackMail($user, $subject, $feedback));
-        // return response(['message' => 'Feedback sent successfully.'], 200);
     }
 
     public function resetDevice(Request $request)
