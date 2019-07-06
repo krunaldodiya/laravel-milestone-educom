@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.16)
 # Database: milestone_educom
-# Generation Time: 2019-07-01 10:13:20 +0000
+# Generation Time: 2019-07-03 05:49:25 +0000
 # ************************************************************
 
 
@@ -45,8 +45,23 @@ LOCK TABLES `chapters` WRITE;
 
 INSERT INTO `chapters` (`id`, `category_id`, `image`, `name`, `description`, `order`, `created_at`, `updated_at`)
 VALUES
-	(1,1,'chapters/June2019/gkNUCu1FaM5DvUQFaOOR.png','સંમેય સંખ્યાઓ','આ ડિસ્ક્રીપ્શન છે.',1,'2019-06-30 06:00:37','2019-06-30 06:00:37'),
-	(2,2,'chapters/June2019/m7zJvSZZGIvpLhpAXCT2.png','વાસ્તવિક સંખ્યાઓ','3 સ્વાધ્યાય, 10 ઉદાહરણો અને 2 નોટ્સ',1,'2019-06-30 17:51:12','2019-06-30 17:51:12');
+	(1,2,'chapters/July2019/gUAQ9F6OZPW97VdBUP69.jpg','બહુપદીઓ','3 નોટ્સ, 3 સ્વાધ્યાય, 9 ઉદાહરણો',2,'2019-06-30 06:00:00','2019-07-03 04:39:59'),
+	(2,2,'chapters/July2019/Tuy4Pwe3MDmyiB0i8gK8.jpg','વાસ્તવિક સંખ્યાઓ','4 નોટ્સ, 4 સ્વાધ્યાય, 11 ઉદાહરણો',1,'2019-06-30 17:51:00','2019-07-03 04:39:44'),
+	(3,2,'chapters/July2019/Ir7w1cqrhcKhSP0CsHPR.jpg','દ્વિચલ સુરેખ સમીકરણયુગ્મ','Coming Soon..',3,'2019-07-02 14:11:00','2019-07-03 04:40:08'),
+	(4,2,'chapters/July2019/z4CoMWBzTqoOIxlLKRsl.jpg','દ્વિઘાત સમીકરણ','Coming Soon...',4,'2019-07-02 15:42:00','2019-07-03 04:47:48'),
+	(5,2,'chapters/July2019/pVPwuQ7wTEKhPAYeTE0i.jpg','સમાંતર શ્રેણી','Coming Soon...',5,'2019-07-03 04:42:09','2019-07-03 04:42:09'),
+	(6,2,'chapters/July2019/IoeCv4ACg342GzCPdoDd.jpg','ત્રિકોણ','Coming Soon...',6,'2019-07-03 04:42:00','2019-07-03 04:42:52'),
+	(7,2,'chapters/July2019/uTb9u20xlGjV9pZJDZHN.jpg','પ્રસ્તાવના','Coming Soon...',0,'2019-07-03 04:43:00','2019-07-03 04:45:38'),
+	(8,2,'chapters/July2019/Yrj6P3LX8pPIQwoY6tYD.jpg','ગણિતનાં પાયાનું જ્ઞાન','Coming Soon',0,'2019-07-03 04:45:00','2019-07-03 04:47:33'),
+	(9,2,'chapters/July2019/p3Ib3oIGIWaENFzlbyxj.jpg','યામ ભૂમિતિ','Coming Soon...',7,'2019-07-03 04:58:05','2019-07-03 04:58:05'),
+	(10,2,'chapters/July2019/6btdZVyFLL79WdlcaCdY.jpg','ત્રિકોણમિતિનો પરિચય','Coming Soon...',8,'2019-07-03 04:58:37','2019-07-03 04:58:37'),
+	(11,2,'chapters/July2019/OhrJrbICGXVK2fOOtgDF.jpg','ત્રિકોણમિતિના ઉપયોગો','Coming Soon...',9,'2019-07-03 04:59:09','2019-07-03 04:59:09'),
+	(12,2,'chapters/July2019/Fhm1jbqK5rzqGEVhpOy3.jpg','વર્તુળ','Coming Soon...',10,'2019-07-03 04:59:34','2019-07-03 04:59:34'),
+	(13,2,'chapters/July2019/z0i1uzARfGbBqtljKoGs.jpg','રચના','Coming Soon...',11,'2019-07-03 05:00:00','2019-07-03 05:00:00'),
+	(14,2,'chapters/July2019/GnZSXb40fQ48b0ZBMRIs.jpg','વર્તુળ સંબંધિત ક્ષેત્રફળ','Coming Soon...',12,'2019-07-03 05:00:54','2019-07-03 05:00:54'),
+	(15,2,'chapters/July2019/gjFGS6yuDDDGBp3Fmb6z.jpg','પૃષ્ઠફળ અને ઘનફળ','Coming Soon...',13,'2019-07-03 05:01:22','2019-07-03 05:01:22'),
+	(16,2,'chapters/July2019/CATdY0j0Dj8yYlcYdX9a.jpg','આંકડાશાસ્ત્ર','Coming Soon...',14,'2019-07-03 05:01:56','2019-07-03 05:01:56'),
+	(17,2,'chapters/July2019/4UEtZvGySDn3LbPnoBJ3.jpg','સંભાવના','Coming Soon...',15,'2019-07-03 05:02:19','2019-07-03 05:02:19');
 
 /*!40000 ALTER TABLE `chapters` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -187,7 +202,7 @@ VALUES
 	(119,11,'created_at','timestamp','Created At',0,1,1,1,0,1,'{}',5),
 	(120,11,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',6),
 	(121,11,'subscription_belongsto_category_relationship','relationship','categories',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',7),
-	(122,11,'subscription_belongsto_user_relationship','relationship','users',0,1,1,1,1,1,'{\"model\":\"App\\\\User\",\"table\":\"users\",\"type\":\"belongsTo\",\"column\":\"user_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',8);
+	(122,11,'subscription_belongsto_user_relationship','relationship','users',0,1,1,1,1,1,'{\"model\":\"App\\\\User\",\"table\":\"users\",\"type\":\"belongsTo\",\"column\":\"user_id\",\"key\":\"id\",\"label\":\"mobile\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',8);
 
 /*!40000 ALTER TABLE `data_rows` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -233,7 +248,7 @@ VALUES
 	(8,'topics','topics','Topic','Topics','voyager-categories','App\\Topic',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:04:50','2019-06-30 06:15:37'),
 	(9,'videos','videos','Video','Videos','voyager-categories','App\\Video',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:05:21','2019-06-30 06:03:44'),
 	(10,'chapters','chapters','Chapter','Chapters',NULL,'App\\Chapter',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-27 06:35:01','2019-06-30 05:59:00'),
-	(11,'subscriptions','subscriptions','Subscription','Subscriptions',NULL,'App\\Subscription',NULL,NULL,NULL,1,0,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-30 03:35:43','2019-06-30 03:54:21');
+	(11,'subscriptions','subscriptions','Subscription','Subscriptions',NULL,'App\\Subscription',NULL,NULL,NULL,1,0,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-30 03:35:43','2019-07-03 03:15:13');
 
 /*!40000 ALTER TABLE `data_types` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -622,9 +637,9 @@ VALUES
 	(8,'admin.loader','Admin Loader','','','image',3,'Admin'),
 	(9,'admin.icon_image','Admin Icon Image','','','image',4,'Admin'),
 	(10,'admin.google_analytics_client_id','Google Analytics Client ID (used for admin dashboard)',NULL,'','text',1,'Admin'),
-	(11,'site.video_url','Video URL','https://api.milestoneducation.com',NULL,'text',7,'Site'),
-	(13,'site.expire_subscription_url','Subscription Expire URL','https://wappspecial.com/uploadfile/video/Plan%20Expire%20Video.mp4',NULL,'text',8,'Site'),
-	(14,'site.no_subscription_url','No Subscription URL','https://wappspecial.com/uploadfile/video/Plan%20Expire%20Video.mp4',NULL,'text',9,'Site');
+	(11,'site.video_url','Video URL','https://wappspecial.com',NULL,'text',7,'Site'),
+	(13,'site.expire_subscription_url','Subscription Expire URL','https://wappspecial.com/uploadfile/video/YourPlanExpire(1.23MB).mp4',NULL,'text',8,'Site'),
+	(14,'site.no_subscription_url','No Subscription URL','https://api.milestoneducation.com/uploadfile/Direct and Indirect Speech.mp4',NULL,'text',9,'Site');
 
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -651,8 +666,10 @@ LOCK TABLES `subscriptions` WRITE;
 INSERT INTO `subscriptions` (`id`, `category_id`, `user_id`, `expires_at`, `created_at`, `updated_at`)
 VALUES
 	(1,1,3,'2019-07-02 06:05:28','2019-06-30 06:05:28','2019-06-30 06:05:28'),
-	(2,1,2,'2019-06-29 06:05:00','2019-06-30 06:05:00','2019-06-30 06:11:20'),
-	(3,2,3,'2019-07-02 06:11:29','2019-06-30 06:11:29','2019-06-30 06:11:29');
+	(2,1,2,'2019-07-02 05:04:00','2019-06-30 06:05:00','2019-07-01 13:52:11'),
+	(3,2,3,'2019-07-31 06:11:00','2019-06-30 06:11:00','2019-07-03 01:30:25'),
+	(4,2,2,'2019-07-03 13:58:00','2019-07-01 13:58:00','2019-07-02 15:51:15'),
+	(5,2,4,'2019-07-07 06:55:00','2019-07-02 06:55:00','2019-07-02 18:31:23');
 
 /*!40000 ALTER TABLE `subscriptions` ENABLE KEYS */;
 UNLOCK TABLES;
