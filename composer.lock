@@ -2755,16 +2755,16 @@
         },
         {
             "name": "spatie/db-dumper",
-            "version": "2.14.1",
+            "version": "2.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/db-dumper.git",
-                "reference": "c9b699c74b56adeff75da76cef8a82a8529765ad"
+                "reference": "093750d69c383fb14d9e7cd6caa052ea7b35e5b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/c9b699c74b56adeff75da76cef8a82a8529765ad",
-                "reference": "c9b699c74b56adeff75da76cef8a82a8529765ad",
+                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/093750d69c383fb14d9e7cd6caa052ea7b35e5b5",
+                "reference": "093750d69c383fb14d9e7cd6caa052ea7b35e5b5",
                 "shasum": ""
             },
             "require": {
@@ -2801,7 +2801,7 @@
                 "mysqldump",
                 "spatie"
             ],
-            "time": "2019-05-10T09:22:23+00:00"
+            "time": "2019-06-28T08:23:04+00:00"
         },
         {
             "name": "spatie/laravel-backup",
