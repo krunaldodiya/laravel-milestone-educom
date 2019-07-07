@@ -57,7 +57,7 @@ return [
 
         'backup' => [
             'driver' => 'local',
-            'root' => storage_path('app/Milestone-Educom'),
+            'root' => storage_path('app/backup'),
         ],
 
         's3' => [
@@ -68,7 +68,5 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
-
     ],
-
 ];

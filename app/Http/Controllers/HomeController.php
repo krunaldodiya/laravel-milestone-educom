@@ -13,6 +13,7 @@ use App\Subscription;
 use App\Http\Requests\Feedback;
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -48,13 +49,10 @@ class HomeController extends Controller
 
     public function backupList(Request $request)
     {
-        dd(config('app.name'));
+        $disk = Storage::disk('backup');
+        dd($disk->allFiles());
 
-        $backups = Storage::disk('backup')->allFiles();
-
-        dd($backups);
-
-        return view('backup', ['backups' => $backups]);
+        // return view('backup', ['backups' => $backup_disk->allFiles()]);
     }
 
     public function backupRun(Request $request)
