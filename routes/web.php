@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
-
 Auth::routes();
 
 Route::get('/', function () {
@@ -10,10 +8,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'export', 'middleware' => 'auth'], function () {
     Route::get("/users/{type}", "HomeController@exportUsers")->name("export.users");
-    Route::get('/backup', function () {
-        $output = Artisan::call('backup:run', []);
-        dd($output);
-    });
+    Route::get("/backup/list", "HomeController@backupList")->name("backup.list");
+    Route::get("/backup/run", "HomeController@backupRun")->name("backup.run");
 });
 
 Route::get('/home', 'HomeController@home')->name('home');
