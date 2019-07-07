@@ -44,13 +44,6 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            // 'dump' => [
-            //     'dump_binary_path' => '/usr/bin', // only the path, so without `mysqldump` or `pg_dump`
-            //     'use_single_transaction',
-            //     'timeout' => 60 * 5, // 5 minute timeout
-            //     'exclude_tables' => ['table1', 'table2'],
-            //     'add_extra_option' => '--optionname=optionvalue',
-            // ],
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
