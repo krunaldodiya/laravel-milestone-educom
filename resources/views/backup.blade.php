@@ -8,7 +8,9 @@
                 <div class="card-header">Backup</div>
 
                 <div class="card-body">
-                    welcome
+                    @foreach ($backups as $backup)
+                    <div>{{$backup}}</div>
+                    @endforeach
                 </div>
             </div>
         </div>
