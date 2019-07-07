@@ -33,6 +33,10 @@ class BackupController extends Controller
 
     public function backupDownload(Request $request)
     {
-        dd($request->file);
+        $file = $request->file;
+
+        $headers = array('Content-Type' => 'application/octet-stream');
+
+        return response()->download($file, storage_path("app/backup/$file"), $headers);
     }
 }
