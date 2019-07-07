@@ -48,9 +48,11 @@ class HomeController extends Controller
 
     public function backupList(Request $request)
     {
-        dd(Storage::disk('public')->files());
+        dd(config('app.name'));
 
-        $backups = [];
+        $backups = Storage::disk('backup')->allFiles();
+
+        dd($backups);
 
         return view('backup', ['backups' => $backups]);
     }
