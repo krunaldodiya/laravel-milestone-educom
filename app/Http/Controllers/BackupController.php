@@ -37,6 +37,6 @@ class BackupController extends Controller
 
         $headers = array('Content-Type' => 'application/octet-stream');
 
-        return response()->download($file, storage_path("app/backup/$file"), $headers);
+        return response()->download(storage_path("app/backup/$file"), $file, $headers);
     }
 }
