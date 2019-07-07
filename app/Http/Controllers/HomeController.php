@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FeedbackMail;
-use Spatie\DbDumper\Databases\MySql;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -96,11 +95,14 @@ class HomeController extends Controller
         return view('feedback', ['user' => $user]);
     }
 
-    public function test(Feedback $request)
+    public function exportBackup(Feedback $request)
     {
-        $output =  Artisan::call('backup:run', []);
+        // $output =  Artisan::call('backup:run', []);
+        // $output =  Artisan::call('backup:list', []);
 
-        dd($output);
+        Artisan::call('down', []);
+
+        // return compact('output');
     }
 
     public function sendFeedback(Feedback $request)

@@ -6,9 +6,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get("/export/users/{type}", "HomeController@exportUsers")->name("export.users");
-    Route::get('/export/backup', 'HomeController@backup');
+Route::group(['prefix' => 'export', 'middleware' => 'auth'], function () {
+    Route::get("/users/{type}", "HomeController@exportUsers")->name("export.users");
+    Route::get('/backup', 'HomeController@exportBackup');
 });
 
 Route::get('/home', 'HomeController@home')->name('home');
