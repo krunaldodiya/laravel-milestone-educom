@@ -12,9 +12,6 @@ use Intervention\Image\Facades\Image;
 use App\Subscription;
 use App\Http\Requests\Feedback;
 
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
-
 class HomeController extends Controller
 {
     public function home()
@@ -45,21 +42,6 @@ class HomeController extends Controller
                 ->pluck('user_id');
             return User::whereIn('id', $subscriptions)->get();
         }
-    }
-
-    public function backupList(Request $request)
-    {
-        $disk = Storage::disk('backup');
-        $backups = $disk->allFiles();
-
-        return view('backup', ['backups' => $backups]);
-    }
-
-    public function backupRun(Request $request)
-    {
-        $output = Artisan::call('backup:run', []);
-
-        return redirect("/export/backup/list?status=$output");
     }
 
     public function exportUsers(Request $request)

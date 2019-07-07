@@ -8,8 +8,13 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'export', 'middleware' => 'auth'], function () {
     Route::get("/users/{type}", "HomeController@exportUsers")->name("export.users");
-    Route::get("/backup/list", "HomeController@backupList")->name("backup.list");
-    Route::get("/backup/run", "HomeController@backupRun")->name("backup.run");
+});
+
+Route::group(['prefix' => 'backup', 'middleware' => 'auth'], function () {
+    Route::get("/list", "BackupController@backupList")->name("backup.list");
+    Route::get("/run", "BackupController@backupRun")->name("backup.run");
+    Route::get("/clean", "BackupController@backupClean")->name("backup.clean");
+    Route::get("/download", "BackupController@backupDownload")->name("backup.download");
 });
 
 Route::get('/home', 'HomeController@home')->name('home');
