@@ -50,15 +50,16 @@ class HomeController extends Controller
     public function backupList(Request $request)
     {
         $disk = Storage::disk('backup');
-        dd($disk->allFiles());
+        $backups = $disk->allFiles();
 
-        // return view('backup', ['backups' => $backup_disk->allFiles()]);
+        return view('backup', ['backups' => $backups]);
     }
 
     public function backupRun(Request $request)
     {
         $output = Artisan::call('backup:run', []);
-        dd($output);
+
+        return redirect("/export/backup/list?status=$output");
     }
 
     public function exportUsers(Request $request)
