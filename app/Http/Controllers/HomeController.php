@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Subscription;
 use App\Http\Requests\Feedback;
+use Illuminate\Support\Facades\Artisan;
 
 class HomeController extends Controller
 {
@@ -97,7 +98,9 @@ class HomeController extends Controller
 
     public function test(Feedback $request)
     {
-        return 'test';
+        $output =  Artisan::call('backup:run', []);
+
+        dd($output);
     }
 
     public function sendFeedback(Feedback $request)
