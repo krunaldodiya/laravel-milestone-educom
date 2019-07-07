@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Subscription;
 use App\Http\Requests\Feedback;
-use Illuminate\Support\Facades\Artisan;
 
 class HomeController extends Controller
 {
@@ -93,13 +92,6 @@ class HomeController extends Controller
         $user = User::find($request->userId);
 
         return view('feedback', ['user' => $user]);
-    }
-
-    public function exportBackup(Feedback $request)
-    {
-        Artisan::call('backup:run', []);
-
-        return 'done';
     }
 
     public function sendFeedback(Feedback $request)
