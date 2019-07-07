@@ -98,9 +98,8 @@ class HomeController extends Controller
     public function exportBackup(Feedback $request)
     {
         $output =  Artisan::call('backup:run', []);
-        // $output =  Artisan::call('backup:list', []);
 
-        return compact('output');
+        return 'done';
     }
 
     public function sendFeedback(Feedback $request)
