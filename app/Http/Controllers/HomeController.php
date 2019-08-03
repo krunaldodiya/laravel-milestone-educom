@@ -51,40 +51,36 @@ class HomeController extends Controller
 
         $users = $this->getExportableUsers($type);
 
-        if ($user->role->name == "admin") {
-            $user_type = "";
+        $user_type = "";
 
-            if ($type == 1) {
-                $user_type = "no-subscription";
-            } else if ($type == 2) {
-                $user_type = "active-subscription";
-            } else if ($type == 3) {
-                $user_type = "expired-subscription";
-            }
+        if ($type == 1) {
+            $user_type = "no-subscription";
+        } else if ($type == 2) {
+            $user_type = "active-subscription";
+        } else if ($type == 3) {
+            $user_type = "expired-subscription";
+        }
 
-            $file_name = "$user_type-users.csv";
+        $file_name = "$user_type-users.csv";
 
-            $handle = fopen($file_name, 'w+');
+        $handle = fopen($file_name, 'w+');
 
+        fputcsv($handle, [
+            'id', 'name', 'email', 'mobile', 'dob', 'gender', 'school', 'education', 'status', 'account_status', 'created at'
+        ]);
+
+        foreach ($users as $user) {
             fputcsv($handle, [
-                'id', 'name', 'email', 'mobile', 'dob', 'gender', 'school', 'education', 'status', 'account_status', 'created at'
+                $user['id'], $user['name'], $user['email'], $user['mobile'], $user['dob'], $user['gender'],
+                $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at']
             ]);
+        }
 
-            foreach ($users as $user) {
-                fputcsv($handle, [
-                    $user['id'], $user['name'], $user['email'], $user['mobile'], $user['dob'], $user['gender'],
-                    $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at']
-                ]);
-            }
+        fclose($handle);
 
-            fclose($handle);
+        $headers = array('Content-Type' => 'text/csv');
 
-            $headers = array('Content-Type' => 'text/csv');
-
-            return response()->download($file_name, $file_name, $headers);
-        };
-
-        return abort(403);
+        return response()->download($file_name, $file_name, $headers);
     }
 
     public function feedbackForm(Request $request)
