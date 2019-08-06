@@ -45,7 +45,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['age', 'settings'];
+    protected $appends = ['age', 'site_settings'];
 
     protected $dispatchesEvents = [
         'created' => UserWasCreated::class
@@ -66,7 +66,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $this->hasMany(Subscription::class);
     }
 
-    public function getSettingsAttribute()
+    public function getSiteSettingsAttribute()
     {
         return setting('site');
     }
