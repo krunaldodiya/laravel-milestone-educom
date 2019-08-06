@@ -65,6 +65,11 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $this->hasMany(Subscription::class);
     }
 
+    public function getLinkAttribute()
+    {
+        return setting('site');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
