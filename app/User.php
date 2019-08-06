@@ -26,6 +26,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
 
     protected $dates = ['created_at', 'updated_at'];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -44,7 +45,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['age'];
+    protected $appends = ['age', 'settings'];
 
     protected $dispatchesEvents = [
         'created' => UserWasCreated::class
@@ -65,7 +66,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $this->hasMany(Subscription::class);
     }
 
-    public function getLinkAttribute()
+    public function getSettingsAttribute()
     {
         return setting('site');
     }

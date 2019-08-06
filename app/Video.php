@@ -14,26 +14,6 @@ class Video extends Model
         'created_at', 'updated_at',
     ];
 
-    protected $appends = ['link', 'no_subscription_url', 'expire_subscription_url'];
-
-    public function getLinkAttribute()
-    {
-        $setting = setting('site.video_url');
-        $url = $this->url;
-
-        return "$setting/$url";
-    }
-
-    public function getNoSubscriptionUrlAttribute()
-    {
-        return setting('site.no_subscription_url');
-    }
-
-    public function getExpireSubscriptionUrlAttribute()
-    {
-        return setting('site.expire_subscription_url');
-    }
-
     public function topic()
     {
         return $this->belongsTo(Topic::class);
