@@ -1,10 +1,10 @@
 <?php
 
+Auth::routes();
+
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
-
-Auth::routes();
 
 Route::group(['prefix' => 'export', 'middleware' => 'auth'], function () {
     Route::get("/users/{type}", "HomeController@exportUsers")->name("export.users");
