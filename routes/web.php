@@ -17,6 +17,7 @@ Route::group(['prefix' => 'backup', 'middleware' => 'auth'], function () {
     Route::get("/download", "BackupController@backupDownload")->name("backup.download");
 });
 
+Route::get("/play", "HomeController@resetDevice")->name("play");
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/privacy', 'HomeController@privacy')->name('privacy');
@@ -25,6 +26,5 @@ Route::get('/feedback', 'HomeController@feedbackForm')->name('feedback');
 Route::post('/feedback', 'HomeController@sendFeedback')->name('feedback');
 
 Route::get("/reset-device", "HomeController@resetDevice")->name("reset.device");
-Route::get("/play", "HomeController@resetDevice")->name("reset.device");
 
 Route::get("/storage/{url}", "HomeController@getAssets")->name("get-assets-from-storage")->where('url', '.*$');
