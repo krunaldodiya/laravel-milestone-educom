@@ -13,4 +13,9 @@ class VideoController extends Controller
 
         return compact('videos');
     }
+
+    public function play(Request $request)
+    {
+        return 'hello';
+    }
 }
