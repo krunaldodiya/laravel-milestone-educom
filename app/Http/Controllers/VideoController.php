@@ -16,6 +16,6 @@ class VideoController extends Controller
 
     public function play(Request $request)
     {
-        return 'hello';
+        view('play');
     }
 }
