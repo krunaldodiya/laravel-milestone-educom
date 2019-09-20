@@ -8,15 +8,14 @@
     <title>Milestone Player</title>
 
     <style>
-        .fullscreen-bg {
-            width: 100%;
-            height: 100%
+        body {
+            display: block;
         }
     </style>
 </head>
 
 <body>
-    <video controls autoplay disablePictureInPicture controlsList="nodownload" class="fullscreen-bg">
+    <video autoplay controls disablepictureinpicture controlslist="nodownload">
         <source src="{{ $url }}" type="video/mp4">
     </video>
 </body>
