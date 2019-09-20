@@ -9,6 +9,19 @@
 </head>
 
 <style>
+    video::-internal-media-controls-download-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        overflow: hidden;
+    }
+
+    video::-webkit-media-controls-panel {
+        width: calc(100% + 30px);
+        /* Adjust as needed */
+    }
+
     video#backgroundvid {
         position: fixed;
         right: 0;
@@ -24,7 +37,7 @@
 </style>
 
 <body>
-    <video autoplay controls disablepictureinpicture controlslist="nodownload" id="backgroundvid">
+    <video autoplay disablepictureinpicture controls controlslist="nodownload" id="backgroundvid">
         <source src="{{ $url }}" type="video/mp4">
     </video>
 </body>
