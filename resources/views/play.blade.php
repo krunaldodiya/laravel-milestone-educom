@@ -1,6 +1,5 @@
 <div class="fullscreen-bg">
-    <video controls autoplay disablePictureInPicture controlsList="nodownload" poster="img/videoframe.jpg"
-        class="fullscreen-bg__video">
+    <video controls autoplay disablePictureInPicture controlsList="nodownload" class="fullscreen-bg__video">
         <source src="{{ $url }}" type="video/mp4">
     </video>
 </div>
