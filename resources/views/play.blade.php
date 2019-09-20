@@ -36,7 +36,7 @@
     }
 </style>
 
-<body>
+<body style="background-color: black">
     <video autoplay disablepictureinpicture controls controlslist="nodownload" id="backgroundvid">
         <source src="{{ $url }}" type="video/mp4">
     </video>
