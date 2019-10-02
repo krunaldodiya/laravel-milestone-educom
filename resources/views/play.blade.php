@@ -25,7 +25,7 @@
         width: calc(100%);
     }
 
-    video#backgroundvid {
+    video#bgvideo {
         position: fixed;
         left: 0;
         right: 0;
@@ -39,7 +39,7 @@
 </style>
 
 <body style="background-color: black">
-    <video autoplay disablepictureinpicture controls controlslist="nodownload" id="backgroundvid">
+    <video disablepictureinpicture="ture" controls="true" controlslist="nodownload" autoplay="true" id="bgvideo">
         <source src="{{ $url }}" type="video/mp4">
     </video>
 </body>
