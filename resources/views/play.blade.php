@@ -39,8 +39,12 @@
 </style>
 
 <body style="background-color: black">
-    <video disablepictureinpicture controls controlslist="nodownload" id="bgvideo">
+    {{-- <video disablepictureinpicture controls controlslist="nodownload" id="bgvideo">
         <source src="{{ $url }}" type="video/mp4">
+    </video> --}}
+
+    <video controls="" autoplay="" name="media">
+        <source src="https://api.shendre.com/uploadfile/10th_Guj/intro/intro-compressed.mp4" type="video/mp4">
     </video>
 </body>
 
