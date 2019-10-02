@@ -43,7 +43,7 @@
 </style>
 
 <body style="background-color: black">
-    <video disablepictureinpicture controls controlslist="nodownload" id="bgvideo">
+    <video disablepictureinpicture controls autoplay preload="auto" controlslist="nodownload" id="bgvideo">
         <source src="{{ $url }}" type="video/mp4">
     </video>
 </body>
