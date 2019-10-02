@@ -9,6 +9,10 @@
 </head>
 
 <style>
+    body {
+        margin: 0px;
+    }
+
     video::-internal-media-controls-download-button {
         display: none;
     }
@@ -18,21 +22,19 @@
     }
 
     video::-webkit-media-controls-panel {
-        width: calc(100% + 30px);
-        /* Adjust as needed */
+        width: calc(100%);
     }
 
     video#backgroundvid {
         position: fixed;
+        left: 0;
         right: 0;
+        top: 0;
         bottom: 0;
         min-width: 100%;
         min-height: 100%;
-        width: auto;
-        height: auto;
-        z-index: -100;
-        background: url(polina.jpg) no-repeat;
-        background-size: cover;
+        width: 100%;
+        height: 100%;
     }
 </style>
 
