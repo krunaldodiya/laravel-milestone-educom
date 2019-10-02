@@ -39,13 +39,9 @@
 </style>
 
 <body style="background-color: black">
-    <video disablepictureinpicture controls autoplay loop preload="auto" controlslist="nodownload" id="bgvideo">
+    <video disablepictureinpicture controls controlslist="nodownload" id="bgvideo">
         <source src="{{ $url }}" type="video/mp4">
     </video>
-
-    <script>
-        document.getElementById('bgvideo').play();
-    </script>
 </body>
 
 </html>
