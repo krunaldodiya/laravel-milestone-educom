@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <title>Milestone Player</title>
+
+    <script>
+        document.getElementById('bgvideo').play();
+    </script>
 </head>
 
 <style>
@@ -39,7 +43,7 @@
 </style>
 
 <body style="background-color: black">
-    <video disablepictureinpicture controls controlslist="nodownload" autoplay muted="false" id="bgvideo">
+    <video disablepictureinpicture controls controlslist="nodownload" id="bgvideo">
         <source src="{{ $url }}" type="video/mp4">
     </video>
 </body>
