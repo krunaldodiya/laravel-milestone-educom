@@ -63,7 +63,7 @@ return [
                 'exclude_tables' => [
                     'telescope_entries',
                     'telescope_entries_tags',
-                    'telescope_monitoring',
+                    'telescope_monitoring'
                 ]
             ],
         ],
