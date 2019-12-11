@@ -60,7 +60,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
             'dump' => [
-                'excludeTables' => [
+                'exclude_tables' => [
                     'telescope_entries',
                     'telescope_entries_tags',
                     'telescope_monitoring',

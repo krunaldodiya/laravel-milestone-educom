@@ -57,15 +57,7 @@ return [
              * For a complete list of available customization options, see https://github.com/spatie/db-dumper
              */
             'databases' => [
-                'mysql' => [
-                    'dump' => [
-                        'excludeTables' => [
-                            'telescope_entries',
-                            'telescope_entries_tags',
-                            'telescope_monitoring'
-                        ]
-                    ]
-                ],
+                'mysql'
             ],
         ],
 
