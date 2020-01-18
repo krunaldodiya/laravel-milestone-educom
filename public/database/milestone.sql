@@ -1,31 +1,26 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Version 5446
-#
-# https://www.sequelpro.com/
-# https://github.com/sequelpro/sequelpro
-#
-# Host: 127.0.0.1 (MySQL 8.0.13)
-# Database: milestone_educom
-# Generation Time: 2019-06-30 07:19:21 +0000
-# ************************************************************
+-- -------------------------------------------------------------
+-- TablePlus 2.10(270)
+--
+-- https://tableplus.com/
+--
+-- Database: milestone
+-- Generation Time: 2020-01-18 10:53:39.9270
+-- -------------------------------------------------------------
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-SET NAMES utf8mb4;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table categories
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `categories`;
-
 CREATE TABLE `categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -34,56 +29,24 @@ CREATE TABLE `categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `categories` WRITE;
-/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-
-INSERT INTO `categories` (`id`, `image`, `name`, `order`, `created_at`, `updated_at`)
-VALUES
-	(1,'categories/June2019/mtBNdumN8KRcsU0rduVA.png','hello',1,NULL,'2019-06-27 07:10:56'),
-	(2,'categories/June2019/LBEaMECJLHmv622m4fSO.png','english',1,NULL,'2019-06-27 07:11:02');
-
-/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table chapters
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `chapters`;
-
 CREATE TABLE `chapters` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) unsigned NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `order` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `chapters_category_id_foreign` (`category_id`),
   CONSTRAINT `chapters_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `chapters` WRITE;
-/*!40000 ALTER TABLE `chapters` DISABLE KEYS */;
-
-INSERT INTO `chapters` (`id`, `category_id`, `image`, `name`, `description`, `order`, `created_at`, `updated_at`)
-VALUES
-	(1,1,'chapters/June2019/f2rkQr95WiEizebyxWZa.png','test','test',1,'2019-06-27 06:40:00','2019-06-29 09:52:51'),
-	(2,2,'chapters/June2019/3lvuPV4uokdIUWIPuP7b.png','english','english chapter',1,'2019-06-29 09:54:00','2019-06-29 09:54:13');
-
-/*!40000 ALTER TABLE `chapters` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table data_rows
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `data_rows`;
-
 CREATE TABLE `data_rows` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `data_type_id` int(10) unsigned NOT NULL,
@@ -101,130 +64,9 @@ CREATE TABLE `data_rows` (
   PRIMARY KEY (`id`),
   KEY `data_rows_data_type_id_foreign` (`data_type_id`),
   CONSTRAINT `data_rows_data_type_id_foreign` FOREIGN KEY (`data_type_id`) REFERENCES `data_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `data_rows` WRITE;
-/*!40000 ALTER TABLE `data_rows` DISABLE KEYS */;
-
-INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, `required`, `browse`, `read`, `edit`, `add`, `delete`, `details`, `order`)
-VALUES
-	(1,1,'id','number','ID',1,0,0,0,0,0,'{}',1),
-	(2,1,'name','text','Name',0,1,1,1,1,1,'{}',2),
-	(3,1,'email','text','Email',0,1,1,1,1,1,'{}',3),
-	(4,1,'password','password','Password',0,0,0,1,1,0,'{}',4),
-	(5,1,'remember_token','text','Remember Token',0,0,0,0,0,0,'{}',5),
-	(6,1,'created_at','timestamp','Created At',0,1,1,0,0,0,'{}',6),
-	(7,1,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',7),
-	(8,1,'avatar','image','Avatar',0,1,1,1,1,1,'{}',8),
-	(9,1,'user_belongsto_role_relationship','relationship','Role',0,1,1,1,1,0,'{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsTo\",\"column\":\"role_id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"roles\",\"pivot\":\"0\",\"taggable\":\"0\"}',10),
-	(10,1,'user_belongstomany_role_relationship','relationship','Roles',0,1,1,1,1,0,'{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsToMany\",\"column\":\"id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"user_roles\",\"pivot\":\"1\",\"taggable\":\"0\"}',11),
-	(11,1,'settings','hidden','Settings',0,0,0,0,0,0,'{}',12),
-	(12,2,'id','number','ID',1,0,0,0,0,0,NULL,1),
-	(13,2,'name','text','Name',1,1,1,1,1,1,NULL,2),
-	(14,2,'created_at','timestamp','Created At',0,0,0,0,0,0,NULL,3),
-	(15,2,'updated_at','timestamp','Updated At',0,0,0,0,0,0,NULL,4),
-	(16,3,'id','number','ID',1,0,0,0,0,0,NULL,1),
-	(17,3,'name','text','Name',1,1,1,1,1,1,NULL,2),
-	(18,3,'created_at','timestamp','Created At',0,0,0,0,0,0,NULL,3),
-	(19,3,'updated_at','timestamp','Updated At',0,0,0,0,0,0,NULL,4),
-	(20,3,'display_name','text','Display Name',1,1,1,1,1,1,NULL,5),
-	(21,1,'role_id','text','Role',0,0,0,0,0,0,'{}',9),
-	(22,4,'id','number','ID',1,0,0,0,0,0,'{}',1),
-	(24,4,'order','text','Order',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',3),
-	(25,4,'name','text','Name',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',4),
-	(27,4,'created_at','timestamp','Created At',0,0,1,0,0,0,'{}',6),
-	(28,4,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',7),
-	(29,5,'id','number','ID',1,0,0,0,0,0,NULL,1),
-	(30,5,'author_id','text','Author',1,0,1,1,0,1,NULL,2),
-	(31,5,'category_id','text','Category',1,0,1,1,1,0,NULL,3),
-	(32,5,'title','text','Title',1,1,1,1,1,1,NULL,4),
-	(33,5,'excerpt','text_area','Excerpt',1,0,1,1,1,1,NULL,5),
-	(34,5,'body','rich_text_box','Body',1,0,1,1,1,1,NULL,6),
-	(35,5,'image','image','Post Image',0,1,1,1,1,1,'{\"resize\":{\"width\":\"1000\",\"height\":\"null\"},\"quality\":\"70%\",\"upsize\":true,\"thumbnails\":[{\"name\":\"medium\",\"scale\":\"50%\"},{\"name\":\"small\",\"scale\":\"25%\"},{\"name\":\"cropped\",\"crop\":{\"width\":\"300\",\"height\":\"250\"}}]}',7),
-	(36,5,'slug','text','Slug',1,0,1,1,1,1,'{\"slugify\":{\"origin\":\"title\",\"forceUpdate\":true},\"validation\":{\"rule\":\"unique:posts,slug\"}}',8),
-	(37,5,'meta_description','text_area','Meta Description',1,0,1,1,1,1,NULL,9),
-	(38,5,'meta_keywords','text_area','Meta Keywords',1,0,1,1,1,1,NULL,10),
-	(39,5,'status','select_dropdown','Status',1,1,1,1,1,1,'{\"default\":\"DRAFT\",\"options\":{\"PUBLISHED\":\"published\",\"DRAFT\":\"draft\",\"PENDING\":\"pending\"}}',11),
-	(40,5,'created_at','timestamp','Created At',0,1,1,0,0,0,NULL,12),
-	(41,5,'updated_at','timestamp','Updated At',0,0,0,0,0,0,NULL,13),
-	(42,5,'seo_title','text','SEO Title',0,1,1,1,1,1,NULL,14),
-	(43,5,'featured','checkbox','Featured',1,1,1,1,1,1,NULL,15),
-	(44,6,'id','number','ID',1,0,0,0,0,0,NULL,1),
-	(45,6,'author_id','text','Author',1,0,0,0,0,0,NULL,2),
-	(46,6,'title','text','Title',1,1,1,1,1,1,NULL,3),
-	(47,6,'excerpt','text_area','Excerpt',1,0,1,1,1,1,NULL,4),
-	(48,6,'body','rich_text_box','Body',1,0,1,1,1,1,NULL,5),
-	(49,6,'slug','text','Slug',1,0,1,1,1,1,'{\"slugify\":{\"origin\":\"title\"},\"validation\":{\"rule\":\"unique:pages,slug\"}}',6),
-	(50,6,'meta_description','text','Meta Description',1,0,1,1,1,1,NULL,7),
-	(51,6,'meta_keywords','text','Meta Keywords',1,0,1,1,1,1,NULL,8),
-	(52,6,'status','select_dropdown','Status',1,1,1,1,1,1,'{\"default\":\"INACTIVE\",\"options\":{\"INACTIVE\":\"INACTIVE\",\"ACTIVE\":\"ACTIVE\"}}',9),
-	(53,6,'created_at','timestamp','Created At',1,1,1,0,0,0,NULL,10),
-	(54,6,'updated_at','timestamp','Updated At',1,0,0,0,0,0,NULL,11),
-	(55,6,'image','image','Page Image',0,1,1,1,1,1,NULL,12),
-	(61,8,'id','text','Id',1,0,0,0,0,0,'{}',1),
-	(62,8,'category_id','text','Category Id',1,1,1,1,1,1,'{}',2),
-	(63,8,'image','image','Image',0,1,1,1,1,1,'{}',3),
-	(64,8,'name','text','Name',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',4),
-	(65,8,'description','text_area','Description',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',5),
-	(66,8,'order','text','Order',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',6),
-	(67,8,'created_at','timestamp','Created At',0,1,1,1,0,1,'{}',7),
-	(68,8,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',8),
-	(69,9,'id','text','Id',1,0,0,0,0,0,'{}',1),
-	(71,9,'topic_id','text','Topic Id',1,1,1,1,1,1,'{}',3),
-	(72,9,'thumbnail','image','Thumbnail',0,1,1,1,1,1,'{}',4),
-	(73,9,'title','text','Title',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',5),
-	(74,9,'description','text_area','Description',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',6),
-	(75,9,'url','text','Url',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',7),
-	(76,9,'order','text','Order',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',8),
-	(77,9,'created_at','timestamp','Created At',0,1,1,1,0,1,'{}',9),
-	(78,9,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',10),
-	(79,4,'image','image','Image',0,1,1,1,1,1,'{}',4),
-	(80,4,'category_hasone_topic_relationship','relationship','topics',0,1,1,0,0,0,'{\"model\":\"App\\\\Topic\",\"table\":\"topics\",\"type\":\"hasOne\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',8),
-	(83,8,'topic_belongsto_category_relationship','relationship','category',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',9),
-	(84,8,'topic_hasmany_video_relationship','relationship','videos',0,1,1,0,0,0,'{\"model\":\"App\\\\Video\",\"table\":\"videos\",\"type\":\"hasMany\",\"column\":\"topic_id\",\"key\":\"id\",\"label\":\"title\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',10),
-	(86,1,'mobile','text','Mobile',0,1,1,1,1,1,'{}',4),
-	(88,1,'email_verified_at','timestamp','Email Verified At',0,1,1,0,0,1,'{}',7),
-	(89,1,'dob','text','Dob',1,1,1,1,1,1,'{}',9),
-	(90,1,'gender','select_dropdown','Gender',1,1,1,1,1,1,'{\"default\":\"Male\",\"options\":{\"Male\":\"Male\",\"Female\":\"Female\"}}',10),
-	(92,1,'education','text','Education',0,1,1,1,1,1,'{}',13),
-	(93,1,'account_status','select_dropdown','Account Status',1,1,1,1,1,1,'{\"default\":\"Pending\",\"options\":{\"Pending\":\"Pending\",\"Approved\":\"Approved\",\"Rejected\":\"Rejected\"}}',14),
-	(94,1,'status','checkbox','Status',1,1,1,1,1,1,'{\"on\":\"Enabled\",\"off\":\"Disabled\",\"checked\":\"true\"}',15),
-	(96,9,'video_belongsto_topic_relationship','relationship','topic',0,1,1,1,1,1,'{\"model\":\"App\\\\Topic\",\"table\":\"topics\",\"type\":\"belongsTo\",\"column\":\"topic_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',12),
-	(97,1,'imei','text','Imei',0,1,1,0,0,0,'{}',5),
-	(98,10,'id','text','Id',1,0,0,0,0,0,'{}',1),
-	(99,10,'category_id','text','Category Id',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',2),
-	(100,10,'image','image','Image',0,1,1,1,1,1,'{}',3),
-	(101,10,'name','text','Name',1,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',4),
-	(102,10,'description','text','Description',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',5),
-	(103,10,'order','text','Order',0,1,1,1,1,1,'{\"validation\":{\"rule\":\"required\"}}',6),
-	(104,10,'created_at','timestamp','Created At',0,1,1,1,0,1,'{}',7),
-	(105,10,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',8),
-	(107,8,'topic_belongsto_chapter_relationship','relationship','chapters',0,1,1,1,1,1,'{\"model\":\"App\\\\Chapter\",\"table\":\"chapters\",\"type\":\"belongsTo\",\"column\":\"chapter_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',11),
-	(108,8,'chapter_id','text','Chapter Id',1,1,1,1,1,1,'{}',3),
-	(109,1,'school','text','School',1,1,1,1,1,1,'{}',12),
-	(110,9,'video_belongsto_category_relationship','relationship','categories',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',13),
-	(111,9,'video_belongsto_chapter_relationship','relationship','chapters',0,1,1,1,1,1,'{\"model\":\"App\\\\Chapter\",\"table\":\"chapters\",\"type\":\"belongsTo\",\"column\":\"chapter_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',14),
-	(112,9,'category_id','text','Category Id',1,1,1,1,1,1,'{}',2),
-	(113,9,'chapter_id','text','Chapter Id',1,1,1,1,1,1,'{}',3),
-	(114,10,'chapter_belongsto_category_relationship','relationship','categories',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',9),
-	(115,11,'id','text','Id',1,0,0,0,0,0,'{}',1),
-	(116,11,'category_id','text','Category Id',1,1,1,1,1,1,'{}',2),
-	(117,11,'user_id','text','User Id',1,1,1,1,1,1,'{}',3),
-	(118,11,'expires_at','timestamp','Expires At',1,1,1,1,1,1,'{}',4),
-	(119,11,'created_at','timestamp','Created At',0,1,1,1,0,1,'{}',5),
-	(120,11,'updated_at','timestamp','Updated At',0,0,0,0,0,0,'{}',6),
-	(121,11,'subscription_belongsto_category_relationship','relationship','categories',0,1,1,1,1,1,'{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',7),
-	(122,11,'subscription_belongsto_user_relationship','relationship','users',0,1,1,1,1,1,'{\"model\":\"App\\\\User\",\"table\":\"users\",\"type\":\"belongsTo\",\"column\":\"user_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}',8);
-
-/*!40000 ALTER TABLE `data_rows` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table data_types
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `data_types`;
-
 CREATE TABLE `data_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -244,33 +86,51 @@ CREATE TABLE `data_types` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `data_types_name_unique` (`name`),
   UNIQUE KEY `data_types_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `institute_categories`;
+CREATE TABLE `institute_categories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `institute_id` bigint(20) unsigned NOT NULL,
+  `category_id` bigint(20) unsigned NOT NULL,
+  `expires_at` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `institute_categories_institute_id_foreign` (`institute_id`),
+  KEY `institute_categories_category_id_foreign` (`category_id`),
+  CONSTRAINT `institute_categories_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `institute_categories_institute_id_foreign` FOREIGN KEY (`institute_id`) REFERENCES `institutes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `institute_students`;
+CREATE TABLE `institute_students` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `institute_id` bigint(20) unsigned NOT NULL,
+  `student_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `institute_students_institute_id_foreign` (`institute_id`),
+  KEY `institute_students_student_id_foreign` (`student_id`),
+  CONSTRAINT `institute_students_institute_id_foreign` FOREIGN KEY (`institute_id`) REFERENCES `institutes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `institute_students_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `data_types` WRITE;
-/*!40000 ALTER TABLE `data_types` DISABLE KEYS */;
-
-INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `details`, `created_at`, `updated_at`)
-VALUES
-	(1,'users','users','User','Users','voyager-person','App\\User','TCG\\Voyager\\Policies\\UserPolicy','TCG\\Voyager\\Http\\Controllers\\VoyagerUserController',NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:51','2019-06-28 05:14:15'),
-	(2,'menus','menus','Menu','Menus','voyager-list','TCG\\Voyager\\Models\\Menu',NULL,'','',1,0,NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(3,'roles','roles','Role','Roles','voyager-lock','TCG\\Voyager\\Models\\Role',NULL,'','',1,0,NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(4,'categories','categories','Category','Categories','voyager-categories','App\\Category',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 03:27:55','2019-06-30 06:19:51'),
-	(5,'posts','posts','Post','Posts','voyager-news','TCG\\Voyager\\Models\\Post','TCG\\Voyager\\Policies\\PostPolicy','','',1,0,NULL,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(6,'pages','pages','Page','Pages','voyager-file-text','TCG\\Voyager\\Models\\Page',NULL,'','',1,0,NULL,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(8,'topics','topics','Topic','Topics','voyager-categories','App\\Topic',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:04:50','2019-06-30 06:15:37'),
-	(9,'videos','videos','Video','Videos','voyager-categories','App\\Video',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-04-25 04:05:21','2019-06-30 06:03:44'),
-	(10,'chapters','chapters','Chapter','Chapters',NULL,'App\\Chapter',NULL,NULL,NULL,1,1,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-27 06:35:01','2019-06-30 05:59:00'),
-	(11,'subscriptions','subscriptions','Subscription','Subscriptions',NULL,'App\\Subscription',NULL,NULL,NULL,1,0,'{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}','2019-06-30 03:35:43','2019-06-30 03:54:21');
-
-/*!40000 ALTER TABLE `data_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table menu_items
-# ------------------------------------------------------------
+DROP TABLE IF EXISTS `institutes`;
+CREATE TABLE `institutes` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `max_students` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `institutes_username_unique` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `menu_items`;
-
 CREATE TABLE `menu_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `menu_id` int(10) unsigned DEFAULT NULL,
@@ -288,43 +148,9 @@ CREATE TABLE `menu_items` (
   PRIMARY KEY (`id`),
   KEY `menu_items_menu_id_foreign` (`menu_id`),
   CONSTRAINT `menu_items_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `menu_items` WRITE;
-/*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
-
-INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`)
-VALUES
-	(1,1,'Dashboard','','_self','voyager-boat',NULL,NULL,1,'2019-04-25 03:27:51','2019-04-25 03:27:51','voyager.dashboard',NULL),
-	(2,1,'Media','','_self','voyager-images',NULL,NULL,4,'2019-04-25 03:27:51','2019-04-25 03:59:11','voyager.media.index',NULL),
-	(3,1,'Users','','_self','voyager-person',NULL,NULL,3,'2019-04-25 03:27:51','2019-04-25 03:27:51','voyager.users.index',NULL),
-	(4,1,'Roles','','_self','voyager-lock',NULL,NULL,2,'2019-04-25 03:27:51','2019-04-25 03:27:51','voyager.roles.index',NULL),
-	(5,1,'Tools','','_self','voyager-tools',NULL,NULL,10,'2019-04-25 03:27:51','2019-06-30 03:50:56',NULL,NULL),
-	(6,1,'Menu Builder','','_self','voyager-list',NULL,5,1,'2019-04-25 03:27:51','2019-04-25 03:59:12','voyager.menus.index',NULL),
-	(7,1,'Database','','_self','voyager-data',NULL,5,2,'2019-04-25 03:27:51','2019-04-25 03:59:12','voyager.database.index',NULL),
-	(8,1,'Compass','','_self','voyager-compass',NULL,5,3,'2019-04-25 03:27:51','2019-04-25 03:59:12','voyager.compass.index',NULL),
-	(9,1,'BREAD','','_self','voyager-bread',NULL,5,4,'2019-04-25 03:27:51','2019-04-25 03:59:12','voyager.bread.index',NULL),
-	(10,1,'Settings','','_self','voyager-settings',NULL,NULL,11,'2019-04-25 03:27:51','2019-06-30 03:50:56','voyager.settings.index',NULL),
-	(11,1,'Category','','_self','voyager-categories','#000000',NULL,5,'2019-04-25 03:27:55','2019-06-30 06:20:47','voyager.categories.index','null'),
-	(14,1,'Hooks','','_self','voyager-hook',NULL,5,5,'2019-04-25 03:27:56','2019-04-25 03:59:12','voyager.hooks',NULL),
-	(17,1,'Topic','','_self','voyager-categories','#000000',NULL,7,'2019-04-25 04:04:51','2019-06-30 06:21:07','voyager.topics.index','null'),
-	(18,1,'Video','','_self','voyager-categories','#000000',NULL,8,'2019-04-25 04:05:21','2019-06-30 06:21:15','voyager.videos.index','null'),
-	(19,1,'Chapter','','_self','voyager-categories','#000000',NULL,6,'2019-06-27 06:32:44','2019-06-30 06:20:56','voyager.chapters.index','null'),
-	(21,1,'No Subscription','export/users/1','_self','voyager-categories','#000000',23,1,'2019-06-28 04:22:55','2019-06-30 06:44:34',NULL,''),
-	(22,1,'Subscriptions','','_self','voyager-categories','#000000',NULL,9,'2019-06-30 03:35:43','2019-06-30 03:51:59','voyager.subscriptions.index','null'),
-	(23,1,'Export Users','','_self','voyager-people','#000000',NULL,12,'2019-06-30 06:39:42','2019-06-30 06:42:57',NULL,''),
-	(24,1,'Active Subscription','export/users/2','_self','voyager-categories','#000000',23,2,'2019-06-30 06:42:18','2019-06-30 06:44:21',NULL,''),
-	(25,1,'Expired Subscription','export/users/3','_self','voyager-categories','#000000',23,3,'2019-06-30 06:42:33','2019-06-30 06:44:06',NULL,'');
-
-/*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table menus
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `menus`;
-
 CREATE TABLE `menus` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -332,24 +158,17 @@ CREATE TABLE `menus` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `menus_name_unique` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `menus` WRITE;
-/*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-
-INSERT INTO `menus` (`id`, `name`, `created_at`, `updated_at`)
-VALUES
-	(1,'admin','2019-04-25 03:27:51','2019-04-25 03:27:51');
-
-/*!40000 ALTER TABLE `menus` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table pages
-# ------------------------------------------------------------
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `pages`;
-
 CREATE TABLE `pages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `author_id` int(11) NOT NULL,
@@ -365,38 +184,17 @@ CREATE TABLE `pages` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `pages_slug_unique` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `pages` WRITE;
-/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-
-INSERT INTO `pages` (`id`, `author_id`, `title`, `excerpt`, `body`, `image`, `slug`, `meta_description`, `meta_keywords`, `status`, `created_at`, `updated_at`)
-VALUES
-	(1,1,'About','this is about page','<p>Hello World. Scallywag grog swab Cat o\'nine tails scuttle rigging hardtack cable nipper Yellow Jack. Handsomely spirits knave lad killick landlubber or just lubber deadlights chantey pinnace crack Jennys tea cup. Provost long clothes black spot Yellow Jack bilged on her anchor league lateen sail case shot lee tackle.</p>\r\n<p>Ballast spirits fluke topmast me quarterdeck schooner landlubber or just lubber gabion belaying pin. Pinnace stern galleon starboard warp carouser to go on account dance the hempen jig jolly boat measured fer yer chains. Man-of-war fire in the hole nipperkin handsomely doubloon barkadeer Brethren of the Coast gibbet driver squiffy.</p>','pages/page1.jpg','about','about page','about','ACTIVE','2019-04-25 03:27:55','2019-05-06 02:50:31');
-
-/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table password_resets
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `password_resets`;
-
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-
-# Dump of table permission_role
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `permission_role`;
-
 CREATE TABLE `permission_role` (
   `permission_id` bigint(20) unsigned NOT NULL,
   `role_id` bigint(20) unsigned NOT NULL,
@@ -407,82 +205,7 @@ CREATE TABLE `permission_role` (
   CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `permission_role` WRITE;
-/*!40000 ALTER TABLE `permission_role` DISABLE KEYS */;
-
-INSERT INTO `permission_role` (`permission_id`, `role_id`)
-VALUES
-	(1,1),
-	(2,1),
-	(3,1),
-	(4,1),
-	(5,1),
-	(6,1),
-	(7,1),
-	(8,1),
-	(9,1),
-	(10,1),
-	(11,1),
-	(12,1),
-	(13,1),
-	(14,1),
-	(15,1),
-	(16,1),
-	(17,1),
-	(18,1),
-	(19,1),
-	(20,1),
-	(21,1),
-	(22,1),
-	(23,1),
-	(24,1),
-	(25,1),
-	(26,1),
-	(27,1),
-	(28,1),
-	(29,1),
-	(30,1),
-	(31,1),
-	(32,1),
-	(33,1),
-	(34,1),
-	(35,1),
-	(36,1),
-	(37,1),
-	(38,1),
-	(39,1),
-	(40,1),
-	(41,1),
-	(47,1),
-	(48,1),
-	(49,1),
-	(50,1),
-	(51,1),
-	(52,1),
-	(53,1),
-	(54,1),
-	(55,1),
-	(56,1),
-	(57,1),
-	(58,1),
-	(59,1),
-	(60,1),
-	(61,1),
-	(62,1),
-	(63,1),
-	(64,1),
-	(65,1),
-	(66,1);
-
-/*!40000 ALTER TABLE `permission_role` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table permissions
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `permissions`;
-
 CREATE TABLE `permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -491,84 +214,9 @@ CREATE TABLE `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `permissions_key_index` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `permissions` WRITE;
-/*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
-
-INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`)
-VALUES
-	(1,'browse_admin',NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(2,'browse_bread',NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(3,'browse_database',NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(4,'browse_media',NULL,'2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(5,'browse_compass',NULL,'2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(6,'browse_menus','menus','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(7,'read_menus','menus','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(8,'edit_menus','menus','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(9,'add_menus','menus','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(10,'delete_menus','menus','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(11,'browse_roles','roles','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(12,'read_roles','roles','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(13,'edit_roles','roles','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(14,'add_roles','roles','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(15,'delete_roles','roles','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(16,'browse_users','users','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(17,'read_users','users','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(18,'edit_users','users','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(19,'add_users','users','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(20,'delete_users','users','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(21,'browse_settings','settings','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(22,'read_settings','settings','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(23,'edit_settings','settings','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(24,'add_settings','settings','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(25,'delete_settings','settings','2019-04-25 03:27:52','2019-04-25 03:27:52'),
-	(26,'browse_categories','categories','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(27,'read_categories','categories','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(28,'edit_categories','categories','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(29,'add_categories','categories','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(30,'delete_categories','categories','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(31,'browse_posts','posts','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(32,'read_posts','posts','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(33,'edit_posts','posts','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(34,'add_posts','posts','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(35,'delete_posts','posts','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(36,'browse_pages','pages','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(37,'read_pages','pages','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(38,'edit_pages','pages','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(39,'add_pages','pages','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(40,'delete_pages','pages','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(41,'browse_hooks',NULL,'2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(47,'browse_topics','topics','2019-04-25 04:04:50','2019-04-25 04:04:50'),
-	(48,'read_topics','topics','2019-04-25 04:04:50','2019-04-25 04:04:50'),
-	(49,'edit_topics','topics','2019-04-25 04:04:50','2019-04-25 04:04:50'),
-	(50,'add_topics','topics','2019-04-25 04:04:50','2019-04-25 04:04:50'),
-	(51,'delete_topics','topics','2019-04-25 04:04:51','2019-04-25 04:04:51'),
-	(52,'browse_videos','videos','2019-04-25 04:05:21','2019-04-25 04:05:21'),
-	(53,'read_videos','videos','2019-04-25 04:05:21','2019-04-25 04:05:21'),
-	(54,'edit_videos','videos','2019-04-25 04:05:21','2019-04-25 04:05:21'),
-	(55,'add_videos','videos','2019-04-25 04:05:21','2019-04-25 04:05:21'),
-	(56,'delete_videos','videos','2019-04-25 04:05:21','2019-04-25 04:05:21'),
-	(57,'browse_chapters','chapters','2019-06-27 06:35:01','2019-06-27 06:35:01'),
-	(58,'read_chapters','chapters','2019-06-27 06:35:01','2019-06-27 06:35:01'),
-	(59,'edit_chapters','chapters','2019-06-27 06:35:01','2019-06-27 06:35:01'),
-	(60,'add_chapters','chapters','2019-06-27 06:35:01','2019-06-27 06:35:01'),
-	(61,'delete_chapters','chapters','2019-06-27 06:35:01','2019-06-27 06:35:01'),
-	(62,'browse_subscriptions','subscriptions','2019-06-30 03:35:43','2019-06-30 03:35:43'),
-	(63,'read_subscriptions','subscriptions','2019-06-30 03:35:43','2019-06-30 03:35:43'),
-	(64,'edit_subscriptions','subscriptions','2019-06-30 03:35:43','2019-06-30 03:35:43'),
-	(65,'add_subscriptions','subscriptions','2019-06-30 03:35:43','2019-06-30 03:35:43'),
-	(66,'delete_subscriptions','subscriptions','2019-06-30 03:35:43','2019-06-30 03:35:43');
-
-/*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table posts
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `posts`;
-
 CREATE TABLE `posts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `author_id` int(11) NOT NULL,
@@ -587,27 +235,9 @@ CREATE TABLE `posts` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `posts_slug_unique` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `posts` WRITE;
-/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-
-INSERT INTO `posts` (`id`, `author_id`, `category_id`, `title`, `seo_title`, `excerpt`, `body`, `image`, `slug`, `meta_description`, `meta_keywords`, `status`, `featured`, `created_at`, `updated_at`)
-VALUES
-	(1,0,NULL,'Lorem Ipsum Post',NULL,'This is the excerpt for the Lorem Ipsum Post','<p>This is the body of the lorem ipsum post</p>','posts/post1.jpg','lorem-ipsum-post','This is the meta description','keyword1, keyword2, keyword3','PUBLISHED',0,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(2,0,NULL,'My Sample Post',NULL,'This is the excerpt for the sample Post','<p>This is the body for the sample post, which includes the body.</p>\n                <h2>We can use all kinds of format!</h2>\n                <p>And include a bunch of other stuff.</p>','posts/post2.jpg','my-sample-post','Meta Description for sample post','keyword1, keyword2, keyword3','PUBLISHED',0,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(3,0,NULL,'Latest Post',NULL,'This is the excerpt for the latest post','<p>This is the body for the latest post</p>','posts/post3.jpg','latest-post','This is the meta description','keyword1, keyword2, keyword3','PUBLISHED',0,'2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(4,0,NULL,'Yarr Post',NULL,'Reef sails nipperkin bring a spring upon her cable coffer jury mast spike marooned Pieces of Eight poop deck pillage. Clipper driver coxswain galleon hempen halter come about pressgang gangplank boatswain swing the lead. Nipperkin yard skysail swab lanyard Blimey bilge water ho quarter Buccaneer.','<p>Swab deadlights Buccaneer fire ship square-rigged dance the hempen jig weigh anchor cackle fruit grog furl. Crack Jennys tea cup chase guns pressgang hearties spirits hogshead Gold Road six pounders fathom measured fer yer chains. Main sheet provost come about trysail barkadeer crimp scuttle mizzenmast brig plunder.</p>\n<p>Mizzen league keelhaul galleon tender cog chase Barbary Coast doubloon crack Jennys tea cup. Blow the man down lugsail fire ship pinnace cackle fruit line warp Admiral of the Black strike colors doubloon. Tackle Jack Ketch come about crimp rum draft scuppers run a shot across the bow haul wind maroon.</p>\n<p>Interloper heave down list driver pressgang holystone scuppers tackle scallywag bilged on her anchor. Jack Tar interloper draught grapple mizzenmast hulk knave cable transom hogshead. Gaff pillage to go on account grog aft chase guns piracy yardarm knave clap of thunder.</p>','posts/post4.jpg','yarr-post','this be a meta descript','keyword1, keyword2, keyword3','PUBLISHED',0,'2019-04-25 03:27:55','2019-04-25 03:27:55');
-
-/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table roles
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `roles`;
-
 CREATE TABLE `roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -616,25 +246,9 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `roles_name_unique` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-
-INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`)
-VALUES
-	(1,'admin','Administrator','2019-04-25 03:27:51','2019-04-25 03:27:51'),
-	(2,'user','Normal User','2019-04-25 03:27:51','2019-04-25 03:27:51');
-
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table settings
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `settings`;
-
 CREATE TABLE `settings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -646,35 +260,9 @@ CREATE TABLE `settings` (
   `group` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `settings_key_unique` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `settings` WRITE;
-/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-
-INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`, `order`, `group`)
-VALUES
-	(1,'site.title','Site Title','Site Title','','text',1,'Site'),
-	(2,'site.description','Site Description','Site Description','','text',2,'Site'),
-	(3,'site.logo','Site Logo','','','image',3,'Site'),
-	(4,'site.google_analytics_tracking_id','Google Analytics Tracking ID',NULL,'','text',4,'Site'),
-	(5,'admin.bg_image','Admin Background Image','','','image',5,'Admin'),
-	(6,'admin.title','Admin Title','Voyager','','text',1,'Admin'),
-	(7,'admin.description','Admin Description','Welcome to Voyager. The Missing Admin for Laravel','','text',2,'Admin'),
-	(8,'admin.loader','Admin Loader','','','image',3,'Admin'),
-	(9,'admin.icon_image','Admin Icon Image','','','image',4,'Admin'),
-	(10,'admin.google_analytics_client_id','Google Analytics Client ID (used for admin dashboard)',NULL,'','text',1,'Admin'),
-	(11,'site.video_url','Video URL','https://api.milestoneducation.com',NULL,'text',6,'Site'),
-	(12,'site.subscription_url','Subscription URL','https://ia802801.us.archive.org/22/items/Httpswww.youtube.comwatchvNeyOFGZyVmU/JrDara%20SC.mp4',NULL,'text',7,'Site');
-
-/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table subscriptions
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `subscriptions`;
-
 CREATE TABLE `subscriptions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) unsigned NOT NULL,
@@ -682,33 +270,18 @@ CREATE TABLE `subscriptions` (
   `expires_at` timestamp NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `institute_id` bigint(20) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `subscriptions` WRITE;
-/*!40000 ALTER TABLE `subscriptions` DISABLE KEYS */;
-
-INSERT INTO `subscriptions` (`id`, `category_id`, `user_id`, `expires_at`, `created_at`, `updated_at`)
-VALUES
-	(1,1,3,'2019-07-01 09:50:08','2019-06-29 09:50:08','2019-06-29 09:50:08'),
-	(2,2,3,'2019-07-01 09:56:22','2019-06-29 09:56:22','2019-06-29 09:56:22');
-
-/*!40000 ALTER TABLE `subscriptions` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table topics
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `topics`;
-
 CREATE TABLE `topics` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) unsigned NOT NULL,
   `chapter_id` bigint(20) unsigned NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `order` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -717,25 +290,9 @@ CREATE TABLE `topics` (
   KEY `topics_chapter_id_foreign` (`chapter_id`),
   CONSTRAINT `topics_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `topics_chapter_id_foreign` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `topics` WRITE;
-/*!40000 ALTER TABLE `topics` DISABLE KEYS */;
-
-INSERT INTO `topics` (`id`, `category_id`, `chapter_id`, `image`, `name`, `description`, `order`, `created_at`, `updated_at`)
-VALUES
-	(1,1,1,'topics/June2019/4IjGXcQ8PZhfEaOm35o0.png','test','test',1,'2019-06-27 06:56:00','2019-06-29 09:51:00'),
-	(2,2,2,'topics/June2019/JfO3f7U4sooXlmknHDxh.png','english','english topic',1,'2019-06-29 09:54:52','2019-06-29 09:54:52');
-
-/*!40000 ALTER TABLE `topics` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table translations
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `translations`;
-
 CREATE TABLE `translations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `table_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -747,53 +304,9 @@ CREATE TABLE `translations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `translations_table_name_column_name_foreign_key_locale_unique` (`table_name`,`column_name`,`foreign_key`,`locale`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `translations` WRITE;
-/*!40000 ALTER TABLE `translations` DISABLE KEYS */;
-
-INSERT INTO `translations` (`id`, `table_name`, `column_name`, `foreign_key`, `locale`, `value`, `created_at`, `updated_at`)
-VALUES
-	(1,'data_types','display_name_singular',5,'pt','Post','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(2,'data_types','display_name_singular',6,'pt','Página','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(3,'data_types','display_name_singular',1,'pt','Utilizador','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(4,'data_types','display_name_singular',4,'pt','Categoria','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(5,'data_types','display_name_singular',2,'pt','Menu','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(6,'data_types','display_name_singular',3,'pt','Função','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(7,'data_types','display_name_plural',5,'pt','Posts','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(8,'data_types','display_name_plural',6,'pt','Páginas','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(9,'data_types','display_name_plural',1,'pt','Utilizadores','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(10,'data_types','display_name_plural',4,'pt','Categorias','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(11,'data_types','display_name_plural',2,'pt','Menus','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(12,'data_types','display_name_plural',3,'pt','Funções','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(13,'categories','slug',1,'pt','categoria-1','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(14,'categories','name',1,'pt','Categoria 1','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(15,'categories','slug',2,'pt','categoria-2','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(16,'categories','name',2,'pt','Categoria 2','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(17,'pages','title',1,'pt','Olá Mundo','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(18,'pages','slug',1,'pt','ola-mundo','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(19,'pages','body',1,'pt','<p>Olá Mundo. Scallywag grog swab Cat o\'nine tails scuttle rigging hardtack cable nipper Yellow Jack. Handsomely spirits knave lad killick landlubber or just lubber deadlights chantey pinnace crack Jennys tea cup. Provost long clothes black spot Yellow Jack bilged on her anchor league lateen sail case shot lee tackle.</p>\r\n<p>Ballast spirits fluke topmast me quarterdeck schooner landlubber or just lubber gabion belaying pin. Pinnace stern galleon starboard warp carouser to go on account dance the hempen jig jolly boat measured fer yer chains. Man-of-war fire in the hole nipperkin handsomely doubloon barkadeer Brethren of the Coast gibbet driver squiffy.</p>','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(20,'menu_items','title',1,'pt','Painel de Controle','2019-04-25 03:27:55','2019-04-25 03:27:55'),
-	(21,'menu_items','title',2,'pt','Media','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(22,'menu_items','title',12,'pt','Publicações','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(23,'menu_items','title',3,'pt','Utilizadores','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(24,'menu_items','title',11,'pt','Categorias','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(25,'menu_items','title',13,'pt','Páginas','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(26,'menu_items','title',4,'pt','Funções','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(27,'menu_items','title',5,'pt','Ferramentas','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(28,'menu_items','title',6,'pt','Menus','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(29,'menu_items','title',7,'pt','Base de dados','2019-04-25 03:27:56','2019-04-25 03:27:56'),
-	(30,'menu_items','title',10,'pt','Configurações','2019-04-25 03:27:56','2019-04-25 03:27:56');
-
-/*!40000 ALTER TABLE `translations` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table user_roles
-# ------------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `user_roles`;
-
 CREATE TABLE `user_roles` (
   `user_id` bigint(20) unsigned NOT NULL,
   `role_id` bigint(20) unsigned NOT NULL,
@@ -804,63 +317,44 @@ CREATE TABLE `user_roles` (
   CONSTRAINT `user_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-
-# Dump of table users
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `users`;
-
 CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `imei` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role_id` bigint(20) unsigned DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imei` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `dob` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '01-01-1990',
-  `gender` enum('Male','Female') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Male',
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `school` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `education` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `account_status` enum('Approved','Rejected','Pending') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Approved',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dob` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '01-01-1990',
+  `gender` enum('Male','Female') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Male',
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `school` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `education` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_status` enum('Approved','Rejected','Pending') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Approved',
   `status` tinyint(1) NOT NULL DEFAULT '0',
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `settings` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_mobile_unique` (`mobile`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-
-INSERT INTO `users` (`id`, `role_id`, `name`, `mobile`, `imei`, `email`, `email_verified_at`, `password`, `dob`, `gender`, `avatar`, `school`, `education`, `account_status`, `status`, `remember_token`, `created_at`, `updated_at`)
-VALUES
-	(2,1,'admin',NULL,NULL,'admin@shendre.com',NULL,'$2y$10$d.rxYrfC1NPC8rJdG/WMsO2suEuo2DLo2Q0mCUuaucsjzNCXEG6aO','01-01-1990','Male',NULL,NULL,NULL,'Approved',0,NULL,'2019-06-28 06:28:52','2019-06-28 06:28:52'),
-	(3,2,'krunal','9426726815','866462038392648','kunal.dodiya1@gmail.com',NULL,'$2y$10$6vPDm2Sm9/VXvlG0Iv48Q.VDSFFpvGGzdQ.gFIt8rwd0QaXojQ5D2','01-01-1990','Male',NULL,'hdhs','bshs','Approved',1,NULL,'2019-06-29 05:34:06','2019-06-29 05:34:19');
-
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table videos
-# ------------------------------------------------------------
+  UNIQUE KEY `users_email_unique` (`email`),
+  KEY `users_role_id_foreign` (`role_id`),
+  CONSTRAINT `users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `videos`;
-
 CREATE TABLE `videos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) unsigned NOT NULL,
   `chapter_id` bigint(20) unsigned NOT NULL,
   `topic_id` bigint(20) unsigned NOT NULL,
-  `thumbnail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `order` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -871,14 +365,910 @@ CREATE TABLE `videos` (
   CONSTRAINT `videos_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `videos_chapter_id_foreign` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `videos_topic_id_foreign` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `categories` (`id`, `image`, `name`, `order`, `created_at`, `updated_at`) VALUES ('1', 'categories/July2019/obAxK47rQzogfFZ1KFMx.gif', 'ધોરણ-10 (Eng.)', '2', '2019-06-30 10:42:36', '2019-07-03 11:35:15'),
+('2', 'categories/July2019/a653cc5daICJMtuzAtgq.gif', 'ધોરણ-10 (ગુજ.)', '1', '2019-06-30 10:42:55', '2019-07-03 11:44:16');
+
+INSERT INTO `chapters` (`id`, `category_id`, `image`, `name`, `description`, `order`, `created_at`, `updated_at`) VALUES ('1', '2', 'chapters/July2019/gUAQ9F6OZPW97VdBUP69.jpg', 'બહુપદીઓ', '3 નોટ્સ, 3 સ્વાધ્યાય, 9 ઉદાહરણો', '2', '2019-06-30 11:30:00', '2019-07-03 10:09:59'),
+('2', '2', 'chapters/July2019/Tuy4Pwe3MDmyiB0i8gK8.jpg', 'વાસ્તવિક સંખ્યાઓ', '4 નોટ્સ, 4 સ્વાધ્યાય, 11 ઉદાહરણો', '1', '2019-06-30 23:21:00', '2019-07-03 10:09:44'),
+('3', '2', 'chapters/July2019/Ir7w1cqrhcKhSP0CsHPR.jpg', 'દ્વિચલ સુરેખ સમીકરણયુગ્મ', 'Coming Soon..', '3', '2019-07-02 19:41:00', '2019-07-03 10:10:08'),
+('4', '2', 'chapters/July2019/z4CoMWBzTqoOIxlLKRsl.jpg', 'દ્વિઘાત સમીકરણ', 'Coming Soon...', '4', '2019-07-02 21:12:00', '2019-07-03 10:17:48'),
+('5', '2', 'chapters/July2019/pVPwuQ7wTEKhPAYeTE0i.jpg', 'સમાંતર શ્રેણી', 'Coming Soon...', '5', '2019-07-03 10:12:09', '2019-07-03 10:12:09'),
+('6', '2', 'chapters/July2019/IoeCv4ACg342GzCPdoDd.jpg', 'ત્રિકોણ', 'Coming Soon...', '6', '2019-07-03 10:12:00', '2019-07-03 10:12:52'),
+('7', '2', 'chapters/July2019/uTb9u20xlGjV9pZJDZHN.jpg', 'પ્રસ્તાવના', 'તમારો ખૂબ ખૂબ આભાર...🙏', '0', '2019-07-03 10:13:00', '2019-07-08 08:02:45'),
+('8', '2', 'chapters/July2019/Yrj6P3LX8pPIQwoY6tYD.jpg', 'ગણિતનાં પાયાનું જ્ઞાન', 'અહીં તમને ગણિત ના પાયા ના જ્ઞાન ના વિડિઓ જોવા મળશે.', '0', '2019-07-03 10:15:00', '2019-07-28 19:51:46'),
+('9', '2', 'chapters/July2019/p3Ib3oIGIWaENFzlbyxj.jpg', 'યામ ભૂમિતિ', 'Coming Soon...', '7', '2019-07-03 10:28:05', '2019-07-03 10:28:05'),
+('10', '2', 'chapters/July2019/6btdZVyFLL79WdlcaCdY.jpg', 'ત્રિકોણમિતિનો પરિચય', 'Coming Soon...', '8', '2019-07-03 10:28:37', '2019-07-03 10:28:37'),
+('11', '2', 'chapters/July2019/OhrJrbICGXVK2fOOtgDF.jpg', 'ત્રિકોણમિતિના ઉપયોગો', 'Coming Soon...', '9', '2019-07-03 10:29:09', '2019-07-03 10:29:09'),
+('12', '2', 'chapters/July2019/Fhm1jbqK5rzqGEVhpOy3.jpg', 'વર્તુળ', 'Coming Soon...', '10', '2019-07-03 10:29:34', '2019-07-03 10:29:34'),
+('13', '2', 'chapters/July2019/z0i1uzARfGbBqtljKoGs.jpg', 'રચના', 'Coming Soon...', '11', '2019-07-03 10:30:00', '2019-07-03 10:30:00'),
+('14', '2', 'chapters/July2019/GnZSXb40fQ48b0ZBMRIs.jpg', 'વર્તુળ સંબંધિત ક્ષેત્રફળ', 'Coming Soon...', '12', '2019-07-03 10:30:54', '2019-07-03 10:30:54'),
+('15', '2', 'chapters/July2019/gjFGS6yuDDDGBp3Fmb6z.jpg', 'પૃષ્ઠફળ અને ઘનફળ', 'Coming Soon...', '13', '2019-07-03 10:31:22', '2019-07-03 10:31:22'),
+('16', '2', 'chapters/July2019/CATdY0j0Dj8yYlcYdX9a.jpg', 'આંકડાશાસ્ત્ર', 'Coming Soon...', '14', '2019-07-03 10:31:56', '2019-07-03 10:31:56'),
+('17', '2', 'chapters/July2019/4UEtZvGySDn3LbPnoBJ3.jpg', 'સંભાવના', 'Coming Soon...', '15', '2019-07-03 10:32:19', '2019-07-03 10:32:19');
+
+INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, `required`, `browse`, `read`, `edit`, `add`, `delete`, `details`, `order`) VALUES ('1', '1', 'id', 'number', 'ID', '1', '0', '0', '0', '0', '0', '{}', '1'),
+('2', '1', 'name', 'text', 'Name', '0', '1', '1', '1', '1', '1', '{}', '2'),
+('3', '1', 'email', 'text', 'Email', '0', '1', '1', '1', '1', '1', '{}', '3'),
+('4', '1', 'password', 'password', 'Password', '0', '0', '0', '1', '1', '0', '{}', '4'),
+('5', '1', 'remember_token', 'text', 'Remember Token', '0', '0', '0', '0', '0', '0', '{}', '5'),
+('6', '1', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '0', '0', '0', '{}', '6'),
+('7', '1', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '7'),
+('8', '1', 'avatar', 'image', 'Avatar', '0', '1', '1', '1', '1', '1', '{}', '8'),
+('9', '1', 'user_belongsto_role_relationship', 'relationship', 'Role', '0', '1', '1', '1', '1', '0', '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsTo\",\"column\":\"role_id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"roles\",\"pivot\":\"0\",\"taggable\":\"0\"}', '10'),
+('10', '1', 'user_belongstomany_role_relationship', 'relationship', 'Roles', '0', '1', '1', '1', '1', '0', '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsToMany\",\"column\":\"id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"user_roles\",\"pivot\":\"1\",\"taggable\":\"0\"}', '11'),
+('11', '1', 'settings', 'hidden', 'Settings', '0', '0', '0', '0', '0', '0', '{}', '12'),
+('12', '2', 'id', 'number', 'ID', '1', '0', '0', '0', '0', '0', NULL, '1'),
+('13', '2', 'name', 'text', 'Name', '1', '1', '1', '1', '1', '1', NULL, '2'),
+('14', '2', 'created_at', 'timestamp', 'Created At', '0', '0', '0', '0', '0', '0', NULL, '3'),
+('15', '2', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', NULL, '4'),
+('16', '3', 'id', 'number', 'ID', '1', '0', '0', '0', '0', '0', NULL, '1'),
+('17', '3', 'name', 'text', 'Name', '1', '1', '1', '1', '1', '1', NULL, '2'),
+('18', '3', 'created_at', 'timestamp', 'Created At', '0', '0', '0', '0', '0', '0', NULL, '3'),
+('19', '3', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', NULL, '4'),
+('20', '3', 'display_name', 'text', 'Display Name', '1', '1', '1', '1', '1', '1', NULL, '5'),
+('21', '1', 'role_id', 'text', 'Role', '0', '0', '0', '0', '0', '0', '{}', '9'),
+('22', '4', 'id', 'number', 'ID', '1', '0', '0', '0', '0', '0', '{}', '1'),
+('24', '4', 'order', 'text', 'Order', '1', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '3'),
+('25', '4', 'name', 'text', 'Name', '1', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '4'),
+('27', '4', 'created_at', 'timestamp', 'Created At', '0', '0', '1', '0', '0', '0', '{}', '6'),
+('28', '4', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '7'),
+('29', '5', 'id', 'number', 'ID', '1', '0', '0', '0', '0', '0', NULL, '1'),
+('30', '5', 'author_id', 'text', 'Author', '1', '0', '1', '1', '0', '1', NULL, '2'),
+('31', '5', 'category_id', 'text', 'Category', '1', '0', '1', '1', '1', '0', NULL, '3'),
+('32', '5', 'title', 'text', 'Title', '1', '1', '1', '1', '1', '1', NULL, '4'),
+('33', '5', 'excerpt', 'text_area', 'Excerpt', '1', '0', '1', '1', '1', '1', NULL, '5'),
+('34', '5', 'body', 'rich_text_box', 'Body', '1', '0', '1', '1', '1', '1', NULL, '6'),
+('35', '5', 'image', 'image', 'Post Image', '0', '1', '1', '1', '1', '1', '{\"resize\":{\"width\":\"1000\",\"height\":\"null\"},\"quality\":\"70%\",\"upsize\":true,\"thumbnails\":[{\"name\":\"medium\",\"scale\":\"50%\"},{\"name\":\"small\",\"scale\":\"25%\"},{\"name\":\"cropped\",\"crop\":{\"width\":\"300\",\"height\":\"250\"}}]}', '7'),
+('36', '5', 'slug', 'text', 'Slug', '1', '0', '1', '1', '1', '1', '{\"slugify\":{\"origin\":\"title\",\"forceUpdate\":true},\"validation\":{\"rule\":\"unique:posts,slug\"}}', '8'),
+('37', '5', 'meta_description', 'text_area', 'Meta Description', '1', '0', '1', '1', '1', '1', NULL, '9'),
+('38', '5', 'meta_keywords', 'text_area', 'Meta Keywords', '1', '0', '1', '1', '1', '1', NULL, '10'),
+('39', '5', 'status', 'select_dropdown', 'Status', '1', '1', '1', '1', '1', '1', '{\"default\":\"DRAFT\",\"options\":{\"PUBLISHED\":\"published\",\"DRAFT\":\"draft\",\"PENDING\":\"pending\"}}', '11'),
+('40', '5', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '0', '0', '0', NULL, '12'),
+('41', '5', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', NULL, '13'),
+('42', '5', 'seo_title', 'text', 'SEO Title', '0', '1', '1', '1', '1', '1', NULL, '14'),
+('43', '5', 'featured', 'checkbox', 'Featured', '1', '1', '1', '1', '1', '1', NULL, '15'),
+('44', '6', 'id', 'number', 'ID', '1', '0', '0', '0', '0', '0', NULL, '1'),
+('45', '6', 'author_id', 'text', 'Author', '1', '0', '0', '0', '0', '0', NULL, '2'),
+('46', '6', 'title', 'text', 'Title', '1', '1', '1', '1', '1', '1', NULL, '3'),
+('47', '6', 'excerpt', 'text_area', 'Excerpt', '1', '0', '1', '1', '1', '1', NULL, '4'),
+('48', '6', 'body', 'rich_text_box', 'Body', '1', '0', '1', '1', '1', '1', NULL, '5'),
+('49', '6', 'slug', 'text', 'Slug', '1', '0', '1', '1', '1', '1', '{\"slugify\":{\"origin\":\"title\"},\"validation\":{\"rule\":\"unique:pages,slug\"}}', '6'),
+('50', '6', 'meta_description', 'text', 'Meta Description', '1', '0', '1', '1', '1', '1', NULL, '7'),
+('51', '6', 'meta_keywords', 'text', 'Meta Keywords', '1', '0', '1', '1', '1', '1', NULL, '8'),
+('52', '6', 'status', 'select_dropdown', 'Status', '1', '1', '1', '1', '1', '1', '{\"default\":\"INACTIVE\",\"options\":{\"INACTIVE\":\"INACTIVE\",\"ACTIVE\":\"ACTIVE\"}}', '9'),
+('53', '6', 'created_at', 'timestamp', 'Created At', '1', '1', '1', '0', '0', '0', NULL, '10'),
+('54', '6', 'updated_at', 'timestamp', 'Updated At', '1', '0', '0', '0', '0', '0', NULL, '11'),
+('55', '6', 'image', 'image', 'Page Image', '0', '1', '1', '1', '1', '1', NULL, '12'),
+('61', '8', 'id', 'text', 'Id', '1', '0', '0', '0', '0', '0', '{}', '1'),
+('62', '8', 'category_id', 'text', 'Category Id', '1', '1', '1', '1', '1', '1', '{}', '2'),
+('63', '8', 'image', 'image', 'Image', '0', '1', '1', '1', '1', '1', '{}', '3'),
+('64', '8', 'name', 'text', 'Name', '1', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '4'),
+('65', '8', 'description', 'text_area', 'Description', '0', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '5'),
+('66', '8', 'order', 'text', 'Order', '0', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '6'),
+('67', '8', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '1', '0', '1', '{}', '7'),
+('68', '8', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '8'),
+('69', '9', 'id', 'text', 'Id', '1', '0', '0', '0', '0', '0', '{}', '1'),
+('71', '9', 'topic_id', 'text', 'Topic Id', '1', '1', '1', '1', '1', '1', '{}', '3'),
+('72', '9', 'thumbnail', 'image', 'Thumbnail', '0', '1', '1', '1', '1', '1', '{}', '4'),
+('73', '9', 'title', 'text', 'Title', '1', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '5'),
+('74', '9', 'description', 'text_area', 'Description', '1', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '6'),
+('75', '9', 'url', 'text', 'Url', '1', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '7'),
+('76', '9', 'order', 'text', 'Order', '0', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '8'),
+('77', '9', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '1', '0', '1', '{}', '9'),
+('78', '9', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '10'),
+('79', '4', 'image', 'image', 'Image', '0', '1', '1', '1', '1', '1', '{}', '4'),
+('80', '4', 'category_hasone_topic_relationship', 'relationship', 'topics', '0', '1', '1', '0', '0', '0', '{\"model\":\"App\\\\Topic\",\"table\":\"topics\",\"type\":\"hasOne\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '8'),
+('83', '8', 'topic_belongsto_category_relationship', 'relationship', 'category', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '9'),
+('84', '8', 'topic_hasmany_video_relationship', 'relationship', 'videos', '0', '1', '1', '0', '0', '0', '{\"model\":\"App\\\\Video\",\"table\":\"videos\",\"type\":\"hasMany\",\"column\":\"topic_id\",\"key\":\"id\",\"label\":\"title\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '10'),
+('86', '1', 'mobile', 'text', 'Mobile', '0', '1', '1', '1', '1', '1', '{}', '4'),
+('88', '1', 'email_verified_at', 'timestamp', 'Email Verified At', '0', '1', '1', '0', '0', '1', '{}', '7'),
+('89', '1', 'dob', 'text', 'Dob', '1', '1', '1', '1', '1', '1', '{}', '9'),
+('90', '1', 'gender', 'select_dropdown', 'Gender', '1', '1', '1', '1', '1', '1', '{\"default\":\"Male\",\"options\":{\"Male\":\"Male\",\"Female\":\"Female\"}}', '10'),
+('92', '1', 'education', 'text', 'Education', '0', '1', '1', '1', '1', '1', '{}', '13'),
+('93', '1', 'account_status', 'select_dropdown', 'Account Status', '1', '1', '1', '1', '1', '1', '{\"default\":\"Pending\",\"options\":{\"Pending\":\"Pending\",\"Approved\":\"Approved\",\"Rejected\":\"Rejected\"}}', '14'),
+('94', '1', 'status', 'checkbox', 'Status', '1', '1', '1', '1', '1', '1', '{\"on\":\"Enabled\",\"off\":\"Disabled\",\"checked\":\"true\"}', '15'),
+('96', '9', 'video_belongsto_topic_relationship', 'relationship', 'topic', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Topic\",\"table\":\"topics\",\"type\":\"belongsTo\",\"column\":\"topic_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '12'),
+('97', '1', 'imei', 'text', 'Imei', '0', '1', '1', '0', '0', '0', '{}', '5'),
+('98', '10', 'id', 'text', 'Id', '1', '0', '0', '0', '0', '0', '{}', '1'),
+('99', '10', 'category_id', 'text', 'Category Id', '1', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '2'),
+('100', '10', 'image', 'image', 'Image', '0', '1', '1', '1', '1', '1', '{}', '3'),
+('101', '10', 'name', 'text', 'Name', '1', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '4'),
+('102', '10', 'description', 'text', 'Description', '0', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '5'),
+('103', '10', 'order', 'text', 'Order', '0', '1', '1', '1', '1', '1', '{\"validation\":{\"rule\":\"required\"}}', '6'),
+('104', '10', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '1', '0', '1', '{}', '7'),
+('105', '10', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '8'),
+('107', '8', 'topic_belongsto_chapter_relationship', 'relationship', 'chapters', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Chapter\",\"table\":\"chapters\",\"type\":\"belongsTo\",\"column\":\"chapter_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '11'),
+('108', '8', 'chapter_id', 'text', 'Chapter Id', '1', '1', '1', '1', '1', '1', '{}', '3'),
+('109', '1', 'school', 'text', 'School', '1', '1', '1', '1', '1', '1', '{}', '12'),
+('110', '9', 'video_belongsto_category_relationship', 'relationship', 'categories', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '13'),
+('111', '9', 'video_belongsto_chapter_relationship', 'relationship', 'chapters', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Chapter\",\"table\":\"chapters\",\"type\":\"belongsTo\",\"column\":\"chapter_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '14'),
+('112', '9', 'category_id', 'text', 'Category Id', '1', '1', '1', '1', '1', '1', '{}', '2'),
+('113', '9', 'chapter_id', 'text', 'Chapter Id', '1', '1', '1', '1', '1', '1', '{}', '3'),
+('114', '10', 'chapter_belongsto_category_relationship', 'relationship', 'categories', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '9'),
+('115', '11', 'id', 'text', 'Id', '1', '0', '0', '0', '0', '0', '{}', '1'),
+('116', '11', 'category_id', 'text', 'Category Id', '1', '1', '1', '1', '1', '1', '{}', '2'),
+('117', '11', 'user_id', 'text', 'User Id', '1', '1', '1', '1', '1', '1', '{}', '3'),
+('118', '11', 'expires_at', 'timestamp', 'Expires At', '1', '1', '1', '1', '1', '1', '{}', '4'),
+('119', '11', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '1', '0', '1', '{}', '5'),
+('120', '11', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '6'),
+('121', '11', 'subscription_belongsto_category_relationship', 'relationship', 'categories', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '7'),
+('122', '11', 'subscription_belongsto_user_relationship', 'relationship', 'users', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\User\",\"table\":\"users\",\"type\":\"belongsTo\",\"column\":\"user_id\",\"key\":\"id\",\"label\":\"mobile\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '8'),
+('150', '17', 'institute_id', 'text', 'Institute Id', '1', '1', '1', '1', '1', '1', '{}', '1'),
+('151', '17', 'category_id', 'text', 'Category Id', '1', '1', '1', '1', '1', '1', '{}', '2'),
+('152', '17', 'expires_at', 'timestamp', 'Expires At', '1', '1', '1', '1', '1', '1', '{}', '3'),
+('153', '17', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '1', '0', '1', '{}', '4'),
+('154', '17', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '5'),
+('155', '18', 'institute_id', 'text', 'Institute Id', '1', '1', '1', '1', '1', '1', '{}', '1'),
+('156', '18', 'student_id', 'text', 'Student Id', '1', '1', '1', '1', '1', '1', '{}', '2'),
+('157', '18', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '1', '0', '1', '{}', '3'),
+('158', '18', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '4'),
+('159', '19', 'id', 'text', 'Id', '1', '0', '0', '0', '0', '0', '{}', '1'),
+('160', '19', 'name', 'text', 'Name', '1', '1', '1', '1', '1', '1', '{}', '2'),
+('161', '19', 'username', 'text', 'Username', '1', '1', '1', '1', '1', '1', '{}', '3'),
+('162', '19', 'password', 'password', 'Password', '1', '0', '1', '1', '1', '1', '{}', '4'),
+('163', '19', 'max_students', 'text', 'Max Students', '1', '1', '1', '1', '1', '1', '{}', '5'),
+('164', '19', 'created_at', 'timestamp', 'Created At', '0', '1', '1', '1', '0', '1', '{}', '6'),
+('165', '19', 'updated_at', 'timestamp', 'Updated At', '0', '0', '0', '0', '0', '0', '{}', '7'),
+('166', '17', 'institute_category_belongsto_category_relationship', 'relationship', 'categories', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Category\",\"table\":\"categories\",\"type\":\"belongsTo\",\"column\":\"category_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '6'),
+('167', '17', 'institute_category_belongsto_institute_relationship', 'relationship', 'institutes', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Institute\",\"table\":\"institutes\",\"type\":\"belongsTo\",\"column\":\"institute_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '7'),
+('168', '18', 'institute_student_belongsto_institute_relationship', 'relationship', 'institutes', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\Institute\",\"table\":\"institutes\",\"type\":\"belongsTo\",\"column\":\"institute_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '5'),
+('169', '18', 'institute_student_belongsto_user_relationship', 'relationship', 'users', '0', '1', '1', '1', '1', '1', '{\"model\":\"App\\\\User\",\"table\":\"users\",\"type\":\"belongsTo\",\"column\":\"student_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', '6');
+
+INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `details`, `created_at`, `updated_at`) VALUES ('1', 'users', 'users', 'User', 'Users', 'voyager-person', 'App\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, '1', '1', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-04-25 08:57:51', '2019-06-28 10:44:15'),
+('2', 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', '1', '0', NULL, '2019-04-25 08:57:51', '2019-04-25 08:57:51'),
+('3', 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', '1', '0', NULL, '2019-04-25 08:57:51', '2019-04-25 08:57:51'),
+('4', 'categories', 'categories', 'Category', 'Categories', 'voyager-categories', 'App\\Category', NULL, NULL, NULL, '1', '1', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-04-25 08:57:55', '2019-06-30 11:49:51'),
+('5', 'posts', 'posts', 'Post', 'Posts', 'voyager-news', 'TCG\\Voyager\\Models\\Post', 'TCG\\Voyager\\Policies\\PostPolicy', '', '', '1', '0', NULL, '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('6', 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', '1', '0', NULL, '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('8', 'topics', 'topics', 'Topic', 'Topics', 'voyager-categories', 'App\\Topic', NULL, NULL, NULL, '1', '1', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-04-25 09:34:50', '2019-06-30 11:45:37'),
+('9', 'videos', 'videos', 'Video', 'Videos', 'voyager-categories', 'App\\Video', NULL, NULL, NULL, '1', '1', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-04-25 09:35:21', '2019-06-30 11:33:44'),
+('10', 'chapters', 'chapters', 'Chapter', 'Chapters', NULL, 'App\\Chapter', NULL, NULL, NULL, '1', '1', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-06-27 12:05:01', '2019-06-30 11:29:00'),
+('11', 'subscriptions', 'subscriptions', 'Subscription', 'Subscriptions', NULL, 'App\\Subscription', NULL, NULL, NULL, '1', '0', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-06-30 09:05:43', '2019-07-03 08:45:13'),
+('17', 'institute_categories', 'institute-categories', 'Institute Category', 'Institute Categories', NULL, 'App\\InstituteCategory', NULL, NULL, NULL, '1', '1', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-01-18 05:02:59', '2020-01-18 05:11:22'),
+('18', 'institute_students', 'institute-students', 'Institute Student', 'Institute Students', NULL, 'App\\InstituteStudent', NULL, NULL, NULL, '1', '1', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-01-18 05:03:08', '2020-01-18 05:09:11'),
+('19', 'institutes', 'institutes', 'Institute', 'Institutes', NULL, 'App\\Institute', NULL, NULL, NULL, '1', '1', '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-01-18 05:03:14', '2020-01-18 05:06:10');
+
+INSERT INTO `institute_categories` (`id`, `institute_id`, `category_id`, `expires_at`, `created_at`, `updated_at`) VALUES ('1', '1', '1', '2020-01-18 10:46:00', '2020-01-18 05:16:39', '2020-01-18 05:16:39');
+
+INSERT INTO `institutes` (`id`, `name`, `username`, `password`, `max_students`, `created_at`, `updated_at`) VALUES ('1', 'Milestone Education', 'milestone', '$2y$10$7BN.2IFRG7InzdpDY46htuZrUUSxs7Bacwi6L7c/iGW/OOlI/Rlry', '1000', '2020-01-18 03:36:00', '2020-01-18 05:17:14');
+
+INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES ('1', '1', 'Dashboard', '', '_self', 'voyager-boat', '#000000', NULL, '1', '2019-04-25 08:57:51', '2020-01-18 05:01:26', 'voyager.dashboard', 'null'),
+('2', '1', 'Media', '', '_self', 'voyager-images', NULL, NULL, '4', '2019-04-25 08:57:51', '2019-04-25 09:29:11', 'voyager.media.index', NULL),
+('3', '1', 'Users', '', '_self', 'voyager-person', NULL, NULL, '3', '2019-04-25 08:57:51', '2019-04-25 08:57:51', 'voyager.users.index', NULL),
+('4', '1', 'Roles', '', '_self', 'voyager-lock', NULL, NULL, '2', '2019-04-25 08:57:51', '2019-04-25 08:57:51', 'voyager.roles.index', NULL),
+('5', '1', 'Tools', '', '_self', 'voyager-tools', NULL, NULL, '11', '2019-04-25 08:57:51', '2020-01-18 05:04:08', NULL, NULL),
+('6', '1', 'Menu Builder', '', '_self', 'voyager-list', NULL, '5', '1', '2019-04-25 08:57:51', '2019-04-25 09:29:12', 'voyager.menus.index', NULL),
+('7', '1', 'Database', '', '_self', 'voyager-data', NULL, '5', '2', '2019-04-25 08:57:51', '2019-04-25 09:29:12', 'voyager.database.index', NULL),
+('8', '1', 'Compass', '', '_self', 'voyager-compass', NULL, '5', '3', '2019-04-25 08:57:51', '2019-04-25 09:29:12', 'voyager.compass.index', NULL),
+('9', '1', 'BREAD', '', '_self', 'voyager-bread', NULL, '5', '4', '2019-04-25 08:57:51', '2019-04-25 09:29:12', 'voyager.bread.index', NULL),
+('10', '1', 'Settings', '', '_self', 'voyager-settings', NULL, NULL, '12', '2019-04-25 08:57:51', '2020-01-18 05:04:08', 'voyager.settings.index', NULL),
+('11', '1', 'Category', '', '_self', 'voyager-categories', '#000000', NULL, '5', '2019-04-25 08:57:55', '2019-06-30 11:50:47', 'voyager.categories.index', 'null'),
+('14', '1', 'Hooks', '', '_self', 'voyager-hook', NULL, '5', '5', '2019-04-25 08:57:56', '2019-04-25 09:29:12', 'voyager.hooks', NULL),
+('17', '1', 'Topic', '', '_self', 'voyager-categories', '#000000', NULL, '7', '2019-04-25 09:34:51', '2019-06-30 11:51:07', 'voyager.topics.index', 'null'),
+('18', '1', 'Video', '', '_self', 'voyager-categories', '#000000', NULL, '8', '2019-04-25 09:35:21', '2019-06-30 11:51:15', 'voyager.videos.index', 'null'),
+('19', '1', 'Chapter', '', '_self', 'voyager-categories', '#000000', NULL, '6', '2019-06-27 12:02:44', '2019-06-30 11:50:56', 'voyager.chapters.index', 'null'),
+('21', '1', 'No Subscription', 'export/users/1', '_self', 'voyager-categories', '#000000', '23', '1', '2019-06-28 09:52:55', '2019-06-30 12:14:34', NULL, ''),
+('22', '1', 'Subscriptions', '', '_self', 'voyager-categories', '#000000', NULL, '9', '2019-06-30 09:05:43', '2019-06-30 09:21:59', 'voyager.subscriptions.index', 'null'),
+('23', '1', 'Export Users', '', '_self', 'voyager-people', '#000000', NULL, '13', '2019-06-30 12:09:42', '2020-01-18 05:04:08', NULL, ''),
+('24', '1', 'Active Subscription', 'export/users/2', '_self', 'voyager-categories', '#000000', '23', '2', '2019-06-30 12:12:18', '2019-06-30 12:14:21', NULL, ''),
+('25', '1', 'Expired Subscription', 'export/users/3', '_self', 'voyager-categories', '#000000', '23', '3', '2019-06-30 12:12:33', '2019-06-30 12:14:06', NULL, ''),
+('31', '1', 'Institute Categories', '', '_self', 'voyager-categories', '#000000', '34', '2', '2020-01-18 05:02:59', '2020-01-18 05:05:15', 'voyager.institute-categories.index', 'null'),
+('32', '1', 'Institute Students', '', '_self', 'voyager-categories', '#000000', '34', '3', '2020-01-18 05:03:08', '2020-01-18 05:05:26', 'voyager.institute-students.index', 'null'),
+('33', '1', 'Institutes', '', '_self', 'voyager-categories', '#000000', '34', '1', '2020-01-18 05:03:14', '2020-01-18 05:05:06', 'voyager.institutes.index', 'null'),
+('34', '1', 'Institute', '', '_self', 'voyager-categories', '#000000', NULL, '10', '2020-01-18 05:03:44', '2020-01-18 05:04:08', NULL, '');
+
+INSERT INTO `menus` (`id`, `name`, `created_at`, `updated_at`) VALUES ('1', 'admin', '2019-04-25 08:57:51', '2019-04-25 08:57:51');
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES ('1', '2014_10_12_000000_create_users_table', '1'),
+('2', '2014_10_12_100000_create_password_resets_table', '1'),
+('3', '2016_01_01_000000_add_voyager_user_fields', '1'),
+('4', '2016_01_01_000000_create_data_types_table', '1'),
+('5', '2016_01_01_000000_create_pages_table', '1'),
+('6', '2016_01_01_000000_create_posts_table', '1'),
+('7', '2016_02_15_204651_create_categories_table', '1'),
+('8', '2016_05_19_173453_create_menu_table', '1'),
+('9', '2016_10_21_190000_create_roles_table', '1'),
+('10', '2016_10_21_190000_create_settings_table', '1'),
+('11', '2016_11_30_135954_create_permission_table', '1'),
+('12', '2016_11_30_141208_create_permission_role_table', '1'),
+('13', '2016_12_26_201236_data_types__add__server_side', '1'),
+('14', '2017_01_13_000000_add_route_to_menu_items_table', '1'),
+('15', '2017_01_14_005015_create_translations_table', '1'),
+('16', '2017_01_15_000000_make_table_name_nullable_in_permissions_table', '1'),
+('17', '2017_03_06_000000_add_controller_to_data_types_table', '1'),
+('18', '2017_04_11_000000_alter_post_nullable_fields_table', '1'),
+('19', '2017_04_21_000000_add_order_to_data_rows_table', '1'),
+('20', '2017_07_05_210000_add_policyname_to_data_types_table', '1'),
+('21', '2017_08_05_000000_add_group_to_settings_table', '1'),
+('22', '2017_11_26_013050_add_user_role_relationship', '1'),
+('23', '2017_11_26_015000_create_user_roles_table', '1'),
+('24', '2018_03_11_000000_add_user_settings', '1'),
+('25', '2018_03_14_000000_add_details_to_data_types_table', '1'),
+('26', '2018_03_16_000000_make_settings_value_nullable', '1'),
+('27', '2018_06_21_075245_create_chapters_table', '1'),
+('28', '2018_08_08_100000_create_telescope_entries_table', '1'),
+('29', '2019_04_24_142051_create_topics_table', '1'),
+('30', '2019_04_24_142249_create_videos_table', '1'),
+('31', '2019_06_22_033913_create_subscriptions_table', '1'),
+('32', '2020_01_18_030813_create_institutes_table', '2'),
+('41', '2020_01_18_034033_create_institute_students_table', '3'),
+('42', '2020_01_18_034054_create_institute_categories_table', '3');
+
+INSERT INTO `pages` (`id`, `author_id`, `title`, `excerpt`, `body`, `image`, `slug`, `meta_description`, `meta_keywords`, `status`, `created_at`, `updated_at`) VALUES ('1', '1', 'About', 'this is about page', '<p>Hello World. Scallywag grog swab Cat o\'nine tails scuttle rigging hardtack cable nipper Yellow Jack. Handsomely spirits knave lad killick landlubber or just lubber deadlights chantey pinnace crack Jennys tea cup. Provost long clothes black spot Yellow Jack bilged on her anchor league lateen sail case shot lee tackle.</p>\r\n<p>Ballast spirits fluke topmast me quarterdeck schooner landlubber or just lubber gabion belaying pin. Pinnace stern galleon starboard warp carouser to go on account dance the hempen jig jolly boat measured fer yer chains. Man-of-war fire in the hole nipperkin handsomely doubloon barkadeer Brethren of the Coast gibbet driver squiffy.</p>', 'pages/page1.jpg', 'about', 'about page', 'about', 'ACTIVE', '2019-04-25 08:57:55', '2019-05-06 08:20:31');
+
+INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES ('1', '1'),
+('2', '1'),
+('3', '1'),
+('4', '1'),
+('5', '1'),
+('6', '1'),
+('7', '1'),
+('8', '1'),
+('9', '1'),
+('10', '1'),
+('11', '1'),
+('12', '1'),
+('13', '1'),
+('14', '1'),
+('15', '1'),
+('16', '1'),
+('17', '1'),
+('18', '1'),
+('19', '1'),
+('20', '1'),
+('21', '1'),
+('22', '1'),
+('23', '1'),
+('24', '1'),
+('25', '1'),
+('26', '1'),
+('27', '1'),
+('28', '1'),
+('29', '1'),
+('30', '1'),
+('31', '1'),
+('32', '1'),
+('33', '1'),
+('34', '1'),
+('35', '1'),
+('36', '1'),
+('37', '1'),
+('38', '1'),
+('39', '1'),
+('40', '1'),
+('41', '1'),
+('47', '1'),
+('48', '1'),
+('49', '1'),
+('50', '1'),
+('51', '1'),
+('52', '1'),
+('53', '1'),
+('54', '1'),
+('55', '1'),
+('56', '1'),
+('57', '1'),
+('58', '1'),
+('59', '1'),
+('60', '1'),
+('61', '1'),
+('62', '1'),
+('63', '1'),
+('64', '1'),
+('65', '1'),
+('66', '1'),
+('87', '1'),
+('88', '1'),
+('89', '1'),
+('90', '1'),
+('91', '1'),
+('92', '1'),
+('93', '1'),
+('94', '1'),
+('95', '1'),
+('96', '1'),
+('97', '1'),
+('98', '1'),
+('99', '1'),
+('100', '1'),
+('101', '1');
+
+INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`) VALUES ('1', 'browse_admin', NULL, '2019-04-25 08:57:51', '2019-04-25 08:57:51'),
+('2', 'browse_bread', NULL, '2019-04-25 08:57:51', '2019-04-25 08:57:51'),
+('3', 'browse_database', NULL, '2019-04-25 08:57:51', '2019-04-25 08:57:51'),
+('4', 'browse_media', NULL, '2019-04-25 08:57:51', '2019-04-25 08:57:51'),
+('5', 'browse_compass', NULL, '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('6', 'browse_menus', 'menus', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('7', 'read_menus', 'menus', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('8', 'edit_menus', 'menus', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('9', 'add_menus', 'menus', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('10', 'delete_menus', 'menus', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('11', 'browse_roles', 'roles', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('12', 'read_roles', 'roles', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('13', 'edit_roles', 'roles', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('14', 'add_roles', 'roles', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('15', 'delete_roles', 'roles', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('16', 'browse_users', 'users', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('17', 'read_users', 'users', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('18', 'edit_users', 'users', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('19', 'add_users', 'users', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('20', 'delete_users', 'users', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('21', 'browse_settings', 'settings', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('22', 'read_settings', 'settings', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('23', 'edit_settings', 'settings', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('24', 'add_settings', 'settings', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('25', 'delete_settings', 'settings', '2019-04-25 08:57:52', '2019-04-25 08:57:52'),
+('26', 'browse_categories', 'categories', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('27', 'read_categories', 'categories', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('28', 'edit_categories', 'categories', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('29', 'add_categories', 'categories', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('30', 'delete_categories', 'categories', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('31', 'browse_posts', 'posts', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('32', 'read_posts', 'posts', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('33', 'edit_posts', 'posts', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('34', 'add_posts', 'posts', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('35', 'delete_posts', 'posts', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('36', 'browse_pages', 'pages', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('37', 'read_pages', 'pages', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('38', 'edit_pages', 'pages', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('39', 'add_pages', 'pages', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('40', 'delete_pages', 'pages', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('41', 'browse_hooks', NULL, '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('47', 'browse_topics', 'topics', '2019-04-25 09:34:50', '2019-04-25 09:34:50'),
+('48', 'read_topics', 'topics', '2019-04-25 09:34:50', '2019-04-25 09:34:50'),
+('49', 'edit_topics', 'topics', '2019-04-25 09:34:50', '2019-04-25 09:34:50'),
+('50', 'add_topics', 'topics', '2019-04-25 09:34:50', '2019-04-25 09:34:50'),
+('51', 'delete_topics', 'topics', '2019-04-25 09:34:51', '2019-04-25 09:34:51'),
+('52', 'browse_videos', 'videos', '2019-04-25 09:35:21', '2019-04-25 09:35:21'),
+('53', 'read_videos', 'videos', '2019-04-25 09:35:21', '2019-04-25 09:35:21'),
+('54', 'edit_videos', 'videos', '2019-04-25 09:35:21', '2019-04-25 09:35:21'),
+('55', 'add_videos', 'videos', '2019-04-25 09:35:21', '2019-04-25 09:35:21'),
+('56', 'delete_videos', 'videos', '2019-04-25 09:35:21', '2019-04-25 09:35:21'),
+('57', 'browse_chapters', 'chapters', '2019-06-27 12:05:01', '2019-06-27 12:05:01'),
+('58', 'read_chapters', 'chapters', '2019-06-27 12:05:01', '2019-06-27 12:05:01'),
+('59', 'edit_chapters', 'chapters', '2019-06-27 12:05:01', '2019-06-27 12:05:01'),
+('60', 'add_chapters', 'chapters', '2019-06-27 12:05:01', '2019-06-27 12:05:01'),
+('61', 'delete_chapters', 'chapters', '2019-06-27 12:05:01', '2019-06-27 12:05:01'),
+('62', 'browse_subscriptions', 'subscriptions', '2019-06-30 09:05:43', '2019-06-30 09:05:43'),
+('63', 'read_subscriptions', 'subscriptions', '2019-06-30 09:05:43', '2019-06-30 09:05:43'),
+('64', 'edit_subscriptions', 'subscriptions', '2019-06-30 09:05:43', '2019-06-30 09:05:43'),
+('65', 'add_subscriptions', 'subscriptions', '2019-06-30 09:05:43', '2019-06-30 09:05:43'),
+('66', 'delete_subscriptions', 'subscriptions', '2019-06-30 09:05:43', '2019-06-30 09:05:43'),
+('87', 'browse_institute_categories', 'institute_categories', '2020-01-18 05:02:59', '2020-01-18 05:02:59'),
+('88', 'read_institute_categories', 'institute_categories', '2020-01-18 05:02:59', '2020-01-18 05:02:59'),
+('89', 'edit_institute_categories', 'institute_categories', '2020-01-18 05:02:59', '2020-01-18 05:02:59'),
+('90', 'add_institute_categories', 'institute_categories', '2020-01-18 05:02:59', '2020-01-18 05:02:59'),
+('91', 'delete_institute_categories', 'institute_categories', '2020-01-18 05:02:59', '2020-01-18 05:02:59'),
+('92', 'browse_institute_students', 'institute_students', '2020-01-18 05:03:08', '2020-01-18 05:03:08'),
+('93', 'read_institute_students', 'institute_students', '2020-01-18 05:03:08', '2020-01-18 05:03:08'),
+('94', 'edit_institute_students', 'institute_students', '2020-01-18 05:03:08', '2020-01-18 05:03:08'),
+('95', 'add_institute_students', 'institute_students', '2020-01-18 05:03:08', '2020-01-18 05:03:08'),
+('96', 'delete_institute_students', 'institute_students', '2020-01-18 05:03:08', '2020-01-18 05:03:08'),
+('97', 'browse_institutes', 'institutes', '2020-01-18 05:03:14', '2020-01-18 05:03:14'),
+('98', 'read_institutes', 'institutes', '2020-01-18 05:03:14', '2020-01-18 05:03:14'),
+('99', 'edit_institutes', 'institutes', '2020-01-18 05:03:14', '2020-01-18 05:03:14'),
+('100', 'add_institutes', 'institutes', '2020-01-18 05:03:14', '2020-01-18 05:03:14'),
+('101', 'delete_institutes', 'institutes', '2020-01-18 05:03:14', '2020-01-18 05:03:14');
+
+INSERT INTO `posts` (`id`, `author_id`, `category_id`, `title`, `seo_title`, `excerpt`, `body`, `image`, `slug`, `meta_description`, `meta_keywords`, `status`, `featured`, `created_at`, `updated_at`) VALUES ('1', '0', NULL, 'Lorem Ipsum Post', NULL, 'This is the excerpt for the Lorem Ipsum Post', '<p>This is the body of the lorem ipsum post</p>', 'posts/post1.jpg', 'lorem-ipsum-post', 'This is the meta description', 'keyword1, keyword2, keyword3', 'PUBLISHED', '0', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('2', '0', NULL, 'My Sample Post', NULL, 'This is the excerpt for the sample Post', '<p>This is the body for the sample post, which includes the body.</p>\n                <h2>We can use all kinds of format!</h2>\n                <p>And include a bunch of other stuff.</p>', 'posts/post2.jpg', 'my-sample-post', 'Meta Description for sample post', 'keyword1, keyword2, keyword3', 'PUBLISHED', '0', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('3', '0', NULL, 'Latest Post', NULL, 'This is the excerpt for the latest post', '<p>This is the body for the latest post</p>', 'posts/post3.jpg', 'latest-post', 'This is the meta description', 'keyword1, keyword2, keyword3', 'PUBLISHED', '0', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('4', '0', NULL, 'Yarr Post', NULL, 'Reef sails nipperkin bring a spring upon her cable coffer jury mast spike marooned Pieces of Eight poop deck pillage. Clipper driver coxswain galleon hempen halter come about pressgang gangplank boatswain swing the lead. Nipperkin yard skysail swab lanyard Blimey bilge water ho quarter Buccaneer.', '<p>Swab deadlights Buccaneer fire ship square-rigged dance the hempen jig weigh anchor cackle fruit grog furl. Crack Jennys tea cup chase guns pressgang hearties spirits hogshead Gold Road six pounders fathom measured fer yer chains. Main sheet provost come about trysail barkadeer crimp scuttle mizzenmast brig plunder.</p>\n<p>Mizzen league keelhaul galleon tender cog chase Barbary Coast doubloon crack Jennys tea cup. Blow the man down lugsail fire ship pinnace cackle fruit line warp Admiral of the Black strike colors doubloon. Tackle Jack Ketch come about crimp rum draft scuppers run a shot across the bow haul wind maroon.</p>\n<p>Interloper heave down list driver pressgang holystone scuppers tackle scallywag bilged on her anchor. Jack Tar interloper draught grapple mizzenmast hulk knave cable transom hogshead. Gaff pillage to go on account grog aft chase guns piracy yardarm knave clap of thunder.</p>', 'posts/post4.jpg', 'yarr-post', 'this be a meta descript', 'keyword1, keyword2, keyword3', 'PUBLISHED', '0', '2019-04-25 08:57:55', '2019-04-25 08:57:55');
+
+INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) VALUES ('1', 'admin', 'Administrator', '2019-04-25 08:57:51', '2019-04-25 08:57:51'),
+('2', 'user', 'Normal User', '2019-04-25 08:57:51', '2019-04-25 08:57:51');
+
+INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`, `order`, `group`) VALUES ('1', 'site.title', 'Site Title', 'Site Title', '', 'text', '1', 'Site'),
+('2', 'site.description', 'Site Description', 'Site Description', '', 'text', '2', 'Site'),
+('3', 'site.logo', 'Site Logo', '', '', 'image', '3', 'Site'),
+('4', 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', NULL, '', 'text', '4', 'Site'),
+('5', 'admin.bg_image', 'Admin Background Image', '', '', 'image', '5', 'Admin'),
+('6', 'admin.title', 'Admin Title', 'Voyager', '', 'text', '1', 'Admin'),
+('7', 'admin.description', 'Admin Description', 'Welcome to Voyager. The Missing Admin for Laravel', '', 'text', '2', 'Admin'),
+('8', 'admin.loader', 'Admin Loader', '', '', 'image', '3', 'Admin'),
+('9', 'admin.icon_image', 'Admin Icon Image', '', '', 'image', '4', 'Admin'),
+('10', 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', NULL, '', 'text', '1', 'Admin'),
+('11', 'site.video_url', 'Video URL', 'https://api.shendre.com', NULL, 'text', '7', 'Site'),
+('13', 'site.expire_subscription_url', 'Subscription Expire URL', 'https://api.shendre.com/uploadfile/10th_Guj/Planexpirevideo.mp4', NULL, 'text', '8', 'Site'),
+('14', 'site.no_subscription_url', 'No Subscription URL', 'https://api.shendre.com/uploadfile/10th_Guj/notsubscribe/Not-Subscribed.mp4', NULL, 'text', '9', 'Site'),
+('15', 'site.youtube_channel', 'YouTube Channel', 'https://www.youtube.com/channel/UCPg0-WocTNNVI0q5NlvkkPA', NULL, 'text', '10', 'Site'),
+('16', 'site.facebook', 'Facebook', 'https://www.facebook.com/MilestoneEducom', NULL, 'text', '11', 'Site'),
+('17', 'site.watermark_color', 'Watermark Color', '0xffFFFFFF', NULL, 'text', '12', 'Site'),
+('18', 'site.watermark_size', 'Watermark Size', '10', NULL, 'text', '13', 'Site');
+
+INSERT INTO `subscriptions` (`id`, `category_id`, `user_id`, `expires_at`, `created_at`, `updated_at`, `institute_id`) VALUES ('3', '2', '3', '2019-10-12 11:41:00', '2019-06-30 11:41:00', '2019-08-10 13:31:33', '1'),
+('5', '2', '4', '2020-07-08 12:25:00', '2019-07-02 12:25:00', '2019-07-08 08:03:50', '1'),
+('6', '2', '5', '2020-07-08 17:57:00', '2019-07-03 17:57:00', '2019-07-08 20:38:53', '1'),
+('9', '2', '12', '2020-07-15 15:41:00', '2019-07-08 15:41:00', '2019-08-24 13:29:54', '1'),
+('10', '2', '11', '2020-07-15 15:48:00', '2019-07-08 15:48:00', '2019-08-24 13:21:33', '1'),
+('11', '1', '13', '2019-07-10 15:59:15', '2019-07-08 15:59:15', '2019-07-08 15:59:15', '1'),
+('14', '2', '8', '2020-07-08 16:57:00', '2019-07-08 16:57:00', '2019-07-08 16:59:01', '1'),
+('15', '1', '3', '2019-10-12 17:21:00', '2019-07-08 17:21:00', '2019-08-10 13:31:23', '1'),
+('16', '2', '15', '2019-07-10 17:24:45', '2019-07-08 17:24:45', '2019-07-08 17:24:45', '1'),
+('17', '2', '17', '2019-07-10 19:56:24', '2019-07-08 19:56:24', '2019-07-08 19:56:24', '1'),
+('18', '2', '18', '2019-07-11 14:12:47', '2019-07-09 14:12:47', '2019-07-09 14:12:47', '1'),
+('19', '1', '19', '2019-07-12 14:45:00', '2019-07-09 14:45:00', '2019-07-11 19:05:30', '1'),
+('20', '2', '20', '2019-07-12 12:39:18', '2019-07-10 12:39:18', '2019-07-10 12:39:18', '1'),
+('21', '2', '23', '2019-07-13 12:42:51', '2019-07-11 12:42:51', '2019-07-11 12:42:51', '1'),
+('22', '2', '24', '2019-07-13 19:30:57', '2019-07-11 19:30:57', '2019-07-11 19:30:57', '1'),
+('23', '2', '22', '2019-07-13 21:19:10', '2019-07-11 21:19:10', '2019-07-11 21:19:10', '1'),
+('24', '2', '26', '2019-07-13 21:29:41', '2019-07-11 21:29:41', '2019-07-11 21:29:41', '1'),
+('25', '1', '22', '2019-07-13 21:43:28', '2019-07-11 21:43:28', '2019-07-11 21:43:28', '1'),
+('26', '2', '27', '2019-07-13 21:52:53', '2019-07-11 21:52:53', '2019-07-11 21:52:53', '1'),
+('27', '2', '28', '2019-07-13 21:57:53', '2019-07-11 21:57:53', '2019-07-11 21:57:53', '1'),
+('28', '2', '29', '2019-07-13 21:59:51', '2019-07-11 21:59:51', '2019-07-11 21:59:51', '1'),
+('29', '2', '30', '2019-07-14 08:38:14', '2019-07-12 08:38:14', '2019-07-12 08:38:14', '1'),
+('30', '2', '31', '2020-07-15 11:53:00', '2019-07-12 11:53:00', '2019-07-15 21:36:10', '1'),
+('31', '2', '32', '2019-07-14 15:13:22', '2019-07-12 15:13:22', '2019-07-12 15:13:22', '1'),
+('32', '1', '32', '2019-07-14 15:17:28', '2019-07-12 15:17:28', '2019-07-12 15:17:28', '1'),
+('33', '1', '27', '2019-07-14 16:59:48', '2019-07-12 16:59:48', '2019-07-12 16:59:48', '1'),
+('34', '2', '33', '2019-07-14 19:22:19', '2019-07-12 19:22:19', '2019-07-12 19:22:19', '1'),
+('35', '1', '33', '2019-07-14 19:22:35', '2019-07-12 19:22:35', '2019-07-12 19:22:35', '1'),
+('36', '1', '24', '2019-07-14 21:48:25', '2019-07-12 21:48:25', '2019-07-12 21:48:25', '1'),
+('37', '2', '34', '2019-07-14 21:59:58', '2019-07-12 21:59:58', '2019-07-12 21:59:58', '1'),
+('38', '2', '35', '2019-07-15 05:42:27', '2019-07-13 05:42:27', '2019-07-13 05:42:27', '1'),
+('39', '2', '37', '2019-07-16 15:55:08', '2019-07-14 15:55:08', '2019-07-14 15:55:08', '1'),
+('40', '2', '36', '2019-07-16 18:32:50', '2019-07-14 18:32:50', '2019-07-14 18:32:50', '1'),
+('41', '2', '38', '2019-07-16 21:04:55', '2019-07-14 21:04:55', '2019-07-14 21:04:55', '1'),
+('42', '2', '39', '2019-07-17 08:06:23', '2019-07-15 08:06:23', '2019-07-15 08:06:23', '1'),
+('43', '1', '36', '2019-07-17 11:58:48', '2019-07-15 11:58:48', '2019-07-15 11:58:48', '1'),
+('44', '2', '40', '2019-07-17 22:11:25', '2019-07-15 22:11:25', '2019-07-15 22:11:25', '1'),
+('45', '2', '41', '2019-08-30 16:24:00', '2019-07-16 16:24:00', '2019-07-30 12:14:46', '1'),
+('46', '2', '42', '2022-07-13 18:04:00', '2019-07-16 18:04:00', '2019-07-19 08:20:21', '1'),
+('47', '2', '43', '2019-07-18 18:50:53', '2019-07-16 18:50:53', '2019-07-16 18:50:53', '1'),
+('48', '1', '43', '2019-07-18 18:56:21', '2019-07-16 18:56:21', '2019-07-16 18:56:21', '1'),
+('49', '2', '21', '2019-07-19 19:00:46', '2019-07-17 19:00:46', '2019-07-17 19:00:46', '1'),
+('50', '2', '45', '2019-07-21 19:44:51', '2019-07-19 19:44:51', '2019-07-19 19:44:51', '1'),
+('51', '2', '46', '2019-07-21 19:48:43', '2019-07-19 19:48:43', '2019-07-19 19:48:43', '1'),
+('52', '2', '47', '2019-07-21 19:58:55', '2019-07-19 19:58:55', '2019-07-19 19:58:55', '1'),
+('53', '2', '48', '2019-07-21 20:20:57', '2019-07-19 20:20:57', '2019-07-19 20:20:57', '1'),
+('54', '2', '49', '2020-07-15 20:21:00', '2019-07-19 20:21:00', '2019-07-22 11:43:21', '1'),
+('55', '2', '51', '2019-07-22 07:08:17', '2019-07-20 07:08:17', '2019-07-20 07:08:17', '1'),
+('56', '2', '53', '2019-07-24 23:09:28', '2019-07-22 23:09:28', '2019-07-22 23:09:28', '1'),
+('57', '2', '54', '2019-07-25 13:04:48', '2019-07-23 13:04:48', '2019-07-23 13:04:48', '1'),
+('58', '1', '53', '2019-07-25 18:44:18', '2019-07-23 18:44:18', '2019-07-23 18:44:18', '1'),
+('59', '2', '56', '2019-07-25 23:30:55', '2019-07-23 23:30:55', '2019-07-23 23:30:55', '1'),
+('60', '2', '57', '2019-07-26 13:07:35', '2019-07-24 13:07:35', '2019-07-24 13:07:35', '1'),
+('61', '1', '57', '2019-07-26 13:09:57', '2019-07-24 13:09:57', '2019-07-24 13:09:57', '1'),
+('62', '2', '59', '2019-07-29 18:02:58', '2019-07-27 18:02:58', '2019-07-27 18:02:58', '1'),
+('63', '1', '59', '2019-07-29 18:04:04', '2019-07-27 18:04:04', '2019-07-27 18:04:04', '1'),
+('64', '2', '60', '2020-07-15 17:57:00', '2019-07-28 17:57:00', '2019-08-02 17:48:06', '1'),
+('65', '2', '62', '2019-08-01 15:57:11', '2019-07-30 15:57:11', '2019-07-30 15:57:11', '1'),
+('66', '2', '67', '2019-08-05 15:03:22', '2019-08-03 15:03:22', '2019-08-03 15:03:22', '1'),
+('67', '1', '67', '2019-08-05 15:04:08', '2019-08-03 15:04:08', '2019-08-03 15:04:08', '1'),
+('68', '1', '5', '2019-08-06 11:42:10', '2019-08-04 11:42:10', '2019-08-04 11:42:10', '1'),
+('69', '2', '71', '2019-08-12 16:26:38', '2019-08-10 16:26:38', '2019-08-10 16:26:38', '1'),
+('70', '2', '73', '2019-10-10 21:50:00', '2019-08-12 21:50:00', '2019-08-19 14:15:03', '1'),
+('71', '2', '75', '2019-08-17 22:05:52', '2019-08-15 22:05:52', '2019-08-15 22:05:52', '1'),
+('72', '2', '89', '2019-08-21 22:00:06', '2019-08-19 22:00:06', '2019-08-19 22:00:06', '1'),
+('73', '1', '60', '2019-08-23 20:38:00', '2019-08-21 20:38:00', '2019-08-21 20:38:00', '1'),
+('74', '2', '92', '2019-08-24 11:02:41', '2019-08-22 11:02:41', '2019-08-22 11:02:41', '1'),
+('75', '2', '94', '2019-08-24 23:27:51', '2019-08-22 23:27:51', '2019-08-22 23:27:51', '1'),
+('76', '2', '96', '2019-08-25 22:28:15', '2019-08-23 22:28:15', '2019-08-23 22:28:15', '1'),
+('77', '2', '103', '2019-08-29 14:18:32', '2019-08-27 14:18:32', '2019-08-27 14:18:32', '1'),
+('78', '2', '105', '2019-08-30 14:40:38', '2019-08-28 14:40:38', '2019-08-28 14:40:38', '1'),
+('79', '2', '106', '2019-08-31 14:57:46', '2019-08-29 14:57:46', '2019-08-29 14:57:46', '1'),
+('80', '1', '106', '2019-09-02 21:11:02', '2019-08-31 21:11:02', '2019-08-31 21:11:02', '1'),
+('81', '2', '109', '2019-09-03 11:27:00', '2019-09-01 11:27:00', '2019-09-01 11:27:00', '1'),
+('82', '2', '112', '2019-09-03 21:40:11', '2019-09-01 21:40:11', '2019-09-01 21:40:11', '1'),
+('83', '2', '121', '2019-09-12 05:53:46', '2019-09-10 05:53:46', '2019-09-10 05:53:46', '1'),
+('84', '2', '122', '2019-09-12 09:56:18', '2019-09-10 09:56:18', '2019-09-10 09:56:18', '1'),
+('85', '2', '125', '2019-09-14 18:41:52', '2019-09-12 18:41:52', '2019-09-12 18:41:52', '1'),
+('86', '2', '126', '2019-09-15 23:16:13', '2019-09-13 23:16:13', '2019-09-13 23:16:13', '1'),
+('87', '2', '127', '2019-09-16 13:32:20', '2019-09-14 13:32:20', '2019-09-14 13:32:20', '1'),
+('88', '1', '127', '2019-09-16 23:59:48', '2019-09-14 23:59:48', '2019-09-14 23:59:48', '1'),
+('89', '2', '128', '2019-09-18 23:16:31', '2019-09-16 23:16:31', '2019-09-16 23:16:31', '1'),
+('90', '2', '111', '2019-09-20 09:55:47', '2019-09-18 09:55:47', '2019-09-18 09:55:47', '1'),
+('91', '2', '136', '2019-09-26 11:05:01', '2019-09-24 11:05:01', '2019-09-24 11:05:01', '1'),
+('92', '2', '144', '2019-10-12 14:01:05', '2019-10-10 14:01:05', '2019-10-10 14:01:05', '1'),
+('93', '2', '145', '2019-10-12 17:28:44', '2019-10-10 17:28:44', '2019-10-10 17:28:44', '1'),
+('94', '1', '145', '2019-10-12 17:32:21', '2019-10-10 17:32:21', '2019-10-10 17:32:21', '1'),
+('95', '1', '144', '2019-10-13 06:20:33', '2019-10-11 06:20:33', '2019-10-11 06:20:33', '1'),
+('96', '2', '146', '2019-10-14 07:47:51', '2019-10-12 07:47:51', '2019-10-12 07:47:51', '1'),
+('97', '2', '147', '2019-10-18 06:05:00', '2019-10-16 06:05:00', '2019-10-16 06:05:00', '1'),
+('98', '2', '152', '2019-10-24 07:54:27', '2019-10-22 07:54:27', '2019-10-22 07:54:27', '1'),
+('99', '2', '153', '2019-10-24 14:09:15', '2019-10-22 14:09:15', '2019-10-22 14:09:15', '1'),
+('100', '2', '150', '2019-10-24 15:20:00', '2019-10-22 15:20:00', '2019-10-22 15:20:00', '1'),
+('101', '2', '157', '2019-11-04 08:16:29', '2019-11-02 08:16:29', '2019-11-02 08:16:29', '1'),
+('102', '2', '158', '2019-11-04 11:10:28', '2019-11-02 11:10:28', '2019-11-02 11:10:28', '1'),
+('103', '1', '159', '2019-11-04 15:53:49', '2019-11-02 15:53:49', '2019-11-02 15:53:49', '1'),
+('104', '2', '159', '2019-11-04 15:55:57', '2019-11-02 15:55:57', '2019-11-02 15:55:57', '1'),
+('105', '2', '161', '2019-11-05 15:17:31', '2019-11-03 15:17:31', '2019-11-03 15:17:31', '1'),
+('106', '2', '156', '2019-11-08 09:29:02', '2019-11-06 09:29:02', '2019-11-06 09:29:02', '1'),
+('107', '2', '166', '2019-11-14 13:57:18', '2019-11-12 13:57:18', '2019-11-12 13:57:18', '1'),
+('108', '2', '173', '2019-11-26 10:50:15', '2019-11-24 10:50:15', '2019-11-24 10:50:15', '1'),
+('109', '1', '173', '2019-11-26 10:56:06', '2019-11-24 10:56:06', '2019-11-24 10:56:06', '1'),
+('110', '2', '174', '2019-11-27 16:30:26', '2019-11-25 16:30:26', '2019-11-25 16:30:26', '1'),
+('111', '2', '175', '2019-11-27 16:38:42', '2019-11-25 16:38:42', '2019-11-25 16:38:42', '1'),
+('112', '2', '176', '2019-11-28 17:27:52', '2019-11-26 17:27:52', '2019-11-26 17:27:52', '1'),
+('113', '2', '177', '2019-11-29 16:25:24', '2019-11-27 16:25:24', '2019-11-27 16:25:24', '1'),
+('114', '2', '179', '2019-11-30 03:53:36', '2019-11-28 03:53:36', '2019-11-28 03:53:36', '1'),
+('115', '2', '160', '2019-12-02 05:59:01', '2019-11-30 05:59:01', '2019-11-30 05:59:01', '1'),
+('116', '1', '180', '2019-12-03 05:57:48', '2019-12-01 05:57:48', '2019-12-01 05:57:48', '1'),
+('117', '1', '160', '2019-12-25 13:37:06', '2019-12-23 13:37:06', '2019-12-23 13:37:06', '1'),
+('118', '2', '197', '2019-12-27 13:24:59', '2019-12-25 13:24:59', '2019-12-25 13:24:59', '1'),
+('119', '2', '201', '2020-01-02 02:31:38', '2019-12-31 02:31:38', '2019-12-31 02:31:38', '1'),
+('120', '1', '201', '2020-01-02 02:31:53', '2019-12-31 02:31:53', '2019-12-31 02:31:53', '1'),
+('121', '2', '207', '2020-01-06 05:16:46', '2020-01-04 05:16:46', '2020-01-04 05:16:46', '1'),
+('122', '1', '213', '2020-01-10 14:19:33', '2020-01-08 14:19:33', '2020-01-08 14:19:33', '1'),
+('123', '2', '213', '2020-01-10 14:19:44', '2020-01-08 14:19:44', '2020-01-08 14:19:44', '1'),
+('124', '1', '214', '2020-01-11 07:50:16', '2020-01-09 07:50:16', '2020-01-09 07:50:16', '1'),
+('125', '2', '214', '2020-01-11 07:51:24', '2020-01-09 07:51:24', '2020-01-09 07:51:24', '1'),
+('126', '2', '218', '2020-01-13 04:40:24', '2020-01-11 04:40:24', '2020-01-11 04:40:24', '1'),
+('127', '2', '219', '2020-01-13 07:14:01', '2020-01-11 07:14:01', '2020-01-11 07:14:01', '1'),
+('128', '1', '219', '2020-01-13 07:18:52', '2020-01-11 07:18:52', '2020-01-11 07:18:52', '1'),
+('129', '2', '226', '2020-01-19 13:18:13', '2020-01-17 13:18:13', '2020-01-17 13:18:13', '1');
+
+INSERT INTO `topics` (`id`, `category_id`, `chapter_id`, `image`, `name`, `description`, `order`, `created_at`, `updated_at`) VALUES ('3', '2', '2', 'topics/July2019/KmFqXMmK62IKzX96Q0aX.jpg', 'નોટ્સ 1.1', 'યુક્લિડના ભાગાકાનું પૂર્વપ્રમેય 1.1, ભાગપ્રવિધિ', '1', '2019-07-02 19:57:00', '2019-07-08 09:52:52'),
+('8', '2', '7', 'topics/July2019/7le7rSgwqe1Uz166xN3h.png', 'પ્રસ્તાવના (Must See)', 'અહીં 4 વિડિયો આપેલા છે. તે જોવું જરૂરી છે.', '1', '2019-07-08 07:57:00', '2019-07-19 08:25:08'),
+('9', '2', '2', 'topics/July2019/4Xb6L65VQ3LFJdjfUpmM.jpg', 'ઉદાહરણો 1 થી 4', 'અહીં આપણે પાઠ્યપુસ્તકનાં ઉદાહરણો 1 થી 4 જોઈશું.', '2', '2019-07-08 09:10:00', '2019-07-08 14:23:24'),
+('10', '2', '2', 'topics/July2019/nqfnymnyAPfu3H97iPXw.jpg', 'સ્વાધ્યાય 1.1', 'આ સ્વાધ્યાયમાં કુલ 4 પ્રશ્નો આપેલ છે.', '3', '2019-07-08 09:42:12', '2019-07-08 09:42:12'),
+('11', '2', '2', 'topics/July2019/e4vaQf07thHzVlL4K4As.jpg', 'નોટ્સ 1.2', 'અંકગણિતનું મૂળભૂત પ્રમેય, અવયવ વૃક્ષ, ગુ.સા.અ. લ.સા.અ.', '4', '2019-07-08 09:52:42', '2019-07-08 09:52:42'),
+('12', '2', '2', 'topics/July2019/hgLeyECmmwnDI1saGzqK.jpg', 'ઉદાહરણો 5 થી 8', 'અહીં આપણે પાઠ્યપુસ્તકનાં ઉદાહરણો 5 થી 8 જોઈશું.', '5', '2019-07-08 09:56:00', '2019-07-08 14:23:20'),
+('13', '2', '2', 'topics/July2019/NN7jGM5jBIXOyWLG55Hy.jpg', 'સ્વાધ્યાય 1.2', 'આ સ્વાધ્યાયમાં કુલ 7 પ્રશ્નો આપેલ છે.', '6', '2019-07-08 10:07:53', '2019-07-08 10:07:53'),
+('14', '2', '2', 'topics/July2019/IJFUChHq5PWoSGJbIUcF.jpg', 'નોટ્સ 1.3', 'અંસમેય સંખ્યા, પ્રમેય 1.3 અને પ્રમેય 1.4 વિશે.', '7', '2019-07-08 14:18:00', '2019-07-08 14:19:54'),
+('15', '2', '2', 'topics/July2019/RXDbuX02be4pRwVr01pk.jpg', 'ઉદાહરણો 9 થી 11', 'અહીં આપણે પાઠ્યપુસ્તકનાં ઉદાહરણો 9 થી 11 જોઈશું.', '8', '2019-07-08 14:22:55', '2019-07-08 14:22:55'),
+('16', '2', '2', 'topics/July2019/6xNuoQ5qT9pdfp2mVlpt.jpg', 'સ્વાધ્યાય 1.3', 'આ સ્વાધ્યાયમાં કુલ 3 પ્રશ્નો આપેલ છે.', '9', '2019-07-08 14:31:05', '2019-07-08 14:31:05'),
+('17', '2', '2', 'topics/July2019/STnimKo178Bsqna8iKSJ.jpg', 'નોટ્સ 1.4', 'સંમેય સંખ્યાઓ અને દશાંશ નિરૂપણ, પ્રમેય 1.5 અને 1.7 વિશે.', '10', '2019-07-08 14:36:00', '2019-07-08 14:44:28'),
+('18', '2', '2', 'topics/July2019/8ch4iA5cBd7oM0nU908Z.jpg', 'સ્વાધ્યાય 1.4', 'આ સ્વાધ્યાયમાં કુલ 3 પ્રશ્નો આપેલ છે.', '11', '2019-07-08 14:38:56', '2019-07-08 14:38:56'),
+('19', '2', '1', 'topics/July2019/l4o9ausT3939HLDLgZJR.jpg', 'નોટ્સ 2.1', 'બહુપદીની ઘાત, શૂન્ય, ભૌમિતિક અર્થ', '1', '2019-07-08 14:52:04', '2019-07-08 14:52:04'),
+('20', '2', '1', 'topics/July2019/gDsb7qr6KoTvRTfncUw5.jpg', 'ઉદાહરણ 1', 'અહીં આપણે પાઠ્યપુસ્તકનો ઉદાહરણ 1 જોઈશું.', '2', '2019-07-08 14:58:00', '2019-07-08 15:07:14'),
+('21', '2', '1', 'topics/July2019/PFllhK3UmUht0bKadfM2.jpg', 'સ્વાધ્યાય 2.1', 'આ સ્વાધ્યાયમાં ફક્ત 1 પ્રશ્ન આપેલ છે.', '3', '2019-07-08 15:07:02', '2019-07-08 15:07:02'),
+('22', '2', '1', 'topics/July2019/T5IOyyPSvNR4aTRCQ5PG.jpg', 'નોટ્સ 2.2', 'બહુપદીના શૂન્યો સહગુણકો વચ્ચેનો સંબંધ, સૂ્ત્રો', '4', '2019-07-08 15:10:48', '2019-07-08 15:10:48'),
+('23', '2', '1', 'topics/July2019/iNXfRRUvTHYYORmvTIhy.jpg', 'ઉદાહરણો 2 થી 4', 'અહીં આપણે પાઠ્યપુસ્તકનાં ઉદાહરણો 2 થી 4 જોઈશું.', '5', '2019-07-08 15:14:09', '2019-07-08 15:14:09'),
+('24', '2', '8', 'topics/July2019/6Q2dNvaIDxK22mp1FrDU.jpg', 'વર્ગ અને વર્ગમૂળ', '1થી 30 સુધી વર્ગ અને વર્ગમૂળ.', '1', '2019-07-11 09:30:00', '2019-07-28 17:34:22'),
+('25', '2', '8', 'topics/July2019/50nDY21vgS5A6wy8xrWe.jpg', 'ઘન અને ઘનમૂળ', '1થી 10 સુધી ઘન અને ઘનમૂળ', '2', '2019-07-11 09:31:00', '2019-07-28 17:34:10'),
+('26', '2', '8', 'topics/July2019/lTHDASXKzXMvae4KiG66.jpg', '(+) અને (–) નો નિયમ', 'સરવાળા અને બાદબાકીનો નિયમ.', '3', '2019-07-11 09:31:00', '2019-07-28 17:33:59'),
+('27', '2', '8', 'topics/July2019/nzUlYtDFcj6tGftEFHg9.jpg', 'બીજ ગણિતનું બેજીક જ્ઞાન', 'અહીં બીજ ગણિતના બેજીક બાબતો વીશે શીખો.', '4', '2019-07-11 09:32:00', '2019-07-28 17:33:19'),
+('28', '2', '8', 'topics/July2019/4yqCDGg5u3p4Bl13xLGM.jpg', 'કોમન (સામાન્ય) નિકાળતા શીખો.', 'કોમન નિકાળતા શીખો.', '5', '2019-07-11 09:32:00', '2019-07-28 19:42:43'),
+('29', '2', '8', 'topics/July2019/hGD9k8yuRYYe240qLRSG.jpg', 'ફાસ્ટ ગુણાકારની રીત', 'Work in progress..', '7', '2019-07-11 09:33:00', '2019-07-11 09:37:54'),
+('30', '2', '8', 'topics/July2019/X9i06cnNvryVvtZ3CTLb.jpg', 'શૂન્યનો નિયમ', 'Work in progress..', '6', '2019-07-11 09:38:46', '2019-07-11 09:38:46'),
+('31', '2', '8', 'topics/July2019/ZFrlquVd9mQ08D8D7cbN.jpg', 'વિસ્તરણ (બહુપદીઓનો ગુણાકાર)', 'Work in Progress...', '8', '2019-07-11 09:46:54', '2019-07-11 09:46:54'),
+('32', '2', '8', 'topics/July2019/HLi0ZoHFlHWciosrZlad.jpg', 'અવયવો', 'Work in progress..', '9', '2019-07-11 09:47:40', '2019-07-11 09:47:40'),
+('33', '2', '1', 'topics/July2019/fwfSYqWfbOaX5OX7pmOQ.jpg', 'સ્વાધ્યાય 2.2', 'આ સ્વાધ્યાયમાં પ્રશ્ન-1માં 6 અને  પ્રશ્ન-2માં 6 પ્રશ્નો આપેલ છે.', '6', '2019-07-11 13:16:13', '2019-07-11 13:16:13'),
+('34', '2', '1', 'topics/July2019/aM9GuDOVWqwp57PwcNsM.jpg', 'ઉદાહરણો 6 થી 9', 'અહીં આપણે પાઠ્યપુસ્તકનાં ઉદાહરણો 6 થી 9 જોઈશું.', '8', '2019-07-12 18:15:54', '2019-07-12 18:15:54'),
+('35', '2', '1', 'topics/July2019/DYSLHp4JZZbpv2PmtfTA.jpg', 'સ્વાધ્યાય 2.3', 'આ સ્વાધ્યાયમાં કુલ પ્રશ્ન 5 પ્રશ્નો આપેલા છે.', '9', '2019-07-25 10:25:00', '2019-07-25 10:25:28');
+
+INSERT INTO `translations` (`id`, `table_name`, `column_name`, `foreign_key`, `locale`, `value`, `created_at`, `updated_at`) VALUES ('1', 'data_types', 'display_name_singular', '5', 'pt', 'Post', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('2', 'data_types', 'display_name_singular', '6', 'pt', 'Página', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('3', 'data_types', 'display_name_singular', '1', 'pt', 'Utilizador', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('4', 'data_types', 'display_name_singular', '4', 'pt', 'Categoria', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('5', 'data_types', 'display_name_singular', '2', 'pt', 'Menu', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('6', 'data_types', 'display_name_singular', '3', 'pt', 'Função', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('7', 'data_types', 'display_name_plural', '5', 'pt', 'Posts', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('8', 'data_types', 'display_name_plural', '6', 'pt', 'Páginas', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('9', 'data_types', 'display_name_plural', '1', 'pt', 'Utilizadores', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('10', 'data_types', 'display_name_plural', '4', 'pt', 'Categorias', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('11', 'data_types', 'display_name_plural', '2', 'pt', 'Menus', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('12', 'data_types', 'display_name_plural', '3', 'pt', 'Funções', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('13', 'categories', 'slug', '1', 'pt', 'categoria-1', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('14', 'categories', 'name', '1', 'pt', 'Categoria 1', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('15', 'categories', 'slug', '2', 'pt', 'categoria-2', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('16', 'categories', 'name', '2', 'pt', 'Categoria 2', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('17', 'pages', 'title', '1', 'pt', 'Olá Mundo', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('18', 'pages', 'slug', '1', 'pt', 'ola-mundo', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('19', 'pages', 'body', '1', 'pt', '<p>Olá Mundo. Scallywag grog swab Cat o\'nine tails scuttle rigging hardtack cable nipper Yellow Jack. Handsomely spirits knave lad killick landlubber or just lubber deadlights chantey pinnace crack Jennys tea cup. Provost long clothes black spot Yellow Jack bilged on her anchor league lateen sail case shot lee tackle.</p>\r\n<p>Ballast spirits fluke topmast me quarterdeck schooner landlubber or just lubber gabion belaying pin. Pinnace stern galleon starboard warp carouser to go on account dance the hempen jig jolly boat measured fer yer chains. Man-of-war fire in the hole nipperkin handsomely doubloon barkadeer Brethren of the Coast gibbet driver squiffy.</p>', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('20', 'menu_items', 'title', '1', 'pt', 'Painel de Controle', '2019-04-25 08:57:55', '2019-04-25 08:57:55'),
+('21', 'menu_items', 'title', '2', 'pt', 'Media', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('22', 'menu_items', 'title', '12', 'pt', 'Publicações', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('23', 'menu_items', 'title', '3', 'pt', 'Utilizadores', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('24', 'menu_items', 'title', '11', 'pt', 'Categorias', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('25', 'menu_items', 'title', '13', 'pt', 'Páginas', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('26', 'menu_items', 'title', '4', 'pt', 'Funções', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('27', 'menu_items', 'title', '5', 'pt', 'Ferramentas', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('28', 'menu_items', 'title', '6', 'pt', 'Menus', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('29', 'menu_items', 'title', '7', 'pt', 'Base de dados', '2019-04-25 08:57:56', '2019-04-25 08:57:56'),
+('30', 'menu_items', 'title', '10', 'pt', 'Configurações', '2019-04-25 08:57:56', '2019-04-25 08:57:56');
+
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES ('66', '1');
+
+INSERT INTO `users` (`id`, `role_id`, `name`, `mobile`, `imei`, `email`, `email_verified_at`, `password`, `dob`, `gender`, `avatar`, `school`, `education`, `account_status`, `status`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES ('1', '1', 'admin', NULL, NULL, 'admin@shendre.com', NULL, '$2y$10$cj7FGKoPFrEmmeF8lmOV.uFEp1C.kAO6plKnEyKuCsf8icvCy5OBO', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', 'FU0toPlUZpbTgWBmgh26FKEIwHNcGGabwAWQDxtwJenqkzmCr4JyGpriQ1Wy', NULL, '2019-06-30 09:32:11', '2019-06-30 09:32:11'),
+('2', '2', 'mohit', NULL, NULL, 'jokescoff@gmail.com', NULL, '$2y$10$biZzpYkIvBHJ2VEFtVD22OPno5HvUdCkIcqNdtRbvqzVhn.4Pm/Ua', '24-10-1988', 'Male', 'assets/MkRduDiBknSiUcB6bXdhkqTTQQ7qP9FTicquMRF0.jpeg', 'school', 'education', 'Approved', '0', NULL, NULL, '2019-06-30 10:27:06', '2019-08-01 09:11:50'),
+('3', '2', 'krunal Dodiya', '9426726815', '866462038392648', 'kunal.dodiya1@gmail.com', NULL, '$2y$10$4PmN.Fb7ZW708vksvplCp.7CHipFjbkJMQU0dZOWTzV87tD7jKznG', '01-01-1990', 'Male', 'assets/ttEzyqKXlfm3uQkP1g2rBfoIxYdWbGr0zP26qEpj.jpeg', 'test', 'test', 'Approved', '1', 'q5Kh2BxXulLSMZ3mFWOz8cHvFCQIGfKxYviXmvPf2W5mJk5EwT8ojfxVH9DM', NULL, '2019-06-30 10:27:55', '2019-08-10 13:34:06'),
+('4', '2', 'Asha', '7990752994', '865397038426544', 'alpesh1@gmail.com', NULL, '$2y$10$YL3ch.T1XzxaBPbubYmvreyJ0ahP666mm6dS5F6H/uPEwnI1c8QL6', '22-01-1988', 'Male', 'assets/zUludzVE0D6cARgTml140t6ctMsvHKYo8tdsOD49.jpeg', 'vidhyalaya', 'kg', 'Approved', '1', NULL, NULL, '2019-07-02 11:43:56', '2019-08-10 13:36:38'),
+('5', '2', 'Niteshkumar', '7383600462', '866462031783868', 'nsendre89@gmail.com', NULL, '$2y$10$lZarlJzxttzhGuH0isnCZue/YfEPivj3uBp1eGBozMw5HSnVMkxBS', '29-08-1991', 'Male', 'assets/TRhJRC2QENpN41vsZQEnDmTK8MXq8e0Ums35BK8Y.jpeg', 'Jivan Sadhna', 'B.com', 'Approved', '1', NULL, NULL, '2019-07-03 17:55:12', '2019-07-03 17:59:37'),
+('6', '2', 'aaa', '8073798640', '352335081207965', 'aryanadya@gmail.com', NULL, '$2y$10$N6c1JW597fjCSktkKs/XZeO.3/rx3MF7cLT/3q8Q7nuu7MKMCizRC', '01-01-1990', 'Male', NULL, 'DDP', 'edgmd', 'Approved', '1', NULL, NULL, '2019-07-03 21:57:50', '2019-07-03 21:58:16'),
+('7', '2', 'Anita Shendre', '9664964704', '864711036202114', 'anita22993@gmail.com', NULL, '$2y$10$/xfW0bnpMDj0ZX81IRnE6ewRTm2s0A0CdwCfa/0WTjq659Hplg2s.', '22-09-1993', 'Female', 'assets/XQNy3oKZHExPU3O0rqWLRlVx7zR4gCg90a7XmuZ8.jpeg', 'Jivan Sadhna', 'B. com', 'Approved', '1', NULL, NULL, '2019-07-04 08:11:23', '2019-07-04 08:13:28'),
+('11', '2', 'PRANAYKUMARSHENDRE', '9898545933', '869146034027178', 'shendre.pranay87@gmail.com', NULL, '$2y$10$sAFI3snjmOQM89jA0XiuvO9n54caHl3Wyg4VuiEB3uvm4TbzLxtMi', '23-12-1997', 'Male', NULL, 'SVP', 'SCIENCE', 'Approved', '1', NULL, NULL, '2019-07-08 15:32:05', '2019-07-08 15:33:10'),
+('12', '2', 'Shendre Khushal Ganesh', '8401238981', '862162041551370', 'khushshendre@gmail.com', NULL, '$2y$10$ObgjBvInP8PBo0pp1TLKS.oRnHMmHNuM4rP4iubTmxVBKN/WZHs9u', '31-01-1995', 'Male', NULL, 'S', '1', 'Approved', '1', NULL, NULL, '2019-07-08 15:39:17', '2019-07-08 15:40:48'),
+('13', '2', 'mohanlal Pannalal khatik', '9428942820', '863910043831599', 'mohanlalkhatik2604@gmail.com', NULL, '$2y$10$jeStVsmC8j7zA35fl6eqlur6axLtTTb71Pzv68CH.ghKM4IbhWcHS', '26-04-1979', 'Male', NULL, 'Seth C l Hindi jay shcool', '12', 'Approved', '1', NULL, NULL, '2019-07-08 15:48:28', '2019-07-08 15:57:57'),
+('14', '2', NULL, '8469809988', '867455040940429', NULL, NULL, '$2y$10$OnNNzs0820EqfxqpZX5dquLKeA.yBQfsuAw8o3OarU194DQlli4I2', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-07-08 17:21:01', '2019-07-08 17:21:01'),
+('15', '2', 'pradeep S Chaurasiya', '9909714162', '911533250330923', 'pradeepschaurasiya@gmail.com', NULL, '$2y$10$4MYU87iorMp/E9iP67fZaeWM2iogzYaniHWg1od1xh32Sgj9X7iou', '22-08-1988', 'Male', NULL, 's.g.education', 'B Ed', 'Approved', '1', NULL, NULL, '2019-07-08 17:21:40', '2019-07-08 17:23:08'),
+('16', '2', 'Mohit Arora', '9888431003', '865053040113360', 'mohita199728@gmail.com', NULL, '$2y$10$qKAIiC9JNlIkaEKj8b3Or.tBZlransOVDs4SPbpKVJB5zyH4JNcZq', '08-02-1997', 'Male', NULL, 'Shahjada Nand School', 'High School', 'Approved', '1', NULL, NULL, '2019-07-08 19:12:33', '2019-07-08 19:13:59'),
+('17', '2', 'yash', '9662157687', '351679091718714', 'yashmlonkar@gmail.com', NULL, '$2y$10$DH28Hg/KRb/BygKBGniCcetgAsQc2O/lzMtpDVwzfJ1gavix1g24C', '22-03-1995', 'Male', NULL, 'n/a', 'n/a', 'Approved', '1', NULL, NULL, '2019-07-08 19:53:53', '2019-07-08 19:54:58'),
+('18', '2', 'bharat', '9726632211', '866761032233181', 'bpatel13101912@gmail.com', NULL, '$2y$10$KdoEc1um6bnL0yhZ4Ka3juPDq.9gAuInu1nhOVoyYxjcj8SAH3G/q', '13-10-1990', 'Male', NULL, 'ankur', '10', 'Approved', '1', NULL, NULL, '2019-07-09 14:09:53', '2019-07-09 14:11:14'),
+('19', '2', 'Patel kavy Pravinbhai', '8849918702', '00100223239331', 'kavypatel345@gmail.com', NULL, '$2y$10$yRHYJoPlTM80.QNuRpoGR.vBynTElaUP0kjsgIHHtlxjcBa5AFpRi', '05-10-2004', 'Male', NULL, 'Bhavna Ha. Se.  vidyalay', '10th', 'Approved', '1', NULL, NULL, '2019-07-09 14:42:43', '2019-07-09 14:45:43'),
+('20', '2', 'chetan', '9033713981', '869447032682323', 'mackk756@gmail.com', NULL, '$2y$10$65z1OL8.Uf94tRXzZzDuou5uzcefFKobCxBZW2fcLr6V/QiFp0Cw2', '01-08-1993', 'Male', NULL, 'jivan shadhna', 'b.com', 'Approved', '1', NULL, NULL, '2019-07-10 12:37:59', '2019-07-10 12:38:46'),
+('22', '2', 'Sonawane Akanksha dayanand', '9537263242', '358425073674720', 'dayanandpatil4dayanandpatil41477@gmgmail.com', NULL, '$2y$10$r8nCZH.v8FR0YwEgvWNeSuoGzGoxv6GEUbBjfeBQ9KGu29JW0ZeBW', '22-12-2004', 'Female', NULL, 'S.G.education', '10th', 'Approved', '1', NULL, NULL, '2019-07-11 06:48:13', '2019-07-11 21:17:50'),
+('24', '2', 'christian Smeet shaileshbhai', '9510384081', '864655031039239', 'shaileshchristian074@gamil.com', NULL, '$2y$10$FGUHMLgAtT4tCaq5sBEDHuXsAVb8j0uKDx1K.gnuI3uZwFoNDQh0e', '19-02-2003', 'Male', 'assets/aKUN11SfITWzhDZ0hDEFNMZ0exacxG7V98QEwef5.jpeg', 'tacshsila sicsan sankul', '10', 'Approved', '1', NULL, NULL, '2019-07-11 19:28:15', '2019-07-11 21:26:35'),
+('25', '2', NULL, '9974734982', '865225036292537', NULL, NULL, '$2y$10$rh11BK9sBjM8FxP0XgKuiOVSuz4uzP7enpmaVtKPV1fnNPoTF4pKa', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-07-11 20:31:41', '2019-07-11 20:31:41'),
+('26', '2', 'Panchal jaykumar mukeshbhai', '9825342039', '867767036045074', 'jaypanchal@yahoo.co.in', NULL, '$2y$10$t6LTjEYaLsNPGqho2QA57ec8c4KgDhnbOACt0uU.nWXXQhXf69T7G', '04-04-2005', 'Male', NULL, 'taxshila higher secondary school', '10', 'Approved', '1', NULL, NULL, '2019-07-11 21:25:56', '2019-07-11 21:29:27'),
+('27', '2', 'bharat manilal sharma', '8160409355', '911525504545017', 'bharatsharmaa210@gmail.com', NULL, '$2y$10$MWFAunezht/hVfYUhwkC6eP.k0EeiCxB9P0d/BZNpQQUdXCnjcjci', '01-01-1990', 'Male', NULL, 'r.t.school school', '11pas', 'Approved', '1', NULL, NULL, '2019-07-11 21:46:29', '2019-07-11 21:52:41'),
+('28', '2', 'Panchal yash ramesh bhai', '9723338944', '358327081544830', 'panchalrupal224@gamil.com', NULL, '$2y$10$eHaDtxyMMUx7.J6mces.pe6R7ItdtiOjltxlc/8wC8xCt3t7G7k4e', '18-07-2005', 'Male', NULL, 'jyoti vidhyalay', '10th', 'Approved', '1', NULL, NULL, '2019-07-11 21:49:31', '2019-07-11 21:56:55'),
+('29', '2', 'prajapatirammilan', '9725227741', '911514602892620', 'prajapatirammilan75 @gailm.com', NULL, '$2y$10$OeIC3Tp6o9i6SQ5csLCCd.55KDYe4Bvzqkj9xVw5NW.NGVXBb0CQS', '01-04-1984', 'Male', NULL, 'SHETH R.T', 'prajapatirammilan75', 'Approved', '1', NULL, NULL, '2019-07-11 21:57:04', '2019-07-11 21:59:31'),
+('30', '2', 'Khushal', '9974773714', '911533202372510', 'Khush@gmail.com', NULL, '$2y$10$W8V6JqfeNBP2LYqd0lhEGeoiGSEMsdwZyLN26ReyYvUg1rybA9egW', '01-01-1990', 'Male', NULL, 'Test', 'Test', 'Approved', '1', NULL, NULL, '2019-07-12 08:34:21', '2019-07-12 08:36:36'),
+('32', '2', 'por', '9723247249', '353386092590625', 'omparjapati669@gamil.com', NULL, '$2y$10$iWrSZfQlpcAPRM/7MoRPPOM6rnmUhkqfjGgnkHonG2eRQA4FLFhiq', '14-03-1990', 'Female', NULL, 'a', 'o', 'Approved', '1', NULL, NULL, '2019-07-12 15:00:29', '2019-07-16 22:03:20'),
+('33', '2', 'Patel kavy P.', '6353354668', '865053049420337', 'amishapatel3011285@gmail.com', NULL, '$2y$10$5UlquDhZY7gq/n.z6MbxH.5Ju.pALiKbZ0BFNfERiQLv9AiH/vM12', '05-10-2004', 'Male', NULL, 'Bhavna sikshan sankul', '10th', 'Approved', '1', NULL, NULL, '2019-07-12 19:10:45', '2019-07-12 19:15:47'),
+('34', '2', 'parmar Pravin', '9898237627', '865450031135917', 'parmarpravin3176@gmail.com', NULL, '$2y$10$/NhA.ZhLM6SLdqqn5zlVUubdsHRi3IdDTbOIQVoOpvcjV0tyvgntC', '31-07-1976', 'Male', NULL, 'maharaja agresen', '21', 'Approved', '1', NULL, NULL, '2019-07-12 21:53:19', '2019-07-12 21:57:36'),
+('35', '2', 'kaushal', '8980229550', '359932078945269', 'kaushalgajjar2002@gmail.com', NULL, '$2y$10$DkqvqSajuVqQ.IDgkNrjfOtprBFK1HZWgl/tKeg.sr4DQAu.5C/Lm', '11-02-1998', 'Male', NULL, 'pavel school', 'hjkhhkjh', 'Approved', '1', NULL, NULL, '2019-07-13 05:39:28', '2019-07-13 05:41:17'),
+('36', '2', 'devang valand', '9574721882', '357311080617764', 'devangvaland905@gmail.com', NULL, '$2y$10$1LRUdWBkAJB07tdASUH6wuA/W9Xx1LJZNvUYZp0wW1TZJaNMjQTRK', '01-01-1990', 'Male', NULL, 'takshashila vidha vihar', '10', 'Approved', '1', NULL, NULL, '2019-07-14 11:43:26', '2019-07-14 11:47:34'),
+('37', '2', 'jadeja urvashi ba bhagirathsinh', '9327529671', '864780041135668', 'bhagirathsinh@gmail.com', NULL, '$2y$10$SQJUy4NUX2YA0TnmiJBqyu3mCrNNtJ0KGTGH6C0HkLRHrDqODt8Za', '11-03-1990', 'Female', NULL, 'shree sardar patel school', 'gujrati', 'Approved', '1', NULL, NULL, '2019-07-14 15:49:25', '2019-07-14 15:54:36'),
+('38', '2', 'Deepak', '9662018982', '868492032004772', 'deepaksakhre31@gmail.com', NULL, '$2y$10$ox05wUHcqz1SUGcMEre2D.jlGU5zApw.lwGPTOD2XtJv.X/JLoHz6', '31-12-1991', 'Male', NULL, 'Kailash vidhyalya', '10', 'Approved', '1', NULL, NULL, '2019-07-14 20:48:10', '2019-07-14 20:49:37'),
+('39', '2', 'bhana isamail', '9624588770', '356271070446692', 'sarfrajbhana5860@gmeil', NULL, '$2y$10$N/uV9n0miODPPr6mKBEtwOLcJXWGMVjjmA2MRR7g4ILgzpY.sZxHy', '25-10-1999', 'Male', NULL, 'the iqbal uonin hige school', '10', 'Approved', '1', NULL, NULL, '2019-07-15 08:02:55', '2019-07-15 08:05:34'),
+('40', '2', 'jitendra sharma', '9624665521', '864510035558975', 'js6626725@gmail.com', NULL, '$2y$10$lCwAAPpqdltnbC7rfi4YcesEGDHzzu8JANkVRcJFSwyGsRUnUMqw.', '30-04-1997', 'Male', NULL, 'prena Hindi  school', '10th', 'Approved', '1', NULL, NULL, '2019-07-15 22:07:47', '2019-07-15 22:10:21'),
+('41', '2', 'khambhu mehul vijaybhai', '8128488105', '353632099318696', 'mehulmeghwal148@gmail.com', NULL, '$2y$10$RukaPeQ03tQqi3ctnwsaRek/3zwyz/rw32g1J3rW6YLFvVo2Wpism', '24-10-2000', 'Male', NULL, 'axay highschool', '10', 'Approved', '1', NULL, NULL, '2019-07-16 16:22:20', '2019-07-16 16:23:36'),
+('42', '2', 'Alpesh Shendre', '9374938241', '354472102769455', 'milestoneeducom@gmail.com', NULL, '$2y$10$ZUWNv3iQZl.hI414pJ28Yu4pGEEtcpTRol02rzvyfKR0jdy676uS.', '24-10-1988', 'Male', 'assets/fY6SmrVvVjtCdIoqcGUvhOe1AxXzy8JGoBOtCgQn.jpeg', 'Milestone Educom', '10', 'Approved', '1', NULL, NULL, '2019-07-16 18:01:44', '2019-10-03 13:44:50'),
+('43', '2', 'vikram sodha', '9879859685', '359932079550506', 'vinoddhaivikramsodha@gmail.com', NULL, '$2y$10$tRnHYTOqug0MlaGaPEHXN.tapI8WQ9rSLPPq3ShkkhmCSPLoItoDi', '11-05-2005', 'Male', NULL, 's.g education', 's.g', 'Approved', '1', NULL, NULL, '2019-07-16 18:38:13', '2019-07-16 18:44:41'),
+('44', '2', NULL, '6355293012', '865206034925757', NULL, NULL, '$2y$10$FdgZi33e0tzo0Jg4HPL4aexpomtLuhlaPZFTH82GYprE1TaLCFG4y', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-07-17 20:44:28', '2019-07-17 20:44:28'),
+('45', '2', 'Agrawal Krunal Manoj Bhai', '9601309404', '866201036217278', 'agrawalkunal075@gmail.com', NULL, '$2y$10$9scqLT/PKONkFEwcnmCvmeiwRUMgbJNceQRmoV6ADNmyz/1PXXtEy', '09-06-2005', 'Male', NULL, 'Shree R. J. Patel Shreeji Vidhyalay', 'P. D. GROUP TUITION', 'Approved', '1', NULL, NULL, '2019-07-19 19:37:57', '2019-07-19 19:44:38'),
+('46', '2', 'Gondhade shrnivaah prabhakar bhai', '7600757312', '359027087096160', 'Vijaygondhade05@gamil.com', NULL, '$2y$10$2U43K3O/7PwUtnkU9UQaiu9iLODwCchnPxcqiVKzMI9dI.XxYygMO', '28-01-2005', 'Male', NULL, 'Shriji vidhayalaya', '10', 'Approved', '1', NULL, NULL, '2019-07-19 19:45:26', '2019-07-19 19:48:20'),
+('47', '2', 'Jigar Shah', '9824061518', 'Permission Denied', 'jigar663@hotmail.com', NULL, '$2y$10$s2HSt4wufs2bHlcz3sfn.Ou6AtFUIzJQ8U4VDkgWL1dGzVhZMIfti', '27-10-1971', 'Male', NULL, 'c. n. school', 'graduation', 'Approved', '1', NULL, NULL, '2019-07-19 19:55:23', '2019-07-19 19:57:18'),
+('48', '2', 'parmar vishwa vijaykumar', '9574720400', '869730039453099', 'vyva02091980@gmail.com', NULL, '$2y$10$PtrOFajybfl8jwtw1VkSuOLOrGQVBKohzVcOGhzlLSQIAez42gNxu', '16-11-2004', 'Female', NULL, 'diwan ballubhai', 'std 10', 'Approved', '1', NULL, NULL, '2019-07-19 20:17:02', '2019-07-19 20:20:07'),
+('49', '2', 'M. V. PANCHAL', '9824174124', '354741082748154', 'manishpanchal30380@gmail.com', NULL, '$2y$10$anDNhWlSb6pgEJTclr1yje4S.DwstncC5dxeN3Z/l5TDd39DJhVw2', '30-01-1990', 'Male', NULL, 'm', 'mcom med', 'Approved', '1', NULL, NULL, '2019-07-19 20:17:55', '2019-07-22 11:46:46'),
+('50', '2', 'Gaurav ajmera', '9825119901', '867158037810163', 'ajmeragaurav172@gmail.com', NULL, '$2y$10$Rmt.dwcxAjIkV.3/6jsYf.lQCJ.EC3sfslc2FRIU7nTc5/yPdqPfa', '26-11-1995', 'Male', NULL, 'hbk', 'ssc', 'Approved', '1', NULL, NULL, '2019-07-19 23:34:49', '2019-07-19 23:36:42'),
+('51', '2', 'Patni Ashish Ashokbhai', '9904504860', '860732038205156', 'pataniashok749@gmil.com', NULL, '$2y$10$NAZWbE/FKRbdhyY604WeSO1q/tFHcVkrHHLonN68TSPVQG2utfkYa', '29-07-2005', 'Male', 'default.jpeg', 'shet a. h. vidhalay', '10', 'Approved', '1', NULL, NULL, '2019-07-20 07:05:44', '2019-07-20 11:44:02'),
+('52', '2', NULL, '8780032410', '869733032512630', NULL, NULL, '$2y$10$.p9uTUecKbl01XCFbmfL5O.Eu0Bwy0YyHYBEbCs8e//m0qvAlsl7O', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-07-20 12:48:39', '2019-07-20 12:48:39'),
+('53', '2', 'imran', '9824699556', '865405033674040', 'sahmed.yuva@gmail.com', NULL, '$2y$10$b5ZwCXQbtZXKslBcEf2d7eZLu9vQB72TQGf8.Mh/mBEkESNCEnbp2', '01-01-1990', 'Male', NULL, 'f d school', '10', 'Approved', '1', NULL, NULL, '2019-07-22 23:07:43', '2019-07-22 23:08:58'),
+('54', '2', 'Diya prashant parandekar', '7046227208', '357278086298875', 'prashantparandekar@gmail.com', NULL, '$2y$10$Vst8Et4GRkxlegcx15n2VeZebxjI2SlBgvSENQmZTe.vWeGPTP9oK', '27-10-2004', 'Female', NULL, 'vidhaya vihar school', 'gujarati', 'Approved', '1', NULL, NULL, '2019-07-23 12:42:37', '2019-07-23 12:46:51'),
+('55', '2', NULL, '9825856791', '866245048740850', NULL, NULL, '$2y$10$Wr6aKvhQGGpmNndSz/.DHuwNKQcaCF.ApkBwpSFF7G5PmqQ0mqNwG', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-07-23 22:58:28', '2019-07-23 22:58:28'),
+('56', '2', 'sandera viral harishbhai', '7874627833', '868210035879200', 'harishsandera74@gmail.com', NULL, '$2y$10$upkObP9p0bN0Q0Pv0yuwg.8Awb/98dapZ/lMwxbONhN.kuJEhALa2', '25-12-2004', 'Female', NULL, 'shri r.j. Patel shriji vidhyalaya-bapunagar', '10th-gujarati mediam', 'Approved', '1', NULL, NULL, '2019-07-23 23:23:11', '2019-07-23 23:29:14'),
+('57', '2', 'Ayush vijaybhai sali', '9898254428', '868143024116468', 'Ayushsali@gimal.com', NULL, '$2y$10$SjCmfi762QiFGEdL4IIMiOKCeEXctk.001dqm37SUAQ8MqtDw5eX.', '07-05-2005', 'Male', NULL, 'shreeji vidhyalay', '10', 'Approved', '1', NULL, NULL, '2019-07-24 13:04:49', '2019-07-24 13:06:20'),
+('58', '2', 'smital', '7698774231', '352380100832021', 'Smital.benjamin@gmail.com', NULL, '$2y$10$NQoAU/cpl.C9JVm3Jsan/.VRb5vMl98ftIYEXFczmY6zk9s2ZFnq.', '16-01-1997', 'Female', NULL, 'Hebron', 'Bsc Nursing', 'Approved', '1', NULL, NULL, '2019-07-24 20:04:19', '2019-07-24 20:05:19'),
+('59', '2', 'santpatil', '9879238894', '860732037152912', 'shivanipatil1998.ss@gmail.com', NULL, '$2y$10$qLXiJR4Me27gWjrnT6oNBuqGM2NXwcqCFOjb4ZPlotL.rz8rWY912', '01-01-1990', 'Male', NULL, 'navchatan high school', '10 standard', 'Approved', '1', NULL, NULL, '2019-07-27 18:00:47', '2019-07-27 18:01:35'),
+('60', '2', 'Vasu', '8849707909', '911589350340147', 'dhagevasukumar@gmail.com', NULL, '$2y$10$zIANDsbRf7rLJvzttYeXgu.ghvadevOW0esBO..6mL4d1tdw/Kw1C', '12-10-1994', 'Male', NULL, 'Tata boys high school', '12th', 'Approved', '1', NULL, NULL, '2019-07-28 17:55:04', '2019-07-28 17:56:38'),
+('61', '2', 'Flutter Test', '9024548411', '10CA9DCB-2EF0-4513-980B-E2F0284756E9', 'flutter@mailinator.com', NULL, '$2y$10$D.94bWIeBWjO66h24STCm./.gS0nUXFZ./vhn/taGiZ8vZxwvHscu', '27-09-1988', 'Male', NULL, 'S S Jain Subodh School', '10', 'Approved', '1', NULL, NULL, '2019-07-29 15:07:58', '2019-07-29 15:09:35'),
+('62', '2', 'Android', '8890984188', '358240051111110', 'android@mailinator.com', NULL, '$2y$10$cS6RXT6twG4pkbVAwNl75.ptpffUjv9PXIbEm4ECxLh/MzrBcoAWK', '01-12-1989', 'Male', NULL, 'ASN DFA AD ADAD ADD', '12', 'Approved', '1', NULL, NULL, '2019-07-29 16:53:26', '2019-07-30 15:15:09'),
+('63', '2', 'Mahendra Yadav', '7891746418', '868188039363308', 'mahen@mailinator.com', NULL, '$2y$10$hvMo53dMN/Y70FO7JmR7Me/Yh05je4HUZchBFFSPXYthDQ0ZC91mK', '01-01-1990', 'Male', NULL, 'edhhdfb f', '12', 'Approved', '1', NULL, NULL, '2019-07-29 17:49:28', '2019-07-29 17:58:37'),
+('64', '2', NULL, '9925658137', 'Permission Denied', NULL, NULL, '$2y$10$zCnX20JRVkh3BZQOccvXq.9p1OmUOlgSgqVGBNzVzGBYewGtpJIgm', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-07-29 20:25:58', '2019-07-29 20:25:58'),
+('66', '2', 'New Admin', NULL, NULL, 'admin@test.com', NULL, '$2y$10$ztkJDhGT37mTX/q8q/hUiu4MLRBelnlJzgGbuo/64.pXkOhfmnDNW', '1-1-1990', 'Male', 'default.jpeg', 'school', 'school', 'Approved', '1', NULL, NULL, '2019-08-01 09:18:01', '2019-08-06 16:05:10'),
+('67', '2', 'Makwana chirag', '9099347096', '866066030604478', 'makawanarahulkoli@gmail.com', NULL, '$2y$10$2LWenScQuFvsI4sNv78k7OjFCaeozaQinSIMIVL8nccPlVLUBLxx2', '27-02-2002', 'Male', NULL, 'Vidhyaniketan high school', '10', 'Approved', '1', NULL, NULL, '2019-08-03 14:58:27', '2019-08-03 15:03:09'),
+('68', '2', 'yasha palan', '6355554733', '359053092406525', 'yugmobaile897@gmail.com', NULL, '$2y$10$pP0cvXsIl8eXZawqMhOpauinpysoxno85KV.KjFMbyCGKUMnLTpZi', '11-12-2004', 'Female', NULL, 'sarswati grup', '10th', 'Approved', '1', NULL, NULL, '2019-08-08 10:28:38', '2019-08-08 10:31:22'),
+('69', '2', NULL, '9925811365', '862856036996397', NULL, NULL, '$2y$10$CYo/PA5N0uMqVeiePklR3eQwmdFxxiVQVShsL.7XuyYzCE87aOfH6', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-09 20:27:49', '2019-08-09 20:27:49'),
+('70', '2', NULL, '9408270788', '911583602230685', NULL, NULL, '$2y$10$2LcaYi/CMbWOzm2yaulQ1.VRGhaMZ9UDwRG/nHjHlFJ22w/k0MMPC', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-10 09:19:24', '2019-08-10 09:19:24'),
+('71', '2', 'Alpesh 93750', '9375025627', '911533202372510', '93750@gmail.com', NULL, '$2y$10$t.4OSUyz/28hgHhvevGb0ep8owztUoKlHIqzsS2EElv7FixkNEVWK', '01-01-1990', 'Male', NULL, 'test', 'test', 'Approved', '1', NULL, NULL, '2019-08-10 13:11:46', '2019-08-10 16:23:30'),
+('72', '2', 'vishal', '8200167364', '868983038500177', 'vishalthakor8067@gmail.com', NULL, '$2y$10$4lBPVv2ocjcuOqRonvAy0uNrdvTVAZAey6FBdV6bHtxjpjesNxTzm', '01-01-1990', 'Male', NULL, 'gayatry', '10', 'Approved', '1', NULL, NULL, '2019-08-10 17:47:50', '2019-08-10 17:49:20'),
+('73', '2', 'Krunal', '7016342489', '911533202372510', 'kunal.dosiya1@gmail.com', NULL, '$2y$10$baA/b4RPF7uhQB1xe6dynejc65NeWsTeKioOmSgDiNWPBVtPZtUi2', '01-01-1990', 'Male', NULL, 'Any', 'Any', 'Approved', '1', NULL, NULL, '2019-08-12 21:49:49', '2019-08-12 21:50:17'),
+('74', '2', NULL, '6354047895', '355372094241480', NULL, NULL, '$2y$10$U5FRv5PhcQf2sIT45cEqFePgk.X97nlyDi8u9DeoTJMIAjM4l.d8a', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-15 18:07:33', '2019-08-15 18:07:33'),
+('75', '2', 'kevadiya ketan', '8758088441', '866717030587556', 'patelketan669@gmail.com', NULL, '$2y$10$2jfNwjKbkG5xhr7C3KiEuuKt/0mfmcrDMM3HEG5Lt3IeWYv33QTFG', '31-05-1996', 'Male', NULL, 'HD', 'be', 'Approved', '1', NULL, NULL, '2019-08-15 22:04:28', '2019-08-15 22:07:59'),
+('76', '2', NULL, '8128170508', '860848031133003', NULL, NULL, '$2y$10$JYzS3.w1wdBOGDsfcxar2.ud5Il.QGiqpTnAJTtsUKSHVHVtslINa', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-16 10:51:18', '2019-08-16 10:51:18'),
+('77', '2', 'krish nilesh bhai patel', '9016171495', '359245095282107', 'krishPatel@gmail.com', NULL, '$2y$10$ZDoW1P0ydCJ6W1T7GkorSO8x2nEW2bgeB0UUtE8l9iKTaF1w06iz2', '02-08-2005', 'Male', NULL, 'janta madhyamik sala khergam', '10 std', 'Approved', '1', NULL, NULL, '2019-08-16 16:16:43', '2019-08-16 16:20:19'),
+('78', '2', 'dhruvi', '6354346815', '911618355984862', 'dabsarabharatbhai@gmail.com', NULL, '$2y$10$t.bUaWYsNLUoKwOKwjT5/.RcC2zfZVPTWckfbbrrQJ0cYhlNvLa9K', '01-01-1990', 'Female', NULL, 'primary school', '10th', 'Approved', '1', NULL, NULL, '2019-08-16 17:23:04', '2019-08-16 17:24:22'),
+('79', '2', NULL, '7383867133', '868839039639093', NULL, NULL, '$2y$10$0UNI8604Sb6DE5Ss1TzKYeilsNxqZ5.CAJPyU5aTMS6pmUCe5EHBy', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-16 18:01:01', '2019-08-16 18:01:01'),
+('80', '2', NULL, '8238300566', '867363039324672', NULL, NULL, '$2y$10$zKdz8gAwuxDOdkk1kV7uMuKrmKRJV/4K3X91z1wBF.nu/.wE4Gw9m', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-16 21:36:52', '2019-08-16 21:36:52'),
+('81', '2', NULL, '7228978840', '860569045542563', NULL, NULL, '$2y$10$mY0wp4MynjKVQ78zrtHLDOX50mRQqwwXhsrGkQXAySmcO8uFENDFa', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-17 12:00:42', '2019-08-17 12:00:42'),
+('82', '2', 'Parmar Vanrajsinh Fatesinh', '8200427658', '863710038133310', 'parmarvanrajsinh05@gmail.com', NULL, '$2y$10$HeHbGQH4J.E2HPzUYhbcEuox9vWrdc5OybqCULJO0jwCLTeW3YSRK', '09-10-1998', 'Male', NULL, 'Ash secondary school', '7', 'Approved', '1', NULL, NULL, '2019-08-17 12:28:41', '2019-08-17 12:32:14'),
+('83', '2', 'Jayesh Chaudhari', '9016167499', 'Permission Denied', 'jrbsc21@gmail.com', NULL, '$2y$10$e/7FRS1yt.W4xKkQkRKnouquG5tIU74pg7al9QxZT3Q2mhvTVUXhG', '01-01-1994', 'Male', NULL, 'TAPASVI VIDHYALAY', 'B. sc. B. ed.', 'Approved', '1', NULL, NULL, '2019-08-17 16:31:50', '2019-08-17 16:33:37'),
+('84', '2', 'amisha', '9638076016', '358313092739676', 'ankitaamisha85@gmail.com', NULL, '$2y$10$GOMeI74Gx04etg9MFWFt..e6EZ6MdEc.q/e0qlsOGublMUWXVgUUe', '12-05-2002', 'Female', NULL, 'a s shree shah high scool panvad', 'bord exam', 'Approved', '1', NULL, NULL, '2019-08-17 23:50:47', '2019-08-17 23:55:25'),
+('85', '2', NULL, '8780838545', '868130036773410', NULL, NULL, '$2y$10$1anqK7NImy4Z1ASXSNAaYug6dj7BF7QE0H5QA78l33vscOER6hUDG', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-18 08:04:35', '2019-08-18 08:04:35'),
+('86', '2', NULL, '8469677898', '865686033528423', NULL, NULL, '$2y$10$sD5O08CCZkGWneWQy08nOevADkjrNShdSTQv6E9rzrVP/BPHhsUIu', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-18 09:08:17', '2019-08-18 09:08:17'),
+('87', '2', 'Ansari sanaulla', '9157445504', '869041033039946', 'aanaullah@gmail.com', NULL, '$2y$10$I5YVOd46Dn.8pxWu59w5W.2MnL6AaNU91b5YgqOA3FCwDuwGIK5ki', '01-01-1990', 'Male', NULL, 'p.k high school', '10th', 'Approved', '1', NULL, NULL, '2019-08-18 14:28:19', '2019-08-18 14:29:30'),
+('88', '2', NULL, '6355887800', '358675084387890', NULL, NULL, '$2y$10$sEqn631rMoXQisv45AmlNOpGvlxSeOGeUXzvFe6ijPNeZ/DL7MFgi', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-18 21:37:19', '2019-08-18 21:37:19'),
+('89', '2', 'Om suendre', '8866033392', '864711036202114', 'nsendre@gmail.com', NULL, '$2y$10$xgs5WdvY3ry1gBgdYvgHJu5ngpIMDs8lksTX/xuRvFUeuJLAC3URu', '22-09-1993', 'Female', NULL, 'Shriji', 'b.com', 'Approved', '1', NULL, NULL, '2019-08-19 21:56:45', '2019-08-19 21:59:28'),
+('90', '2', 'BDJEtNjCLscZ', '5320324096', NULL, 'rg213262@gmail.com', NULL, '$2y$10$/reAe1HtPwb2/4rCuboCKepD57tVbDEEvnpuW3Sk7KXHIWly73zwK', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-21 00:38:42', '2019-08-21 00:38:42'),
+('91', '2', NULL, '9924620575', 'Permission Denied', NULL, NULL, '$2y$10$x2R90U4.2FEqhqfT5vAMwOxLxVtnn5HVMnYrLSGLK.I129tRWOwsG', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-21 18:45:56', '2019-08-21 18:45:56'),
+('92', '2', 'Raj  gosai', '7984871002', '862010040558880', 'gosairaj45@gmail.com', NULL, '$2y$10$MSiqGuxM6QZ4SGNQDsoVZuBX8Fdw8NPmzAr/qpRa4PIXn5NcQ1wN6', '01-01-1990', 'Male', NULL, 'high school', 'std 10th', 'Approved', '1', NULL, NULL, '2019-08-22 10:57:20', '2019-08-22 10:58:37'),
+('93', '2', NULL, '9054954750', '862864049978097', NULL, NULL, '$2y$10$JmOkp691LVQGelLvmyAeUuElhRIW2aKJ2GT8D6wuKDidbfRmlVigO', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-22 19:44:00', '2019-08-22 19:44:00'),
+('94', '2', 'KHAN MUBIN', '9327229987', 'Permission Denied', 'abdulrehman14419980@gmail.com', NULL, '$2y$10$a4vsjqcjQET9vTIfQCCdp.xAjtwyXeyXUgr4TEKeiyUMyAxFBatyS', '14-11-2003', 'Male', NULL, 'C.K PRJAPATI VIBHAG 2', '10 th standar', 'Approved', '1', NULL, NULL, '2019-08-22 23:13:03', '2019-08-22 23:22:59'),
+('95', '2', 'bhoot shobha rajeshbhai', '8866046226', '354175082469281', 'prembhoot1@gmail.com', NULL, '$2y$10$tGArsoMUUd993IWlS775TOINIFv5JkL53BtX5gPDZgpXjJDvMTTf6', '30-05-2005', 'Female', NULL, 'sardamani vidhyalay', '10th', 'Approved', '1', NULL, NULL, '2019-08-23 10:06:11', '2019-08-23 10:08:44'),
+('96', '2', 'Mobin Pathan', '9428690120', '866717031970199', 'hakimbhai786@Emal', NULL, '$2y$10$.WvaUdYPBSuxW3dcj0PlK./5gHXFEKzgiq7Ps3I9kVr65Xh02V0eq', '13-11-2003', 'Male', NULL, 'ck prajapati vidyalaya vibhag 2', '10th', 'Approved', '1', NULL, NULL, '2019-08-23 22:24:24', '2019-08-23 22:28:07'),
+('97', '2', 'DHRUV MAHENDRABHI PATEL', '9726443849', '865179048405233', 'mkpatel.vardhs@gmail.com', NULL, '$2y$10$XhtlbHHgKLqtGw2Y4MMyB.kOsn01kiA/blKvxaN95JEKjqAVWLWEq', '22-06-2005', 'Male', NULL, 'SARWA MANGAL SCHOOL', 'B', 'Approved', '1', NULL, NULL, '2019-08-25 15:40:55', '2019-08-25 15:41:57'),
+('98', '2', NULL, '9723873487', '864165035019336', NULL, NULL, '$2y$10$U15QZzqTW8KlQfrkEi1gOuEf2HsZYVDmD7DVd.RwIaEX4si/rCr2e', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-25 17:09:06', '2019-08-25 17:09:06'),
+('99', '2', 'Het Thakor', '9898377325', '866463034077761', 'sunnythakor22@gmail.com', NULL, '$2y$10$hTyyTVy/Q0rXmdhHNkSBTO571nAQZkXsC3f8L0BcV8I2AUwMjNw9a', '22-02-2005', 'Male', NULL, 'Shravan school', 'ANKLESHWAR', 'Approved', '1', NULL, NULL, '2019-08-25 18:28:25', '2019-08-25 18:30:07'),
+('100', '2', 'gavli riyaben ganeshbhai', '9510172936', '865596038451796', 'roshanigavli227@gmail.com', NULL, '$2y$10$Z1Y8830iq59DNuJmRfE4IekLVTT82DRIE3F71Z66/CduNBNtTJ1M2', '27-03-2005', 'Female', NULL, 's.m.s.m. high school darampur', 'no', 'Approved', '1', NULL, NULL, '2019-08-26 12:35:15', '2019-08-26 12:38:16'),
+('101', '2', NULL, '8320806840', '869577042372315', NULL, NULL, '$2y$10$ODjYEjo9ZzxniDF2tAfweOrkuaPVTfHoosFAUHcJWpq9s/2LEzHS.', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-26 14:33:56', '2019-08-26 14:33:56'),
+('102', '2', NULL, '9081848553', '864279043230965', NULL, NULL, '$2y$10$6FAgrJ/FcmTE77KTLYSIcO4KAbt5HVVsXY9ZTQRoWGO3e5vmtF0JW', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-27 10:40:42', '2019-08-27 10:40:42'),
+('103', '2', 'kiran boradiya', '8849287054', '354733071194961', 'boradiyakiran11@gmail.com', NULL, '$2y$10$VFxAFlhF70aMGc/m63sSce2G79X5sHtjO8ECCDzE8B0KQdpVxqSOC', '26-07-1994', 'Male', NULL, 'laksh tusion', 'b.sc.  bed', 'Approved', '1', NULL, NULL, '2019-08-27 14:03:36', '2019-08-27 14:04:44'),
+('104', '2', NULL, '9067797170', '866045031238619', NULL, NULL, '$2y$10$qdphdLU/mY3zliT4/IKGaebswDxXReh3AMcxznIM0jF6GWXPzxcry', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-08-28 06:39:04', '2019-08-28 06:39:04'),
+('105', '2', 'patil jignesh sanjaybhai', '9974591634', '358129091638291', 'sp5453922@gmail', NULL, '$2y$10$lwY6PLwywjM6GufsDuJCauao7x1kQCx7zX2qfEebc29BVIbP511oe', '18-08-2005', 'Male', 'assets/oCMQjU4hnU7hop9cMaF2Xa13qYgE2m3o6SjKK5Sc.jpeg', 'SHETH RT higher secondary school', '10', 'Approved', '1', NULL, NULL, '2019-08-28 14:34:57', '2019-08-28 14:48:32'),
+('106', '2', 'parmar raviraj j', '9265994948', 'Permission Denied', 'pr023642@gmail.com', NULL, '$2y$10$OOCRftM.u4HuJm0n.towK.hg4WJGO28ceTeagCSpPRbXt5cJtjPFO', '01-01-1990', 'Male', NULL, 'municipal high school', 'std 10', 'Approved', '1', NULL, NULL, '2019-08-29 14:53:46', '2019-08-29 14:54:41'),
+('107', '2', 'meet', '9428353893', '867764027202780', 'Meetgowsim@gmail.mil', NULL, '$2y$10$mB5A3Y3Fn6pTDIC5NPw.Fuoxz.gUAhV9wqm1RkbfsGuYBvCPlhbXG', '17-01-2004', 'Male', NULL, 'aas', 'sutrat', 'Approved', '1', NULL, NULL, '2019-08-30 22:33:43', '2019-08-30 22:35:32'),
+('108', '2', 'mevada Shrikant', '7069895547', '868944034887109', 'shrikant.mevada2005@gmail.com', NULL, '$2y$10$.UpUr4m2HgCZVR09xuNUhe0cjRV9neKa.bTppCxHLBpoiWa9q.Nia', '05-05-2005', 'Male', NULL, 'mevada', 'std10', 'Approved', '1', NULL, NULL, '2019-08-31 13:46:26', '2019-08-31 13:48:06'),
+('109', '2', 'DHARMENDRA', '7016788116', '863882036247374', 'dharmendrasinh95@gmail.com', NULL, '$2y$10$CeUp3Q6xFqfWF/y0EOAxYeyfOorM7QQrUdAgYX8GdTWicH.5HxIyC', '01-01-2003', 'Male', NULL, 'sunrise School', 'std 10', 'Approved', '1', NULL, NULL, '2019-09-01 11:20:55', '2019-09-01 11:23:58'),
+('110', '2', NULL, '8849358921', '867725028226425', NULL, NULL, '$2y$10$8A2Jc0o9GHtRyk1sZxxxle7q0FCxyEOUCYPitLqvtA.XeFcA4llHS', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-01 11:33:33', '2019-09-01 11:33:33'),
+('111', '2', 'ketan', '7573808835', '358972084108644', 'ketan20162016@gamil.com', NULL, '$2y$10$9QkbiuPr.t1m6MBU9r8CD.l3x09fr1kawnCuSQ1EoKoTeBQQFd0Gq', '01-01-1990', 'Male', NULL, 'jg', 'math', 'Approved', '1', NULL, NULL, '2019-09-01 18:56:44', '2019-09-01 18:58:17'),
+('112', '2', 'jasapal chetansinh Chudasama', '9727671177', '868601031038884', 'chetansinhchudasma38@gmail.com', NULL, '$2y$10$9XIYzVe8.EQ7bbMqG00r4.91NxRyPjahOAJHs6weViCyGpTWwJiZe', '18-11-2004', 'Male', NULL, 'Gurukul', 'Yash raj', 'Approved', '1', NULL, NULL, '2019-09-01 21:37:51', '2019-09-01 21:39:57'),
+('113', '2', NULL, '8511124141', '356923091979552', NULL, NULL, '$2y$10$LvfDXNUipekk.NvGNXmgOOaJ9hwiQ4bfRaPQOO/xDqyOeeY91ObjG', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-02 08:55:17', '2019-09-02 08:55:17'),
+('114', '2', 'soni', '9429417108', '353563090235177', 'yashvadhavana13@gimal.com', NULL, '$2y$10$tEmP6D1bRTKyBetDyIQHo.Ja/6Jcj0R0ocIg2qGYoBvyIbS1Z4xxW', '13-11-2004', 'Male', NULL, 'virani', '10', 'Approved', '1', NULL, NULL, '2019-09-02 20:07:39', '2019-09-02 20:09:39'),
+('115', '2', 'Rahul', '8140168571', '869453044626076', 'rbasodariya1998@gmail.com', NULL, '$2y$10$NnNv9u.1ApENju4afTe2Leq1yAmi6WVw0Ij0dmd1/01KMNzW4LeaG', '16-03-1998', 'Male', NULL, 'man Vidhyapith', 'm.sc', 'Approved', '1', NULL, NULL, '2019-09-03 22:23:09', '2019-09-03 22:24:22'),
+('116', '2', 'salomi', '7990084304', '354459074054917', 'moinghada@gmail.com', NULL, '$2y$10$QDnH3Z3moENkC/e8.A4fR.FM7wrwPumFzIfWCJA9ZP8dLL4E9DdWC', '01-01-1990', 'Female', NULL, 'k.v.k.v', '10', 'Approved', '1', NULL, NULL, '2019-09-05 14:42:54', '2019-09-05 14:43:47'),
+('117', '2', NULL, '9979740200', '863675036002322', NULL, NULL, '$2y$10$hvCxixfBsU9RLhfbs/0oiutaSBZUIP7GjNW4wT6vnIRtr1KKg7Aa6', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-05 22:15:09', '2019-09-05 22:15:09'),
+('118', '2', NULL, '9998124421', '866759033516224', NULL, NULL, '$2y$10$tfSdYS8TANnq0jx9t8VcquIA11Zaj1r6AyF52Us/0R9FqwWVlfDMm', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-06 13:46:51', '2019-09-06 13:46:51'),
+('119', '2', NULL, '7041999598', '868601031038884', NULL, NULL, '$2y$10$1iOS6cm2kG/DzcX46ZsCWeiNPlJwJnDKxsXMi6u/j61MnkOTrsnIO', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-07 16:56:52', '2019-09-07 16:56:52'),
+('120', '2', NULL, '9484595157', '867902049323065', NULL, NULL, '$2y$10$LhrbEEydi5xKhnMDq4bDX.D.eWVV3ZqMTaaOLQ6dKoHN7EncIvl6S', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-09 17:43:25', '2019-09-09 17:43:25'),
+('121', '2', 'Memon nargish', '8735085243', '866410032353975', 'hanifmemonhanifmemon24@gmail.com', NULL, '$2y$10$K3pL35uQidsW9t2d7w/8VO52syenYKbKMP7cfHwTmS0M/L5/Mtviu', '18-12-2004', 'Female', NULL, 'Anjuman sarvajanic high school', 'Radhanpur', 'Approved', '1', NULL, NULL, '2019-09-10 05:51:56', '2019-09-10 05:53:42'),
+('122', '2', 'Patel Umesh bhupendrabhai', '9924241990', '869306032931710', 'pumesh652@gmail.com', NULL, '$2y$10$f/npsF1hiKbsQL0r9Hxu3O7KyOb0dR0NgcblxeqbAmhI3S8GHM7Ve', '19-03-1983', 'Male', NULL, 'સરસ્વતી', 'Graduate', 'Approved', '1', NULL, NULL, '2019-09-10 08:46:05', '2019-09-30 04:27:12'),
+('123', '2', 'khavadiya Rajesh v', '9687223125', '352231101746100', 'khavadiyarajesh@47.gmail.com', NULL, '$2y$10$lTi2NaKEjJ3Q8QVY1atP5e.BvtmvKKARGibDm4PRGlmIVnfp6tdle', '14-01-1982', 'Male', NULL, 'sandipani school kariyana', 'b.com.', 'Approved', '1', NULL, NULL, '2019-09-11 14:51:57', '2019-09-11 17:58:54'),
+('124', '2', 'pareshbhai', '9909285618', '357169083133233', 'Pb404457@gmail.com', NULL, '$2y$10$coRaua2GUrJYEj2OTiU.t.WwQxLVguDHiL.MFNFRpNSD1aOesTh6K', '26-11-1982', 'Male', NULL, 'VRIDDHI EDUCATION', 'teacher', 'Approved', '1', NULL, NULL, '2019-09-12 11:44:21', '2019-09-12 11:46:32'),
+('125', '2', 'sankhat rajubhai', '9909446611', '353410102653577', 'rajusakhat@gmail.com', NULL, '$2y$10$ZLycK7v3/KrNip8Uz7AhbOjAAn3ihU31xeNfYPHHAltaKUrXikjl2', '01-01-1990', 'Male', NULL, 'dvp', 'std10', 'Approved', '1', NULL, NULL, '2019-09-12 18:36:36', '2019-09-12 18:37:28'),
+('126', '2', 'jainam hitesh panchal', '7041167552', '866418036190269', 'amitapanchalforu@gmail.com', NULL, '$2y$10$bNR2B0lvmi.6w8IOuOMl2etR.65E8Y6mfPPOHgwIX0KuzBlZQKU36', '05-07-2004', 'Male', NULL, 'Swaminarayan school', 'ten', 'Approved', '1', NULL, NULL, '2019-09-13 23:12:50', '2019-09-13 23:15:40'),
+('127', '2', 'vipul gemarji', '9106086649', '911554502273547', 'vt73502@email.com', NULL, '$2y$10$yOBbnDplqrw4LjTENDji1OOzCbMi23yue7qQVPp2aBC.AEVg2BE6W', '01-01-1990', 'Male', NULL, 'vadpag, princess.', '10th', 'Approved', '1', NULL, NULL, '2019-09-13 23:48:24', '2019-09-14 13:27:12'),
+('128', '2', 'kanabar nirav c', '8490930209', '868988032292168', 'nirav.kanabar001@gmail.com', NULL, '$2y$10$Z/E7oed2lGTzJyaJhh/yme1XOYf1sgA7I/i03W1/1stKCMuHH/pqK', '16-08-1988', 'Male', NULL, 'sent merri', '10th', 'Approved', '1', NULL, NULL, '2019-09-16 23:11:35', '2019-09-16 23:15:07'),
+('129', '2', NULL, '8469049206', '911603209144418', NULL, NULL, '$2y$10$woNjuZSLuqSK../q6XJaWOjTU7nMY1/3BDNYiRRtl6KkvH0ezZBc.', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-16 23:56:51', '2019-09-16 23:56:51'),
+('130', '2', NULL, '9586613056', '357149082443379', NULL, NULL, '$2y$10$MgdzDGnYC7rYa.hGwZZIrufYApmmGua3L3s3YV32bxL8LOO24Lp5C', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-17 06:30:41', '2019-09-17 06:30:41'),
+('131', '2', 'Bhagirath Bhammar', '7984703232', '351592106834147', 'bhammarbhura845@gmail.com', NULL, '$2y$10$.RHOrf3jpkDoKDFzDHCiLOSZtqKvXGzOm.VD5FiM8KHF.OE5V/imO', '04-11-2003', 'Male', NULL, 'Ishvaranand', '10th pass', 'Approved', '1', NULL, NULL, '2019-09-18 22:04:48', '2019-09-18 22:07:08'),
+('132', '2', NULL, '9426040847', '868888035133809', NULL, NULL, '$2y$10$m8gUhsq2Ol2SdGzTdKEVkeIgNRr7OCHbc4XjH0CEFJt1IHnSDl7aC', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-19 06:50:49', '2019-09-19 06:50:49'),
+('133', '2', 'Chirag parmar', '9737357735', '863582033128128', 'chehar84@gmail.com', NULL, '$2y$10$GKG98MWfYDztWGZwMr3Jru9rzgJSWpkAaX3eVNhpjU0GgSdcsKES2', '10-09-1995', 'Male', NULL, 'rang jyot', 'std 10', 'Approved', '1', NULL, NULL, '2019-09-19 18:00:23', '2019-09-19 18:01:23'),
+('134', '2', 'mantasha', '6356361867', '352405062545616', 'mlekgulam1137@gmail.com', NULL, '$2y$10$QY66kvChMCEuKSftvep9ju2Aat.IrL527Ry.yusFy46aYVPTiiDfi', '01-01-2005', 'Female', NULL, 'school', 'educational', 'Approved', '1', NULL, NULL, '2019-09-19 22:03:54', '2019-09-19 22:06:08'),
+('135', '2', NULL, '9825490047', '860848031072466', NULL, NULL, '$2y$10$gmL6enqQ6s.roDoVE179dOZ6yEKS/qmaoPAXzyYCiMxkpLlx6QIMa', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-19 23:04:43', '2019-09-19 23:04:43'),
+('136', '2', 'renil vasantBhaiRank', '7600519040', 'Permission Denied', 'vasantbhairank303@gmail.com', NULL, '$2y$10$wqAWpah5SERisiLLi1Xa0e0t32P/v/xA4dgpWi6tkHQY0FS3UYVum', '09-02-1995', 'Male', NULL, 's.s.g.k', '10', 'Approved', '1', NULL, NULL, '2019-09-24 11:01:31', '2019-09-24 11:04:40'),
+('137', '2', NULL, '9624066120', '867710046144172', NULL, NULL, '$2y$10$rX0buUBxR.BZDdx9s4oy8Oi/6WO88QVl7ewiQ3Es06nVpVwZFz7VC', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-25 03:21:31', '2019-09-25 03:21:31'),
+('138', '2', NULL, '9712901587', 'Permission Denied', NULL, NULL, '$2y$10$NTAjZe.fJRtEmEHqDByKmOAQl0gOsRPyqEt.ORPIqq2m8jj1Q5o.m', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-27 17:10:15', '2019-09-27 17:10:15'),
+('139', '2', NULL, '9904088655', '911618350620453', NULL, NULL, '$2y$10$k5mC216/CFALNsli1h4Hhu/aJwQv6bj0QgH0HWLp3v41a1mTRLEXi', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-28 16:06:38', '2019-09-28 16:06:38'),
+('140', '2', 'moradiyavarshaben', '9328795340', '358359105148744', 'ghanashyambhaimiradiya@gmail', NULL, '$2y$10$okeO45kwL5y.O1/dlpzZqOfZHGpnxIDcdCxHgq/QOymhYjG8pXX5S', '06-11-1990', 'Male', NULL, 'mauni school', '10', 'Approved', '1', NULL, NULL, '2019-09-29 02:53:55', '2019-09-29 03:02:17'),
+('141', '2', 'valand Kaushik Satishbhai', '7567217021', '865686034363085', 'kaushikvaland28@gmail.com', NULL, '$2y$10$WAGBRokeslgZ5nMOJHx1huoPA3GK48eICuGuXYW.OAaH4r6pJ8uQ2', '28-05-2006', 'Male', NULL, 'Shri Aarti education higher secondary school', 's.g education', 'Approved', '1', NULL, NULL, '2019-09-29 04:42:38', '2019-09-29 04:44:30'),
+('142', '2', NULL, '8849373824', 'Permission Denied', NULL, NULL, '$2y$10$DH/aA.70zNMBcWjmKOAe5eo8U.ZMNZz552WpUtCi6082f.5oW0j8O', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-09-30 11:15:12', '2019-09-30 11:15:12'),
+('143', '2', 'Chandnivadgama', '7383663374', '866085031790334', 'Chandnivadgama78@gmail.com', NULL, '$2y$10$/hk1l8Ev2wIOI85VGFJp0OcfBsIrHPfDYAnZ2HNDpcgg3g77au8aW', '07-08-1993', 'Female', NULL, 'hns', 'ncert', 'Approved', '1', NULL, NULL, '2019-10-03 15:05:52', '2019-10-03 15:06:50'),
+('144', '2', 'barot siddhi', '7202981800', 'Permission Denied', 'mayankbarot23599@gmail.com', NULL, '$2y$10$/RHDF9a8hgfbeVURBZH1.OhTzBzsFM7JQmQ0ym9.U/RRJnxADaKlS', '09-02-2005', 'Female', NULL, 'shree p j chheda janta vidhyala ,dahej', 'gujarati', 'Approved', '1', NULL, NULL, '2019-10-10 13:51:11', '2019-10-11 06:21:56'),
+('145', '2', 'chavda sujal', '6356251927', '861168048790656', 'chavdasujal012@gmail.com', NULL, '$2y$10$dtHwreNZ2yQs/jJnUtM64OjVM.L7XRp0nQ3KMymEFOsElMT2Ay6Vu', '10-02-2005', 'Male', NULL, 'taxshila', '10', 'Approved', '1', NULL, NULL, '2019-10-10 15:25:44', '2019-10-10 15:27:53'),
+('146', '2', 'vaghasiya Maitry', '9909608631', '911592551083607', 'dilipbhai1058@gmail.com', NULL, '$2y$10$tpqSkdsZYTe/hvXVMUVXVeQIw1WLRp4mApke2/bvvXYJznWut85ja', '12-07-2005', 'Female', NULL, 'surat diamond acossiansion girls high school', 'ncert', 'Approved', '1', NULL, NULL, '2019-10-12 07:39:00', '2019-10-12 07:40:04'),
+('147', '2', 'Devang valand', '6353730128', '357311080617764', 'devangvaland905@ gimail.com', NULL, '$2y$10$u6kio6mtQ0Zes65aB7x3xeEIYl5ML2lIyscbEjoQnFPogs7KvTmHu', '01-01-1990', 'Male', NULL, 'taxshila', '10', 'Approved', '1', NULL, NULL, '2019-10-15 12:05:15', '2019-10-16 06:01:46'),
+('148', '2', 'Anil kumar p bilval', '9687952535', '352347088700868', 'Anilkumarbilval@gmaill.com', NULL, '$2y$10$ey7vLC7H1d.xCy.MfVkJ9eUpOu3A1knockyqjPl2nymwJAkxA/bxu', '01-06-1982', 'Male', NULL, 'xyz', '10', 'Approved', '1', NULL, NULL, '2019-10-16 09:00:47', '2019-10-16 09:03:42'),
+('149', '2', NULL, '8758081006', '352742061809472', NULL, NULL, '$2y$10$x7cafpCfcv48H/hu8vKhV.yS/RsNJvgIsZFzzNSFpH000hHLS2G3y', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-10-16 15:39:42', '2019-10-16 15:39:42'),
+('150', '2', 'Akash M Thakor', '6354255543', '868602037281122', 'akashthakor234@gmail.com', NULL, '$2y$10$Pq0vCWwCCGX0LdX1Z61FT.XTqs.zUhgjClNECF86cUUS0TQ1zPn9u', '01-01-1990', 'Male', NULL, 'a', 'a', 'Approved', '1', NULL, NULL, '2019-10-17 13:59:00', '2019-10-17 13:59:53'),
+('151', '2', NULL, '8383984180', '868906034445717', NULL, NULL, '$2y$10$oBbqsvlx8gCwZ05eseC1IODA61YFqiDnzDUa1gqaR7wPbzZs9psVy', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-10-20 14:28:37', '2019-10-20 14:28:37'),
+('152', '2', 'vishal', '8905934713', '866896044994048', 'vkakadiya1@gmail.com', NULL, '$2y$10$BnnQtxDJhKDuZ6QQO1RDMOdWJjXmEum0D/q2P1o2eae2grDnWBjOO', '01-01-1990', 'Male', NULL, 'xyz', '10', 'Approved', '1', NULL, NULL, '2019-10-22 07:53:21', '2019-10-22 07:53:43'),
+('153', '2', 'Keval', '8141396100', '868793047991592', 'kwintalvekariya201@gmail.com', NULL, '$2y$10$po.WiXxEa063z0QTyBDE5elzVp50tC9kf1LDQqsG3G4HACJOO1WKq', '20-01-1996', 'Male', NULL, 'RAISON MODÉN SCHOOL', 'B.Tech.', 'Approved', '1', NULL, NULL, '2019-10-22 14:04:02', '2019-10-22 14:06:46'),
+('154', '2', 'Dobariya Chintan', '9879488452', '865404035668464', 'dcdchintan@gmail.com', NULL, '$2y$10$FHI0D9XAbsYWAAQHDY02SOwsac/wZTZKuxACIfLTOXUNj.Q4NylvC', '29-09-2004', 'Male', NULL, 'ABC', '10', 'Approved', '1', NULL, NULL, '2019-10-24 06:22:25', '2019-10-24 06:23:21'),
+('155', '2', 'shailendra', '9928004755', '868188034294854', 'piploda.shailendra@gmail.com', NULL, '$2y$10$OH5ZqL2ifOh6Lhrn3oEeqej.zzM17wFeaGwS52r38UjsNVtRCkwpC', '01-01-1990', 'Male', NULL, 'tagore school', '10', 'Approved', '1', NULL, NULL, '2019-10-24 14:26:11', '2019-10-25 08:02:25'),
+('156', '2', 'abdullah saddu', '9409801718', '354636097510823', 'salimsaddu12345@gmail.com', NULL, '$2y$10$Qyj8/hhFFAoBj1kbIc.vfe/pMHSqNZGAC80AFcRkU7o9rpZf.y6MK', '14-06-1990', 'Male', NULL, 'm&p high school dahod', 'abdullah', 'Approved', '1', NULL, NULL, '2019-11-02 02:15:14', '2019-11-06 08:15:09'),
+('157', '2', 'RATHOD MANTHAN SANJAYBHAI', '7069491969', '357392060120433', 'manthanraja720@gmail', NULL, '$2y$10$bnlSJTiiavchC9cJeeycHuZGaX.RcyVlcdY7mdFwBRtIQfFnQ4.Fu', '30-09-2005', 'Male', NULL, 'S', 'std 10', 'Approved', '1', NULL, NULL, '2019-11-02 08:12:41', '2019-11-02 08:16:13'),
+('158', '2', 'Raval Suresh Haribhai', '8128746399', '868368030649182', 'ravalsureshm4551@gmail.com', NULL, '$2y$10$rSTEZKkXLdd6JaP5ay10bOLxLCbU3IrujoQUWWR/mklYFvi0A25v6', '01-06-1997', 'Male', 'assets/bPUpRc6ypUbXPGBOyNd7QczRgeSqiSphWIGifLAF.jpeg', 'v.s.law college Unjha', 'b.com LLB', 'Approved', '1', NULL, NULL, '2019-11-02 10:48:34', '2019-11-03 06:12:49'),
+('159', '2', 'dhoriya Ravi Narsibhai', '7600641696', '911583603142186', 'dhoriyaravi@gmail.com', NULL, '$2y$10$L1l8zRhSsiNsVCcoYIgW6.PL7nmz.PKpLViurqdCikPeKzhinGMO6', '12-05-2005', 'Male', NULL, 'm b ajamera high school', 'ravi education', 'Approved', '1', NULL, NULL, '2019-11-02 15:48:39', '2019-11-02 15:53:37'),
+('160', '2', 'pratik', '9601673095', '911646301499891', 'bhaktijasubhai8655@gmail.com', NULL, '$2y$10$vlBpOXy/5wd6WwIuDOhuPeNUondEj8PaSNp6.QydV.xFhAYgbXbLq', '13-07-2005', 'Male', NULL, 'bagdana', 'youth', 'Approved', '1', NULL, NULL, '2019-11-03 10:47:39', '2019-11-03 10:49:13'),
+('161', '2', 'muna', '9978608633', '867763038432592', 'gulmohmadshajalalsha@gmail.com', NULL, '$2y$10$FvZBrVpxeuKOTven8.paz.8Y.kF4Fznsb/dGckPQsZd8hkGkpDH3G', '01-01-1990', 'Male', NULL, 'shri khoda school', 'std10', 'Approved', '1', NULL, NULL, '2019-11-03 15:13:27', '2019-11-03 15:15:18'),
+('162', '2', 'Manoj', '9925719456', '866132036678047', 'vrindavan.joshi4@gmail.com', NULL, '$2y$10$afFbjn93dk3V6tP1frZq7uIn/E82cj4kayeSQ.PvxJlqwS0AoD2ve', '01-01-1990', 'Male', NULL, 'SAVARKUNDLA', '10', 'Approved', '1', NULL, NULL, '2019-11-04 08:36:04', '2019-11-04 08:37:01'),
+('163', '2', NULL, '8980129755', '864334042450898', NULL, NULL, '$2y$10$u8Wev20yAJPq2pEo8NADkObKky22eeXYUmHliIEgb4YzEponWBkie', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-11-05 06:08:02', '2019-11-05 06:08:02'),
+('164', '2', NULL, '8866561058', '358870053702787', NULL, NULL, '$2y$10$gLxc66vZO0Nx/MuDSmLTouFAZ3wxMcw3C2Icb6eKd.Y6MEZPWJr9K', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-11-09 13:02:16', '2019-11-09 13:02:16'),
+('165', '2', NULL, '9879846634', '352801088644773', NULL, NULL, '$2y$10$giV3gLkrllpBOQevGV/zBeczH1B64fSBjNPfUHS5imthgiTeNkgAa', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-11-12 10:13:29', '2019-11-12 10:13:29'),
+('166', '2', 'rajdeep vala', '9974833497', '357386064269006', 'rajdeepvala321@Email.com', NULL, '$2y$10$vn4kqyeac3x6seXiQVo.NOpaBlRKodabULsLahBZwr7juiJRoRa3y', '28-02-2005', 'Male', NULL, 'pathk school', 'amareli', 'Approved', '1', NULL, NULL, '2019-11-12 13:54:38', '2019-11-12 13:56:13'),
+('167', '2', 'dhruv', '9537442211', '862611049461214', 'natvarkatariya7@gimali.com', NULL, '$2y$10$FtmrwOVRQtpJqN4PsVtkBOanxFOmOFWGzUu93S0F2YNW8wnJPNOlm', '01-01-1990', 'Male', NULL, 'p.p.savani', '10', 'Approved', '1', NULL, NULL, '2019-11-13 07:15:41', '2019-11-13 07:28:43'),
+('168', '2', 'shruti Soni', '9979631104', '352155091536322', 'shrutisoni546@gamill.com', NULL, '$2y$10$bTXJVtykMB9o3bnbcFVh5OXHdS.NY5XuKdElbwdcZgNtBvLr5L/U2', '30-05-2005', 'Female', NULL, 'sarda', 'found', 'Approved', '1', NULL, NULL, '2019-11-13 13:10:13', '2019-11-13 13:11:02'),
+('169', '2', NULL, '6353576368', '355370090390541', NULL, NULL, '$2y$10$EpAGphl5MTpv/vMYFrfusObpyhO8gl/ra8KeJkIlFx5MDHzf10xUW', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-11-18 12:04:51', '2019-11-18 12:04:51'),
+('170', '2', 'marthaben', '7600154723', '357642050187531', 'vmchaudhary75@gmail.com', NULL, '$2y$10$QHiDyfC/aB9L90j/dFEbEOhx1Ve.YXD1SOS/YNb.DPwqV1Irz4sR.', '01-06-1988', 'Female', NULL, 'UKhalda high school', '10th', 'Approved', '1', NULL, NULL, '2019-11-19 16:56:20', '2019-11-19 17:00:19'),
+('171', '2', NULL, '9510584168', '911636455622869', NULL, NULL, '$2y$10$a8tDJdSQ8PjvT2OrgWXGTO0qRffS3l6eSMQe59KeUn2NP6lb3TROW', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-11-20 15:16:05', '2019-11-20 15:16:05'),
+('172', '2', 'A.j.mirza.', '6356892668', '864050049330970', 'javedmirza2777@gmail.com', NULL, '$2y$10$eRDLACI0Xm2vEfCHbS3IKOeLYooxF30A2LvcQ853nNgnq8j6Xz2vu', '10-08-2004', 'Female', NULL, 'New age high school', 'STD 10', 'Approved', '1', NULL, NULL, '2019-11-23 09:23:23', '2019-11-23 09:29:42'),
+('173', '2', 'Parmar prakash', '9586334486', '865596037083616', 'parmarprakash5969@gmail.com', NULL, '$2y$10$weKHO2TJ6Ht/JqMalrpije5BjNBIfR0xIbYqbg/5ZRPh9rpnNr7Pq', '01-01-1990', 'Male', NULL, 'indestrial', 'std 10', 'Approved', '1', NULL, NULL, '2019-11-24 10:44:53', '2019-11-24 10:56:59'),
+('174', '2', 'Jograjiya PRIYAM', '7041469465', '868907032541614', 'joerajiyapriyam@gali.com', NULL, '$2y$10$EheMdRRto2mkJnK2yyo2MecRIVrbWvDiCaTqkTqYgAgArqI0PTP1m', '01-01-1990', 'Male', NULL, 'pathak', '10', 'Approved', '1', NULL, NULL, '2019-11-25 16:24:42', '2019-11-25 16:26:48'),
+('175', '2', 'surpal', '8140807179', '866061047690842', 'skbaria1997@gmail.com', NULL, '$2y$10$FvWtQ5U5fDl1sd64oROuAOcgIbP03MvszonUThhqmFm0paTaihGO.', '01-01-2004', 'Male', NULL, 'vdmayavansi school', 'STD 10', 'Approved', '1', NULL, NULL, '2019-11-25 16:31:26', '2019-11-25 16:34:19'),
+('176', '2', 'om kalanke Prabhakarbhai', '9714223707', '866345030547857', 'keshavkalanke@gmail.com', NULL, '$2y$10$jKN86e36hM1vLQLl4N6zleqgSWThWwWAO2obhuftSseMOeanKdC/e', '01-04-1990', 'Male', NULL, 'gyanjyot', '10', 'Approved', '1', NULL, NULL, '2019-11-26 17:17:56', '2019-11-26 17:19:49'),
+('177', '2', 'vasu', '7383882628', '356928093218149', 'vasukumardhage42@gmail.com', NULL, '$2y$10$ccl4Ty.5UYb.9QN09TC7s.xV5ExhtNuAbgwrY2NM57tx1m5kvxqB.', '01-01-1990', 'Male', NULL, 'D.g. vidhayalay', '10', 'Approved', '1', NULL, NULL, '2019-11-27 16:24:19', '2019-11-27 16:25:08'),
+('178', '2', 'ajay', '9408176097', '868932034541594', 'panchalgunvant5594@gmail.com', NULL, '$2y$10$Keewdsxxdccqgv2Bihe9Iu/TedYZ.K0iOrRaX6z6dfd.fywJtyPF.', '01-01-1990', 'Male', NULL, 'sv desai', 'b.sc bed', 'Approved', '1', NULL, NULL, '2019-11-28 02:22:34', '2019-11-28 02:22:59'),
+('179', '2', 'ashish', '7984192927', '866905037059170', 'ashishsoni1781@gmail.com', NULL, '$2y$10$j5.N3RGRIsfWT1NTaJjaMOe/zJLFn.Tstr4DdXDBKZHxF9ojVeThO', '29-08-1983', 'Male', NULL, 'krishna science school', '10', 'Approved', '1', NULL, NULL, '2019-11-28 03:48:33', '2019-11-28 03:50:18'),
+('180', '2', 'patel', '9974877369', '862315033024331', 'ashishtitan85@gmail.com', NULL, '$2y$10$KIHYzuCemPnlz8vgopw.sODuWSOotf9TEaw1VCzv0lpcXbWFscMhG', '01-01-1990', 'Male', NULL, 'vison', '10th', 'Approved', '1', NULL, NULL, '2019-12-01 05:54:53', '2019-12-01 05:57:39'),
+('181', '2', 'Patel Kashyap Hirenkumar', '9624731253', '868793042522350', 'patelbhakti2506@gmail.com', NULL, '$2y$10$5VkfVUbydmeCJHGL3qUPf.yIlxCG2caTKvQWa6wpst/BC3bV57y3O', '18-03-2005', 'Male', NULL, 'Shri R.P.Patel and sons high school', '10', 'Approved', '1', NULL, NULL, '2019-12-01 13:59:40', '2019-12-01 14:01:33'),
+('182', '2', 'baria hitesh', '9537777671', '862445046710640', 'hittubaria143@gmail.com', NULL, '$2y$10$fnuRrjPg04P5cln0fCu5qOjHKN80PIpC98NbxONA7sk1WR2CGDTHS', '01-01-1990', 'Male', NULL, 'tutio', 'Bsc, b. ed', 'Approved', '1', NULL, NULL, '2019-12-01 16:02:45', '2019-12-01 16:04:21'),
+('183', '2', NULL, '9328962569', '863260033802634', NULL, NULL, '$2y$10$e4l5TLQ4p6Xq.ua44axuvuLwexyBe6XUC2PR1K0tl4R/lgt3bTCcO', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-06 03:27:29', '2019-12-06 03:27:29'),
+('184', '2', NULL, '8128168725', '355370090517028', NULL, NULL, '$2y$10$rZRur3voKSo8p8TIRqZ.HuDlGWii8LJaB.AfaPt1H7xr/SuzMuATe', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-08 12:31:15', '2019-12-08 12:31:15'),
+('185', '2', NULL, '9016174701', '358129095168451', NULL, NULL, '$2y$10$RCKK3D..QvlOesWrFMCer.e55vBH/flkwsQVMNIxtqP.saBiQb9Na', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-10 14:49:09', '2019-12-10 14:49:09'),
+('186', '2', 'vaja tejashkumar', '6354838945', '869281031418037', 'vajatejash123@gmail.com', NULL, '$2y$10$hHcpvkoeukRHLv5PyD46d.ngl7QbLmpqCqq0wvCtl2wuK/HDAOs3a', '17-01-1990', 'Male', NULL, 'Sree Mati s s Ajmera high school', 'Gujarati', 'Approved', '1', NULL, NULL, '2019-12-11 20:38:23', '2019-12-11 20:39:15'),
+('187', '2', NULL, '7490054216', '354143095831947', NULL, NULL, '$2y$10$cyiBpPRqfHQo7cE5a6gYg.eXqg2yl.NQY3qwhLcPaq5cq20Uepd3C', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-12 16:09:49', '2019-12-12 16:09:49'),
+('188', '2', 'lalji makvana', '9979002096', '359940062615319', 'lalu51741@gmail.com', NULL, '$2y$10$GS/UEP2kX/Wv8lHgtDsghO1iMiC6n3eZWhrVLvXeRrLK9u1txVdyu', '02-11-1998', 'Male', NULL, 'om international vidhya sankul', '10th', 'Approved', '1', NULL, NULL, '2019-12-12 17:13:50', '2019-12-12 17:15:44'),
+('189', '2', 'paresh parmar', '8238329048', '864644030386759', 'pareshrp.pp@gmail.com', NULL, '$2y$10$Ivg.1XCSZPrZ5TN14Y05YurSmDs.CumIgS/Fq9ByUXzfZdUI87aGK', '01-01-1990', 'Male', NULL, 'np navsari', 'bba', 'Approved', '1', NULL, NULL, '2019-12-15 04:19:24', '2019-12-15 04:20:07'),
+('190', '2', 'devanshi vithani', '7621881575', '868416028828670', 'vithanibankim92@gmail.com', NULL, '$2y$10$AclSZma10UWATEL3xj6BE.2/UgCj5INOMg0mWGrslbCYvqDakUMdm', '11-02-2005', 'Female', NULL, 'akhar jyoti high school', '10th', 'Approved', '1', NULL, NULL, '2019-12-15 07:10:26', '2019-12-15 07:13:55'),
+('191', '2', 'dkmaths', '9712600507', '866436041445296', 'dkmaths@gmail.com', NULL, '$2y$10$5KBHpHrddPrPgcOKe/46LOkpz/bpqj4pm6xDhsuk19UABi4MRjq32', '01-01-1990', 'Male', NULL, 'nalanda', '10th', 'Approved', '1', NULL, NULL, '2019-12-16 06:21:59', '2019-12-16 06:23:28'),
+('192', '2', 'Darbar kanuji', '8849894282', 'Permission Denied', 'kanujidarbar461@gmail.com', NULL, '$2y$10$aGdEx0A9/e0dxbZltGlSHOZLPHMkkWk4Y85ZL8HwXLXcGCP2TOO6u', '11-01-1990', 'Female', NULL, 'sanskruti', '10', 'Approved', '1', NULL, NULL, '2019-12-16 13:39:55', '2019-12-16 13:42:21'),
+('193', '2', NULL, '6359728108', '862181040952330', NULL, NULL, '$2y$10$kotS7JFXBuVaRE09t8RM8OPU.p04v6dXH/DWIem.j7EuybW7Sq3Ci', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-18 11:00:55', '2019-12-18 11:00:55'),
+('194', '2', 'panchal muskan mohanbhai', '7041944112', '358129098619807', 'muskanpanchal478@gmail.com', NULL, '$2y$10$tfelujEt31MPhiu3KsZCgu42i/zp6/..BnVYgW6AhDQBcBwMCEdMe', '01-01-2003', 'Female', NULL, 'navyog English medium', 'standard 10', 'Approved', '1', NULL, NULL, '2019-12-18 12:46:53', '2019-12-18 12:50:34'),
+('195', '2', NULL, '7069182817', '866300040257666', NULL, NULL, '$2y$10$sax/N6pYbM15ZuG.Ihk9RuHCnWl9IJ3jPvhhXHl6bKxMORbFxiZiK', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-18 13:45:26', '2019-12-18 13:45:26'),
+('196', '2', NULL, '9099771812', 'Permission Denied', NULL, NULL, '$2y$10$sP5gcmtd1YQ136ZAiHVaEefsVx4UB4T0VMf3DYaxpwkgyZKKCiIDi', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-21 10:07:33', '2019-12-21 10:07:33'),
+('197', '2', 'mer kishan nagarbhai', '9316567630', '864334042469450', 'mk0955816@gmail.com', NULL, '$2y$10$ONIk0xwszVZ14m.ckhR7z.pEEExUlU3hFeBCdi6VQI5HUJItlhFRC', '01-01-1990', 'Male', NULL, 'shrimati c.s ghadani high school', 'dhoran 10', 'Approved', '1', NULL, NULL, '2019-12-25 12:58:00', '2019-12-25 13:19:13'),
+('198', '2', 'Sanjay Jaliya', '8155829026', '868910046099314', 'JaliyaSanjay2018192021@gmail.com', NULL, '$2y$10$qtgrTo2AlnyLFkVqvtY3huHoJqOiDkDWqPv5rlc2vzXHTNVboWXS.', '30-04-1998', 'Male', NULL, 'Surabhi primary school', 'Std 12 commerce', 'Approved', '1', NULL, NULL, '2019-12-25 14:35:09', '2019-12-25 14:38:09'),
+('199', '2', 'Nishant vegad', '7041041384', '866990042106208', 'vegadnishant321@gmail.com', NULL, '$2y$10$SZIWY5rTeBPh911DXKV7U.UgOHKgoSdZ4qetYaBQd/qu0R79GMpzC', '01-01-1990', 'Male', NULL, 'gtgvvgd cghhg. fg', '10', 'Approved', '1', NULL, NULL, '2019-12-28 15:16:09', '2019-12-28 15:17:29'),
+('200', '2', NULL, '8347446494', '860848037164283', NULL, NULL, '$2y$10$VSyNoj3Y5gamEzQuWnslm.o.jkIfivDV1GO4NZoBr7NyL6vKdlkpm', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-29 08:08:41', '2019-12-29 08:08:41'),
+('201', '2', 'aniruddhsinh', '9824986565', '860575042307785', 'aniruddhsinh@6565gmail.com', NULL, '$2y$10$EALzbVPD70NqtJz0/J.gYun4S.INZxiqxnuOMkFj/LJTUscUpKzUe', '01-01-1990', 'Male', NULL, 'sp', 'm. com', 'Approved', '1', NULL, NULL, '2019-12-31 02:27:49', '2019-12-31 02:28:48'),
+('202', '2', NULL, '8238624429', '911636454844274', NULL, NULL, '$2y$10$E9WMz1wTzamvjp0YlaqAoeaiPrwus3/sylAqY5EQe4aKDglf4CPMG', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2019-12-31 10:57:01', '2019-12-31 10:57:01'),
+('203', '2', 'kalu thakor', '8347972047', 'Permission Denied', 'kalut8287@gmail.com', NULL, '$2y$10$m1jRRu/6rmZ3Rm3vdHb0Mui9gD9AgJlaXBtJoQzw4sC5YC9Sa1wz.', '01-01-1990', 'Male', NULL, 'modal scoohl soladi', 'kalu', 'Approved', '1', NULL, NULL, '2020-01-02 14:26:49', '2020-01-02 14:30:14'),
+('204', '2', 'HARDIK chau', '7046433090', '860964043843313', 'rajgorhardik007@gmail.com', NULL, '$2y$10$5rKqcQEj.f5/ZoREfAccQuGmPsRyycbEbVyW2UrxWRvu5Q0Lde5x.', '06-05-1995', 'Male', NULL, 'govthighscool', 'b.sc b.ed', 'Approved', '1', NULL, NULL, '2020-01-03 12:46:45', '2020-01-03 12:48:08'),
+('205', '2', 'dilip', '9016634873', '866571041309793', 'nandaniyadilip45@gmail.com', NULL, '$2y$10$g1bxhror3uqeRe69sAtylOwGvD0JeUxCCgDbLeeAXc4EfNwnK0o5q', '07-01-1990', 'Male', NULL, 'gg', 'gg', 'Approved', '1', NULL, NULL, '2020-01-03 15:11:38', '2020-01-03 15:12:10'),
+('206', '2', NULL, '9574617569', 'Permission Denied', NULL, NULL, '$2y$10$0D0criXS9qkUqI/vBtj57uoqSq0pEHtGFVFt1Mv5KrIqb4791EKgO', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2020-01-03 18:16:42', '2020-01-03 18:16:42'),
+('207', '2', 'Sanjaypatel', '7226981785', '865570035174529', 'sanjayp5107@gmail.com', NULL, '$2y$10$Ae0pIYZ2BOHt4kAn6kKu2.JWt3PODWfRi1YOq87PUhA9m0.Y9TcoO', '01-01-1990', 'Male', NULL, 'gnhandhara', 'b, SC & b, ed', 'Approved', '1', NULL, NULL, '2020-01-04 05:11:05', '2020-01-04 05:13:42'),
+('208', '2', NULL, '8140762486', '865630021798002', NULL, NULL, '$2y$10$tZy.tREom3xa/ey6qEw/nO02k3qJqzzWUYdDvHJBg8asZkcStJk5.', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2020-01-04 14:03:38', '2020-01-04 14:03:38'),
+('209', '2', 'Pàgi Prashant', '8160289537', '860398049031195', 'jasvant12@gmail.com', NULL, '$2y$10$wCaUU.xL6oM8KRjIFfgerON47EWmlIbFt.XLDm33Z5K6mVZHCVIFO', '10-07-1991', 'Male', NULL, 'sri.j.k.v.s', 'secondry', 'Approved', '1', NULL, NULL, '2020-01-05 03:00:01', '2020-01-05 03:03:48'),
+('210', '2', 'MAHESH PATEL', '9979422627', '863877043882932', 'mspatel8361@gmail.com', NULL, '$2y$10$EiL2t.UOA0ccMoVJGQ2l0.wcZM7JOntIyRLJNSsCvKpPYVimeclMm', '01-03-1978', 'Male', NULL, 'Jagruti High School', 'M.Sc.Bed', 'Approved', '1', NULL, NULL, '2020-01-05 03:04:54', '2020-01-05 03:06:18'),
+('211', '2', 'Gopal Gujarati', '6352856071', '866761038620803', 'gopalgujrati123456789@gmail.com', NULL, '$2y$10$u8j9ziLlobLY33MJKH.uPuB83eE5kaIvW1EGfhTJCJ7SGc407Id3G', '01-01-1990', 'Male', NULL, 'shree lalbahadur shatri vidhiyalay mevasha', 'maths', 'Approved', '1', NULL, NULL, '2020-01-06 02:51:36', '2020-01-06 02:54:54'),
+('212', '2', 'Dixit', '9624577987', '358972086632161', 'laddixit722@gmail.com', NULL, '$2y$10$ucMlygjQgXOubUWZUTLPGOK6ThdQf0kibYyrHOQvo75Pc4297o0ua', '07-11-1992', 'Male', NULL, 'sarvajanik high school kangwai', 'Bed', 'Approved', '1', NULL, NULL, '2020-01-07 02:51:02', '2020-01-07 02:52:32'),
+('213', '2', 'rahul', '9724630499', 'Permission Denied', 'aatridantani007@gmail.com', NULL, '$2y$10$Ststb18qTcytP4xz3JEJheCoeLTcSS1ejYDZmP8KX.Z6LE.ZLHqbW', '01-01-1990', 'Male', NULL, 'st.meris', 'a', 'Approved', '1', NULL, NULL, '2020-01-08 14:12:51', '2020-01-08 14:14:28'),
+('214', '2', 'mihir sidani', '9106860704', '911655456061786', 'mihirsudani2004@gmail.com', NULL, '$2y$10$xtlAWkyzb3dAWBQgySEmuOXrcWIMeAXu0JVLdyzGO2sBiKW675jEG', '06-12-1990', 'Male', NULL, 'ashadeep group of schools', 'std 10', 'Approved', '1', NULL, NULL, '2020-01-09 07:48:03', '2020-01-09 07:49:49'),
+('215', '2', 'rahul', '8140375905', '869936035200711', 'rahulvankar2311@gmail.com', NULL, '$2y$10$/vPEAOhh5rx5OwXX43bKq.HMmcDpWRYwTBjo98vUHaGyzKhmMVIzK', '23-11-2000', 'Male', NULL, 'lions', '10', 'Approved', '1', NULL, NULL, '2020-01-09 08:37:16', '2020-01-09 08:38:16'),
+('216', '2', NULL, '9427430561', '864029031464211', NULL, NULL, '$2y$10$rhbD6FMxtZdJlVlWO3QcqeUis275rp9uAsLySf34mBs3HxX1e3QCm', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2020-01-10 14:45:31', '2020-01-10 14:45:32'),
+('217', '2', 'pradip Solanki', '7046127522', '352912100579168', 'lakhmanbhaisolanki1@gmail.com', NULL, '$2y$10$HBAB1TkyujFe.9oHimyffOaj3SWtj99LJz8e0qx0vEZFAIOHqZ.Pq', '24-07-2004', 'Male', NULL, 'Shree k.k. vidhyalaya manar', 'std 10', 'Approved', '1', NULL, NULL, '2020-01-10 15:31:49', '2020-01-10 15:35:41'),
+('218', '2', 'Dhruvi Piyush soni', '9427073114', '860933037529758', 'dr_piyush_soni@yahoo.com', NULL, '$2y$10$Pl8k8Y/olCgIO2XIaQLntOIGwJ7VWRd8GnYbpOLGwWQwLvzQaIVxG', '19-10-2004', 'Female', NULL, 'bvd high school ,ghodasar, Ahmedabad', 'STD 10', 'Approved', '1', NULL, NULL, '2020-01-11 04:31:48', '2020-01-11 04:37:12'),
+('219', '2', 'vhora aksha sami bhai', '9624783947', '354021094843297', 'samirvhora00@gmail.com', NULL, '$2y$10$XU0Z9ucCV7hIMme8XfYzy.D9BX0OGWMe.yMb2SwLQWo.EHrckO1ui', '01-01-1990', 'Female', NULL, 'kasturba kanya vidhyalya', 'gujrati  10th', 'Approved', '1', NULL, NULL, '2020-01-11 07:10:45', '2020-01-11 07:12:25'),
+('220', '2', 'Shivam', '9428947719', 'Permission Denied', 'ramila9428947719@gmail.com', NULL, '$2y$10$Yi1OEc1wuLlRBZbNiYERrunKCuwXTi/Y42FCfpetDFOkcQ2W3YLrC', '01-01-1990', 'Male', NULL, 'tharad', 'shivam', 'Approved', '1', NULL, NULL, '2020-01-11 14:52:08', '2020-01-11 14:52:45'),
+('221', '2', NULL, '8780594697', '353278081545175', NULL, NULL, '$2y$10$kAgH6J0T5hU4HHnmPaAVO.C1eTJVybRXuCf6qLPG9msg1EyHUADum', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2020-01-12 07:03:12', '2020-01-12 07:03:12'),
+('222', '2', 'karansinh solanki', '7043729011', '867224045449533', 'karansinhsolanki26@gmail.com', NULL, '$2y$10$PpeG2g74OfpsNpiaOS3PE.RnkCwrtqUTCtnShvzAjnd/wvRCDDeZW', '07-07-1991', 'Male', NULL, 'arabuda school', '10', 'Approved', '1', NULL, NULL, '2020-01-13 11:34:06', '2020-01-13 11:37:00'),
+('223', '2', NULL, '9624150278', '864264031942110', NULL, NULL, '$2y$10$t3QKQUUAd9u51Q.lFU/9P.Gi.Y7W08WaEAi95bXkcZ9nO4ceio7pa', '01-01-1990', 'Male', NULL, NULL, NULL, 'Approved', '0', NULL, NULL, '2020-01-14 04:19:25', '2020-01-14 04:19:25'),
+('224', '2', 'bhagat vatsal', '9265253219', '861181043640362', 'vatsalbhagat25@gmail.com', NULL, '$2y$10$.FuOLLUjccyAQ3OU1JhKd.RZj9f98umao9QLsC27fLJZHBDh9AJUe', '10-08-2004', 'Male', NULL, 'r. d. contracter', '10th', 'Approved', '1', NULL, NULL, '2020-01-16 05:14:48', '2020-01-16 05:16:46'),
+('225', '2', 'jainil', '9428454054', 'Permission Denied', 'kbtearth@gmail.com', NULL, '$2y$10$3gH5rKfk3fWyfMm00ERLpeSD8XIUays.rK1nNiX34r4dmoRZgoy7W', '17-03-2004', 'Male', NULL, 'JEEVANBHARTI', '10', 'Approved', '1', NULL, NULL, '2020-01-17 10:09:06', '2020-01-17 10:10:07'),
+('226', '2', 'karmur vajashi k.', '9824379579', '861194049918641', 'karmurvk@gmail.com', NULL, '$2y$10$WqUK6vnERvAc0B/CA1na8.wxj2Fb0uIs7mL/y5EWtA38BFYdXKRF2', '05-10-1982', 'Male', NULL, 'parishram', 'gujrati', 'Approved', '1', NULL, NULL, '2020-01-17 13:10:11', '2020-01-17 13:12:02'),
+('227', '2', 'kapateljimit', '9429779992', '911646300092788', 'kapateljimit@gmail.com', NULL, '$2y$10$nztMAvP2wCMrQnZyDDA7QuV8Dmq4Gef//8yNXAyr0j.eeJrxItmTa', '14-12-2004', 'Male', NULL, 'laksh school of science', 'gujrati', 'Approved', '1', NULL, NULL, '2020-01-17 14:58:36', '2020-01-17 15:01:04');
+
+INSERT INTO `videos` (`id`, `category_id`, `chapter_id`, `topic_id`, `thumbnail`, `title`, `description`, `url`, `order`, `created_at`, `updated_at`) VALUES ('11', '2', '7', '8', 'videos/July2019/w4FZtt629UDk554B3WYZ.jpg', 'પ્રસ્તાવના', 'તમારો ખૂબ ખૂબ આભાર...', 'uploadfile/10th_Guj/intro/intro-compressed.mp4', '1', '2019-07-08 08:01:00', '2019-07-19 08:04:14'),
+('12', '2', '2', '3', 'videos/July2019/QvoORx21YrVCWQWrBVeA.jpg', 'નોટ્સ 1.1', 'યુક્લિડના ભાગાકાનું પૂર્વપ્રમેય 1.1, ભાગપ્રવિધિ', 'uploadfile/10th_Guj/Chap-1/Notes/Notes-1.1.mp4', '1', '2019-07-08 09:04:59', '2019-07-08 09:04:59'),
+('13', '2', '2', '9', 'videos/July2019/0goSMocYv0gyOj5hCbl9.jpg', 'યુક્લિડની ભાગપ્રવિધિનો', 'ઉપયોગ કરી 4052 અને 12576નો ગુ.સા.અ. શોધો.', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-1.mp4', '1', '2019-07-08 09:13:00', '2019-07-08 09:35:50'),
+('14', '2', '2', '9', 'videos/July2019/QIJxYzrsnFuQ55LUbKa2.jpg', 'દર્શાવો કે, દરેક યુગ્મ', 'ધન પૂર્ણાંક એ કોઈક પૂર્ણાંક q માટે, 2q...', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-2.mp4', '2', '2019-07-08 09:16:00', '2019-07-08 09:35:58'),
+('15', '2', '2', '9', 'videos/July2019/MvmvGyy1x2ToAvnxACn2.jpg', 'દર્શાવો કે, કોઈ પણ', 'અયુગ્મ ધન પૂર્ણાંક એ કોઈક પૂર્ણાંક q માટે...', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-3.mp4', '3', '2019-07-08 09:17:00', '2019-07-08 09:36:06'),
+('16', '2', '2', '9', 'videos/July2019/eigsKguKk161dSyXzHjV.jpg', 'એક મીઠાઈવાળા પાસે 420', 'નંગ કાજુ બરફી અને 130 નંગ બદામ બરફી છે. તે...', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-4.mp4', '4', '2019-07-08 09:33:00', '2019-07-08 09:36:15'),
+('17', '2', '2', '10', 'videos/July2019/c00hTq5oMjzYyIswJlGL.jpg', 'યુક્લિડની ભાગપ્રવિધિનો', 'ઉપયોગ કરી ગુ.સા.અ શોધો....', 'uploadfile/10th_Guj/Chap-1/Exe-1.1/Que-1.mp4', '1', '2019-07-08 09:44:37', '2019-07-08 09:44:37'),
+('18', '2', '2', '10', 'videos/July2019/irJg8R1LWIPAP4MF8UX5.jpg', 'દર્શાવો કે, કોઈ પણ', 'અયુગ્મ ધન પૂર્ણાંક સંખ્યા કોઈક પૂર્ણાંક q...', 'uploadfile/10th_Guj/Chap-1/Exe-1.1/Que-2.mp4', '2', '2019-07-08 09:45:42', '2019-07-08 09:45:42'),
+('19', '2', '2', '10', 'videos/July2019/ubA2OTPkMmF6VgTGyQWl.jpg', 'એક લશ્કરનું 616 સભ્યોનું', 'જૂથ લશ્કરના બેન્ડના 32 સભ્યોની પાછળ કૂચ...', 'uploadfile/10th_Guj/Chap-1/Exe-1.1/Que-3.mp4', '3', '2019-07-08 09:46:45', '2019-07-08 09:46:45'),
+('20', '2', '2', '10', 'videos/July2019/MHMnJaZ9zways7WvdFoZ.jpg', 'યુક્લિડના ભાગાકારના', 'પૂર્વ પ્રમેયનો ઉપયોગ કરી દર્શાવો કે, કોઈ પણ..', 'uploadfile/10th_Guj/Chap-1/Exe-1.1/Que-4.mp4', '4', '2019-07-08 09:47:50', '2019-07-08 09:47:50'),
+('21', '2', '2', '10', 'videos/July2019/jwPVQJt8u0O8gG8qsg4y.jpg', 'યુક્લિડનું ભાગાકારનું', 'પૂર્વપ્રમેય વાપરીને દર્શાવો કે, કોઈ પણ ધન...', 'uploadfile/10th_Guj/Chap-1/Exe-1.1/Que-5.mp4', '5', '2019-07-08 09:49:23', '2019-07-08 09:49:23'),
+('22', '2', '2', '11', 'videos/July2019/nhQCoOGGB4Hn1imWXWAA.jpg', 'નોટ્સ 1.2', 'અંકગણિતનું મૂળભૂત પ્રમેય, અવયવ વૃક્ષ, ગુ.સા.અ. લ.સા.અ.', 'uploadfile/10th_Guj/Chap-1/Notes/Notes-1.2.mp4', '4', '2019-07-08 09:53:37', '2019-07-08 09:53:37'),
+('23', '2', '2', '12', 'videos/July2019/aUldnggBHGqNGGLwvoeG.jpg', 'કોઈક ધન પૂર્ણાંક n', 'માટે 4^nનો છેલ્લો અંક શૂન્ય હશે કે કેમ તે...', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-5.mp4', '5', '2019-07-08 09:59:45', '2019-07-08 09:59:45'),
+('24', '2', '2', '12', 'videos/July2019/QGt29O85erLJ2Gae44LT.jpg', 'અવિભાજ્ય અવયવીકરણ', 'પદ્ધતિથી 6 અને 20નો ગુ.સા.અ. અને લ.સા.અ. શોધો.', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-6.mp4', '6', '2019-07-08 10:00:46', '2019-07-08 10:00:46'),
+('25', '2', '2', '12', 'videos/July2019/tD9kKkEyAkPrxU1zXgRo.jpg', '96 અને 404નો ગુ.સા.અ.', 'અવિભાજ્ય અવયવની રીતે મેળવો અને તે પરથી તેનો..', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-7.mp4', '7', '2019-07-08 10:01:55', '2019-07-08 10:01:55'),
+('26', '2', '2', '12', 'videos/July2019/LM7E0hh2nFpoMa1pzmGq.jpg', 'અવિભાજ્ય અવયવનોની', 'રીતથી 6, 72 અને 120નો ગુ.સા.અ અને લ.સા.અ. શોધો.', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-8.mp4', '8', '2019-07-08 10:02:52', '2019-07-08 10:02:52'),
+('27', '2', '2', '13', 'videos/July2019/dnYQLg3G3qtWCZW0DQV6.jpg', 'નીચેની દરેક સંખ્યાને', 'તેના અવિભાજ્ય અવયવોના ગુણાકાર સ્વરૂપે દર્શાવો :', 'uploadfile/10th_Guj/Chap-1/Exe-1.2/Que-1.mp4', '1', '2019-07-08 10:09:47', '2019-07-08 10:09:47'),
+('28', '2', '2', '13', 'videos/July2019/Q9nBWwsgKKyNYtpFlRZO.jpg', 'નીચે આપેલ પૂર્ણાંકોની', 'જોડીના ગુ.સા.અ. અને લ.સા.અ. શોધો. અને લ.સા.અ. ×...', 'uploadfile/10th_Guj/Chap-1/Exe-1.2/Que-2.mp4', '2', '2019-07-08 10:11:14', '2019-07-08 10:11:14'),
+('29', '2', '2', '13', 'videos/July2019/xowg2qlchEk3hg8g0gre.jpg', 'નીચે આપેલ પૂર્ણાંકોના', 'અવિભાજ્ય અવયવની રીતે ગુ.સા.અ. અને લ.સા.અ....', 'uploadfile/10th_Guj/Chap-1/Exe-1.2/Que-3.mp4', '3', '2019-07-08 10:12:17', '2019-07-08 10:12:17'),
+('30', '2', '2', '13', 'videos/July2019/bc26mYiFDMFf5VOHWBHF.jpg', 'જો ગુ.સા.અ (306, 657)', '= 9 આપેલ હોય, તો લ.સા.અ. (306, 657) શોધો.', 'uploadfile/10th_Guj/Chap-1/Exe-1.2/Que-4.mp4', '4', '2019-07-08 10:13:26', '2019-07-08 10:13:26'),
+('31', '2', '2', '13', 'videos/July2019/swLUy7rGXfMii9Xsxc5D.jpg', 'કોઈક પ્રાકૃતિક સંખ્યા', 'n માટે 6^nનો અંતિમ અંક શૂન્ય થાય કે નહીં તે..', 'uploadfile/10th_Guj/Chap-1/Exe-1.2/Que-5.mp4', '5', '2019-07-08 10:14:32', '2019-07-08 10:14:32'),
+('32', '2', '2', '13', 'videos/July2019/w5ITpIs2v520D5xi5nRo.jpg', 'સમજાવો કે, 7 × 11 × 13', '+ 13 અને 7 × 6 × 5 × 4 × 3 × 2 × 1 + 5 એ શા...', 'uploadfile/10th_Guj/Chap-1/Exe-1.2/Que-6.mp4', '6', '2019-07-08 10:17:13', '2019-07-08 10:17:13'),
+('33', '2', '2', '13', 'videos/July2019/8pIXdq4pp9vflndXdSRN.jpg', 'એક રમતના મેદાનમાં', 'વર્તુળાકાર માર્ગ છે. સોનિયાને તેનું એક પરિભ્રમણ...', 'uploadfile/10th_Guj/Chap-1/Exe-1.2/Que-7.mp4', '7', '2019-07-08 10:18:19', '2019-07-08 10:18:19'),
+('34', '2', '2', '14', 'videos/July2019/oLMq93vLLTlQTAtTFgru.jpg', 'નોટ્સ 1.3', 'અંસમેય સંખ્યા, પ્રમેય 1.3 અને પ્રમેય 1.4 વિશે.', 'uploadfile/10th_Guj/Chap-1/Notes/Notes-1.3.mp4', '1', '2019-07-08 14:18:54', '2019-07-08 14:18:54'),
+('35', '2', '2', '15', 'videos/July2019/6PWZk2USaLD9lubWqztl.jpg', 'સાબિત કરો કે, √3', 'એ અસંમેય છે.', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-9.mp4', '9', '2019-07-08 14:27:13', '2019-07-08 14:27:13'),
+('36', '2', '2', '15', 'videos/July2019/Rzb0ZDY8i9zSpxowmH60.jpg', 'દર્શાવો કે, 5 – √3', 'અસંમેય છે.', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-10.mp4', '10', '2019-07-08 14:28:03', '2019-07-08 14:28:03'),
+('37', '2', '2', '15', 'videos/July2019/6892ftZ2M1QXW15IusTh.jpg', 'દર્શાવો કે, 3√2', 'અસંમેય છે.', 'uploadfile/10th_Guj/Chap-1/Examples/Ex-11.mp4', '11', '2019-07-08 14:28:52', '2019-07-08 14:28:52'),
+('38', '2', '2', '16', 'videos/July2019/F6ZMBQIPY8CNFDKLZsTF.jpg', 'સાબિત કરો કે, √5', 'અસંમેય છે.', 'uploadfile/10th_Guj/Chap-1/Exe-1.3/Que-1.mp4', '1', '2019-07-08 14:32:46', '2019-07-08 14:32:46'),
+('39', '2', '2', '16', 'videos/July2019/Nx6MXlDIEHTbBtA2wFr3.jpg', 'સાબિત કરો કે, 3 + 2√5', 'અસંમેય છે.', 'uploadfile/10th_Guj/Chap-1/Exe-1.3/Que-2.mp4', '2', '2019-07-08 14:33:43', '2019-07-08 14:33:43'),
+('40', '2', '2', '16', 'videos/July2019/yimgyPg2eqvrWaLZhEd9.jpg', 'નીચે દર્શાવેલ સંખ્યાઓ', 'અસંમેય છે તેમ સાબિત કરો :', 'uploadfile/10th_Guj/Chap-1/Exe-1.3/Que-3.mp4', '3', '2019-07-08 14:34:31', '2019-07-08 14:34:31'),
+('41', '2', '2', '17', 'videos/July2019/wQGF2QZBfrgw2hpBjQ9F.jpg', 'નોટ્સ 1.4', 'સંમેય સંખ્યાઓ અને દશાંશ નિરૂપણ, પ્રમેય 1.5 અને 1.7 વિશે.', 'uploadfile/10th_Guj/Chap-1/Notes/Notes-1.4.mp4', '1', '2019-07-08 14:37:00', '2019-07-08 14:44:19'),
+('42', '2', '2', '18', 'videos/July2019/0eKG6r55zsC1GLi5Ykgf.jpg', 'ભાગાકારની લાંબી પ્રક્રિયા', 'કર્યા વગર, નીચે દર્શાવેલ સંમેય સંખ્યાઓનું...', 'uploadfile/10th_Guj/Chap-1/Exe-1.4/Que-1.mp4', '1', '2019-07-08 14:40:00', '2019-07-08 14:40:00'),
+('43', '2', '2', '18', 'videos/July2019/DPDP5aQ9CNa0H0XULvuh.jpg', 'પ્રશ્ન 1માં જે સંમેય', 'સંખ્યાઓનું દશાંશ નિરૃપણ સાન્ત હોય તેનું દશાંશ...', 'uploadfile/10th_Guj/Chap-1/Exe-1.4/Que-2.mp4', '2', '2019-07-08 14:40:57', '2019-07-08 14:40:57'),
+('44', '2', '2', '18', 'videos/July2019/CBUucOaVrL9yv5Os0Ilt.jpg', 'નીચેની વાસ્તવિક સંખ્યાઓનું', 'દશાંશ નિરૂપણ દર્શાવેલ છે. દરેક માટે જણાવો કે...', 'uploadfile/10th_Guj/Chap-1/Exe-1.4/Que-3.mp4', '3', '2019-07-08 14:41:55', '2019-07-08 14:41:55'),
+('45', '2', '1', '19', 'videos/July2019/zDpJllxoovqgcuyX0TEL.jpg', 'નોટ્સ 2.1', 'બહુપદીની ઘાત, શૂન્ય, ભૌમિતિક અર્થ', 'uploadfile/10th_Guj/Chap-2/Notes/Notes-2.2.mp4', '1', '2019-07-08 14:53:00', '2019-08-03 19:09:37'),
+('46', '2', '1', '20', 'videos/July2019/l2OBlMFuI43lZJv1k5dd.jpg', 'નીચે આકૃતિમાં આપેલ આલેખ', 'જુઓ. પ્રત્યેક આલેખ બહુપદી p(x) માટે y = p(x)..', 'uploadfile/10th_Guj/Chap-2/Examples/Ex-1.mp4', '1', '2019-07-08 15:01:00', '2019-07-08 15:03:00'),
+('47', '2', '1', '21', 'videos/July2019/oWMRgy0nV0Kv6ts4lFJN.jpg', 'નીચે આકૃતિમાં કોઈ', 'બહુપદી p(x) માટે y = p(x)ના આલેખ આપેલ છે...', 'uploadfile/10th_Guj/Chap-2/Exe-2.1/Que-1.mp4', '1', '2019-07-08 15:08:41', '2019-07-08 15:08:41'),
+('48', '2', '1', '22', 'videos/July2019/JDGnqQ1c3OBSSq00Kf3f.jpg', 'નોટ્સ 2.2', 'બહુપદીના શૂન્યો સહગુણકો વચ્ચેનો સંબંધ, સૂ્ત્રો', 'uploadfile/10th_Guj/Chap-2/Notes/Notes-2.1.mp4', '1', '2019-07-08 15:11:00', '2019-08-03 19:09:35'),
+('49', '2', '1', '23', 'videos/July2019/nTZWAozS1JfxuLHOxekD.jpg', 'દ્વિઘાત બહુપદી x^2 + 7x', '+ 10નાં શૂન્યો શોધો તથા તેનાં શૂન્યો અને...', 'uploadfile/10th_Guj/Chap-2/Examples/Ex-2.mp4', '2', '2019-07-08 15:16:22', '2019-07-08 15:16:22'),
+('50', '2', '1', '23', 'videos/July2019/zQqhKLLVlmEaJiuIn3EL.jpg', 'બહુપદી x^2 – 3નાં શૂન્યો', 'શોધો અને તેનાં શૂન્યો અને સહગુણકો વચ્ચેનો..', 'uploadfile/10th_Guj/Chap-2/Examples/Ex-3.mp4', '3', '2019-07-08 15:17:42', '2019-07-08 15:17:42'),
+('51', '2', '1', '23', 'videos/July2019/KyFccP0eR96QG8X5rtKy.jpg', 'જેનાં શૂન્યોનો સરવાળો', 'અને ગુણાકાર અનુક્રમે –3 અને 2 હોય તેવી દ્વિઘાત...', 'uploadfile/10th_Guj/Chap-2/Examples/Ex-4.mp4', '4', '2019-07-08 15:18:51', '2019-07-08 15:18:51'),
+('52', '2', '1', '33', 'videos/July2019/1vplkOm94f0AbBGJNmen.jpg', 'x^2 – 2x – 9', 'શૂન્યો શોધો તથા સંબંધ ચકાસો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-1-of-1.mp4', '1', '2019-07-12 17:53:43', '2019-07-12 17:53:43'),
+('53', '2', '1', '33', 'videos/July2019/pZkiK9Gg6mpAS6mtzlpw.jpg', '4s^2 – 4s + 1', 'શૂન્યો શોધો તથા સંબંધ ચકાસો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-1-of-2.mp4', '2', '2019-07-12 17:54:00', '2019-07-12 17:54:53'),
+('54', '2', '1', '33', 'videos/July2019/QxEYOrr2xHiInCwDXdYZ.jpg', '6x^2 – 3 – 7x', 'શૂન્યો શોધો તથા સંબંધ ચકાસો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-1-of-3.mp4', '3', '2019-07-12 17:55:48', '2019-07-12 17:55:48'),
+('55', '2', '1', '33', 'videos/July2019/YFPdsY9IwvDQEqS9FZWY.jpg', '4u^2 + 8u', 'શૂન્યો શોધો તથા સંબંધ ચકાસો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-1-of-4.mp4', '4', '2019-07-12 17:56:48', '2019-07-12 17:56:48'),
+('56', '2', '1', '33', 'videos/July2019/Qj9WW919or8ECYzCNxiK.jpg', 't^2 – 15', 'શૂન્યો શોધો તથા સંબંધ ચકાસો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-1-of-5.mp4', '5', '2019-07-12 17:57:23', '2019-07-12 17:57:23'),
+('57', '2', '1', '33', 'videos/July2019/fHSyx6rT8yHoutyrXvUK.jpg', '3x^2 – x – 4', 'શૂન્યો શોધો તથા સંબંધ ચકાસો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-1-of-6.mp4', '6', '2019-07-12 17:58:24', '2019-07-12 17:58:24'),
+('58', '2', '1', '33', 'videos/July2019/fM9jE3oPlxJ2xfJDk7yf.jpg', '1/4, –1', 'દ્વિઘાત બહુપદી મેળવો :', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-2-of-1.mp4', '7', '2019-07-12 17:59:42', '2019-07-12 17:59:42'),
+('59', '2', '1', '33', 'videos/July2019/5OqTeSPtMciRuGuPsfXb.jpg', '√2, 1/3', 'દ્વિઘાત બહુપદી મેળવો :', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-2-of-2.mp4', '8', '2019-07-12 18:00:42', '2019-07-12 18:00:42'),
+('60', '2', '1', '33', 'videos/July2019/KoaYNIjhxEBSykpOuvmb.jpg', '0, √5', 'દ્વિઘાત બહુપદી મેળવો :', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-2-of-3.mp4', '9', '2019-07-12 18:01:21', '2019-07-12 18:01:21'),
+('61', '2', '1', '33', 'videos/July2019/kbqRVZ0pmCgOYBfB7PG7.jpg', '1, 1', 'દ્વિઘાત બહુપદી મેળવો :', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-2-of-4.mp4', '10', '2019-07-12 18:01:49', '2019-07-12 18:01:49'),
+('62', '2', '1', '33', 'videos/July2019/K9LgGN8LbVnb11c5WnOI.jpg', '–1/4,  1/4', 'દ્વિઘાત બહુપદી મેળવો :', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-2-of-5.mp4', '11', '2019-07-12 18:02:30', '2019-07-12 18:02:30'),
+('63', '2', '1', '33', 'videos/July2019/sIIIZh2Ygn59By07mHHI.jpg', '4,  1', 'દ્વિઘાત બહુપદી મેળવો :', 'uploadfile/10th_Guj/Chap-2/Exe-2.2/Que-2-of-6.mp4', '12', '2019-07-12 18:02:54', '2019-07-12 18:02:54'),
+('64', '2', '1', '34', 'videos/July2019/7dAV66OFFhIf5F6XZcoq.jpg', '2x^2  +  3x  + 1ને x + 2', 'વડે ભાગો', 'uploadfile/10th_Guj/Chap-2/Examples/Ex-6.mp4', '6', '2019-07-12 18:36:30', '2019-07-12 18:36:30'),
+('65', '2', '1', '34', 'videos/July2019/DxSYmDhHOpQmhPdYBMfZ.jpg', '3x^3  +  x^2  + 2x + 5ને', '1 + 2x + x^2 વડે ભાગો.', 'uploadfile/10th_Guj/Chap-2/Examples/Ex-7.mp4', '7', '2019-07-12 18:37:38', '2019-07-12 18:37:38'),
+('66', '2', '1', '34', 'videos/July2019/jukdDqKoXGktzrrlmVSY.jpg', '3x^2  – x^3 – 3x + 5નો', 'x – 1 – x^2 વડે ભાગાકાર કરો અને ભાગપ્રવિધિ ચકાસો.', 'uploadfile/10th_Guj/Chap-2/Examples/Ex-8.mp4', '8', '2019-07-12 18:38:36', '2019-07-12 18:38:36'),
+('67', '2', '1', '34', 'videos/July2019/YduMWgmETLzWZl0uFQru.jpg', 'જો √2 અને –√2 એ', '2x^4 – 3x^3 – 3x^2 + 6x – 2નાં બે શૂન્યો છે...', 'uploadfile/10th_Guj/Chap-2/Examples/Ex-9.mp4', '9', '2019-07-12 18:39:38', '2019-07-12 18:39:38'),
+('68', '2', '7', '8', 'videos/July2019/0QYR4xkaNRGjRP3QWOrU.jpg', 'Install અને Registration', 'અહીં ઇન્સ્ટોલ કરી રજીસ્ટ્રેશન કરવાની સંપૂર્ણ પ્રક્રિયા સમજાવવામાં આવી છે.', 'uploadfile/10th_Guj/intro/How-to-install-regi.mp4', '2', '2019-07-19 08:02:00', '2019-07-20 11:40:25'),
+('70', '2', '7', '8', 'videos/July2019/zK2spVMUdsZK5d6BymtY.jpg', 'Milestone Educom App જ કેમ?', 'તમને અહીં 10 પોઈન્ટ બતાવવામાં આવ્યા છે.', 'uploadfile/10th_Guj/intro/Why-Milestone-Educom-Maths-App.mp4', '3', '2019-07-19 08:10:00', '2019-07-19 08:21:44'),
+('71', '2', '7', '8', 'videos/July2019/FvsKtGd9uMTx2fgj9pP8.jpg', 'તૂ પોતાના ધ્યાનને ભણવામાં', 'કેન્દ્રિત કર - Motivational Speech - by Alpesh Shendre.', 'uploadfile/10th_Guj/intro/Motivational-cmprsd.mp4', '4', '2019-07-19 08:19:00', '2019-07-19 08:21:56'),
+('72', '2', '7', '8', 'videos/July2019/04GXrvzvITueLiyg0kdh.jpg', 'ઉપયોગ આ રીતે કરશો', 'એપ્લીકેશન ઉપયોગ કરવાની પદ્ધતિ.', 'uploadfile/10th_Guj/intro/How-to-Use-Our-Application.mp4', '2', '2019-07-20 11:27:00', '2019-07-20 11:32:11'),
+('73', '2', '1', '35', 'videos/July2019/BQkqc43qRRcvbI5D4tDE.jpg', 'p(x) = x^3 – 3x^2 + 5x – 3', 'g(x) x^2 – 2 ભાગફળ તથા શેષ મળવો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-1-of-1.mp4', '1', '2019-07-25 10:29:13', '2019-07-25 10:29:13'),
+('74', '2', '1', '35', 'videos/July2019/EjdTajAmsOXgITmrFyGs.jpg', 'p(x) = x^4 – 3x^2 + 4x + 5', 'g(x) = x^2 + 1 – x ભાગફળ તથા શેષ મેળવો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-1-of-2.mp4', '2', '2019-07-25 10:32:02', '2019-07-25 10:32:02'),
+('75', '2', '1', '35', 'videos/July2019/G1Xp89TsLHxVoQ1V4me3.jpg', 'p(x) = x^4 – 5x + 6,', 'g(x = 2 – x^2 ભાગફળ તથા શેષ મેળવો.', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-1-of-3.mp4', '3', '2019-07-25 10:33:06', '2019-07-25 10:33:06'),
+('76', '2', '1', '35', 'videos/July2019/NNzPcOkCpTFArqKRqOpX.jpg', 't^2 – 3,', 'ચકાસો કે, અવયવ છે કે નહીં.', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-2-of-1.mp4', '4', '2019-07-25 10:34:28', '2019-07-25 10:34:28'),
+('77', '2', '1', '35', 'videos/July2019/KQ3p315RO5qxW0fTBS0B.jpg', 'x^2 + 3x + 1,', 'ચકાસો કે, અવયવ છે કે નહીં.', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-2-of-2.mp4', '5', '2019-07-25 10:35:14', '2019-07-25 10:35:14'),
+('78', '2', '1', '35', 'videos/July2019/VskCsEhNO7sDX0wf8eAE.jpg', 'x^3 – 3x + 1,', 'ચકાસો કે, અવયવ છે કે નહીં.', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-2-of-3.mp4', '6', '2019-07-25 10:36:07', '2019-07-25 10:36:07'),
+('79', '2', '1', '35', 'videos/July2019/iEWFTzNMb5Q0NNI5p3X5.jpg', 'જો √5/3 અને –√5/3 એ', '3x^4 + 6x^3 – 2x^2 0 10x – 5નાં બે શૂન્યો હોય, તો...', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-3.mp4', '7', '2019-07-25 10:46:17', '2019-07-25 10:46:17'),
+('80', '2', '1', '35', 'videos/July2019/pkCSCSL2V5MYX0tYaYW7.jpg', 'x^3 – 3x^2 + x + 2ને બહુપદી', 'g(x) વડે ભાગતા ભાગફળ અને શેષ...', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-4.mp4', '8', '2019-07-25 10:47:50', '2019-07-25 10:47:50'),
+('81', '2', '1', '35', 'videos/July2019/4ASupYCzZHowlrUg5mDR.jpg', 'ભાગપ્રવિધિ અને નીચેની શરતોને', 'આ પ્રશ્નમાં કુલ 3 પ્રશ્નો છે.', 'uploadfile/10th_Guj/Chap-2/Exe-2.3/Que-5-of-1-2-3-mixed.mp4', '9', '2019-07-25 10:48:55', '2019-07-25 10:48:55'),
+('82', '2', '8', '24', 'videos/July2019/J9CsAWCMJyRcIBkzxCvw.jpg', 'વર્ગ અને વર્ગમૂળ', '1થી 30 સુધી વર્ગ અને વર્ગમૂળ.', 'uploadfile/10th_Guj/Basic/Square-and-root-1-to-30.mp4', '1', '2019-07-28 17:29:49', '2019-07-28 17:29:49'),
+('83', '2', '8', '25', 'videos/July2019/7SJGP3LYtwtWLjkTxqso.jpg', 'ઘન અને ઘનમૂળ', '1થી 10 સુધી ઘન અને ઘનમૂળ', 'uploadfile/10th_Guj/Basic/Qube-and-Quberoot.mp4', '1', '2019-07-28 17:30:47', '2019-07-28 17:30:47'),
+('84', '2', '8', '26', 'videos/July2019/E7H95952m8GGOkIJzase.jpg', '(+) અને (–)નો નિયમ', 'સરવાળા અને બાદબાકીનો નિયમ.', 'uploadfile/10th_Guj/Basic/Plus-minus-rules.mp4', '1', '2019-07-28 17:31:48', '2019-07-28 17:31:48'),
+('85', '2', '8', '27', 'videos/July2019/zdXD7lEb3IOQPaBpSfLh.jpg', 'બીજ ગણિતનું સામાન્ય જ્ઞાન', 'અહીં બીજ ગણિતના બેજીક બાબતો વીશે શીખો.', 'uploadfile/10th_Guj/Basic/Algebra-Rules.mp4', '1', '2019-07-28 17:32:53', '2019-07-28 17:32:53'),
+('86', '2', '8', '28', 'videos/July2019/nUQG5eq46TDsxfResTeY.jpg', 'કોમન (સામાન્ય) નિકાળતા શીખો.', 'કોમન નિકાળતા શીખો.', 'uploadfile/10th_Guj/Basic/common.mp4', '1', '2019-07-28 19:42:32', '2019-07-28 19:42:32');
 
 
 
 
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

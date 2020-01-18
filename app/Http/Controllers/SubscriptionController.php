@@ -20,8 +20,10 @@ class SubscriptionController extends Controller
     {
         $user = auth('api')->user();
         $category_id = $request->category_id;
+        $institute_id = $request->institute_id ? $request->institute_id : 1;
 
         Subscription::create([
+            'institute_id' => $institute_id,
             'category_id' => $category_id,
             'user_id' => $user->id,
             'expires_at' => Carbon::now()->addDays(2)
