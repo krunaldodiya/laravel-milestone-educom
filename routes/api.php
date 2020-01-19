@@ -38,4 +38,5 @@ Route::group(['prefix' => 'videos', 'middleware' => 'auth:api'], function () {
 
 Route::group(['prefix' => 'reseller'], function () {
     Route::post("/login", "ResellerController@login")->name("login");
+    Route::post("/institute", "ResellerController@getInstitute")->name("institute");
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Institute;
 use App\User;
 use Error;
 use Illuminate\Http\Request;
@@ -46,5 +47,14 @@ class ResellerController extends Controller
             'mobile' => $mobile,
             'password' => bcrypt(str_random(8))
         ]);
+    }
+
+    public function getInstitute(Request $request)
+    {
+        $institute = Institute::with('students.info.subscriptions')
+            ->where('institute_id', $request->institute_id)
+            ->first();
+
+        return compact('institute');
     }
 }
