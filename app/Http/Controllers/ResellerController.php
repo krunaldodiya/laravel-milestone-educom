@@ -52,8 +52,7 @@ class ResellerController extends Controller
     public function getInstitute(Request $request)
     {
         $institute = Institute::with('students.info.subscriptions')
-            ->where('institute_id', $request->institute_id)
-            ->first();
+            ->find($request->institute_id);
 
         return compact('institute');
     }
