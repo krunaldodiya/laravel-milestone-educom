@@ -51,7 +51,7 @@ class ResellerController extends Controller
 
         $institute = Institute::with('students')->find($reseller['institute_id']);
 
-        if ($institute->max_students < $institute->students->count()) {
+        if ($institute->max_students > $institute->students->count()) {
             $user = User::firstOrCreate(['mobile' => $mobile], [
                 'mobile' => $mobile,
                 'password' => bcrypt(str_random(8))
