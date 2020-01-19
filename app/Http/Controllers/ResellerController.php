@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\User;
 use Error;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Tymon\JWTAuth\Facades\JWTFactory;
 
 class ResellerController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $username = $request->username;
         $password = $request->password;
