@@ -43,6 +43,13 @@ class ResellerController extends Controller
         return ['token' => $token->get()];
     }
 
+    public function removeStudent(AddStudentRequest $request)
+    {
+        User::find($request->student_id)->delete();
+
+        return $this->getInstitute($request);
+    }
+
     public function addStudent(AddStudentRequest $request)
     {
         $mobile = $request->mobile;
