@@ -7,6 +7,8 @@ use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
 
 class ResellerController extends Controller
 {
@@ -20,12 +22,16 @@ class ResellerController extends Controller
         if ($institute) {
             $validate_admin = Hash::check($password, $institute->password);
 
-            if ($validate_admin) {
-                return $institute->id;
-            } else {
+            if (!$validate_admin) {
                 throw new Error("Wrong username or password");
             }
+
+            $payload = JWTFactory::make($institute);
+
+            return JWTAuth::encode($payload);
         }
+
+        throw new Error("No Institute found");
     }
 
     public function addStudent(Request $request)
