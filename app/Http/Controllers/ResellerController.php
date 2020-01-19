@@ -63,7 +63,7 @@ class ResellerController extends Controller
     public function getInstitute(Request $request)
     {
         $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
-        $institute = Institute::with('students.info.subscriptions')->find($reseller['institute_id']);
+        $institute = Institute::with('students.info.subscriptions', 'categories')->find($reseller['institute_id']);
 
         return compact('institute');
     }
