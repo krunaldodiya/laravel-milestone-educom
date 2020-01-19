@@ -26,7 +26,8 @@ class ResellerController extends Controller
                 throw new Error("Wrong username or password");
             }
 
-            $payload = JWTFactory::make($institute);
+            $customClaims = JWTFactory::customClaims($institute);
+            $payload = JWTFactory::make($customClaims);
 
             return JWTAuth::encode($payload);
         }
