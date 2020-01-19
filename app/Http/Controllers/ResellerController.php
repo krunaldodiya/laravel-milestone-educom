@@ -89,7 +89,6 @@ class ResellerController extends Controller
             Subscription::create($data);
         }
 
-        $institute = $this->getInstitute($request);
-        return compact('institute');
+        return $this->getInstitute($request);
     }
 }
