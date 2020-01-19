@@ -45,21 +45,27 @@ class ResellerController extends Controller
 
     public function addStudent(AddStudentRequest $request)
     {
-        $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
-
         $mobile = $request->mobile;
 
-        $user = User::firstOrCreate(['mobile' => $mobile], [
-            'mobile' => $mobile,
-            'password' => bcrypt(str_random(8))
-        ]);
+        $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
 
-        InstituteStudent::firstOrCreate([
-            'institute_id' => $reseller['institute_id'],
-            'student_id' => $user->id
-        ]);
+        $institute = Institute::with('students')->find($reseller['institute_id']);
 
-        return $this->getInstitute($request);
+        if ($institute->max_students < $institute->students->count()) {
+            $user = User::firstOrCreate(['mobile' => $mobile], [
+                'mobile' => $mobile,
+                'password' => bcrypt(str_random(8))
+            ]);
+
+            InstituteStudent::firstOrCreate([
+                'institute_id' => $reseller['institute_id'],
+                'student_id' => $user->id
+            ]);
+
+            return $this->getInstitute($request);
+        }
+
+        throw new Error("Max {$institute->max_students} students are allowed");
     }
 
     public function getInstitute(Request $request)
