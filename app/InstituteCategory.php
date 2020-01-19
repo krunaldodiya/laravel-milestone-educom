@@ -11,4 +11,9 @@ class InstituteCategory extends Model
     protected $dates = [
         'created_at', 'updated_at', 'expires_at',
     ];
+
+    public function info()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
 }
