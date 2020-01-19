@@ -41,4 +41,8 @@ Route::group(['prefix' => 'reseller'], function () {
     Route::post("/institute", "ResellerController@getInstitute")
         ->name("institute")
         ->middleware('reseller');
+
+    Route::post("/students/add", "ResellerController@addStudent")
+        ->name("add-student")
+        ->middleware('reseller');
 });

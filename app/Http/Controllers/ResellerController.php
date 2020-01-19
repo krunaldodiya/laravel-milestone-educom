@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\LoginRequest;
 use App\Institute;
+use App\InstituteStudent;
 use App\User;
 use Error;
 use Illuminate\Http\Request;
@@ -39,14 +41,23 @@ class ResellerController extends Controller
         return ['token' => $token->get()];
     }
 
-    public function addStudent(Request $request)
+    public function addStudent(AddStudentRequest $request)
     {
+        $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
+
         $mobile = $request->mobile;
 
         $user = User::firstOrCreate(['mobile' => $mobile], [
             'mobile' => $mobile,
             'password' => bcrypt(str_random(8))
         ]);
+
+        InstituteStudent::firstOrCreate([
+            'institute_id' => $reseller['institute_id'],
+            'student_id' => $user->id
+        ]);
+
+        return $this->getInstitute($request);
     }
 
     public function getInstitute(Request $request)
