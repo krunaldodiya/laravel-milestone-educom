@@ -2,33 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddStudentRequest;
-use App\Institute;
-use App\InstituteStudent;
-use App\User;
-use Illuminate\Support\Facades\DB;
+use App\Subscription;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TestController extends Controller
 {
-    public function test(AddStudentRequest $request)
+    public function test(Request $request)
     {
         $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
 
-        $mobile = $request->mobile;
-
-        $user = User::firstOrCreate(['mobile' => $mobile], [
-            'mobile' => $mobile,
-            'password' => bcrypt(str_random(8))
-        ]);
-
-        InstituteStudent::firstOrCreate([
+        $data = [
             'institute_id' => $reseller['institute_id'],
-            'student_id' => $user->id
-        ]);
+            'user_id' => $request['user_id'],
+            'category_id' => $request['category_id'],
+        ];
 
-        $institute = Institute::with('students.info.subscriptions')->find($reseller['institute_id']);
+        $subscription = Subscription::where($data);
 
-        return compact('institute');
+        if ($subscription->count()) {
+            $subscription->delete();
+        } else {
+            $data['expires_at'] = $request['expires_at'];
+            Subscription::create($data);
+        }
+
+        return 'done';
     }
 }

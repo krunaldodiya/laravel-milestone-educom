@@ -45,4 +45,10 @@ Route::group(['prefix' => 'reseller'], function () {
     Route::post("/students/add", "ResellerController@addStudent")
         ->name("add-student")
         ->middleware('reseller');
+
+
+
+    Route::post("/subscriptions/toggle", "ResellerController@toggleSubscription")
+        ->name("toggle-subscription")
+        ->middleware('reseller');
 });

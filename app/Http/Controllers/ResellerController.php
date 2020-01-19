@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ToggleSubscriptionRequest;
 use App\Institute;
 use App\InstituteStudent;
+use App\Subscription;
 use App\User;
 use Error;
 use Illuminate\Http\Request;
@@ -66,5 +68,27 @@ class ResellerController extends Controller
         $institute = Institute::with('students.info.subscriptions', 'categories.info')->find($reseller['institute_id']);
 
         return compact('institute');
+    }
+
+    public function toggleSubscription(ToggleSubscriptionRequest $request)
+    {
+        $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
+
+        $data = [
+            'institute_id' => $reseller['institute_id'],
+            'user_id' => $request['user_id'],
+            'category_id' => $request['category_id'],
+        ];
+
+        $subscription = Subscription::where($data);
+
+        if ($subscription->count()) {
+            $subscription->delete();
+        } else {
+            $data['expires_at'] = $request['expires_at'];
+            Subscription::create($data);
+        }
+
+        return $this->getInstitute($request);
     }
 }
