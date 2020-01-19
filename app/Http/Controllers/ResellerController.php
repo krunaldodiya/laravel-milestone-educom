@@ -35,7 +35,7 @@ class ResellerController extends Controller
 
             $token = JWTAuth::encode($payload);
 
-            return compact('token');
+            return ['token' => $token->get()];
         }
 
         throw new Error("No Institute found");

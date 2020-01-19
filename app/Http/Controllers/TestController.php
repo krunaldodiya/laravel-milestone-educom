@@ -17,8 +17,15 @@ class TestController extends Controller
             'institute_id' => $institute->id
         ]);
 
+        $customClaims = JWTFactory::customClaims([
+            'sub' => env('APP_ENV'),
+            'institute_id' => $institute->id
+        ]);
+
         $payload = JWTFactory::make($customClaims);
 
-        return JWTAuth::encode($payload);
+        $token = JWTAuth::encode($payload);
+
+        return ['token' => $token->get()];
     }
 }
