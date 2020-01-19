@@ -33,7 +33,9 @@ class ResellerController extends Controller
 
             $payload = JWTFactory::make($customClaims);
 
-            return JWTAuth::encode($payload);
+            $token = JWTAuth::encode($payload);
+
+            return compact('token');
         }
 
         throw new Error("No Institute found");
