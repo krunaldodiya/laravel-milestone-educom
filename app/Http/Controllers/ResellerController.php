@@ -20,26 +20,22 @@ class ResellerController extends Controller
 
         $institute = DB::table('institutes')->where('username', $username)->first();
 
-        if ($institute) {
-            $validate_admin = Hash::check($password, $institute->password);
+        $validate_admin = Hash::check($password, $institute->password);
 
-            if (!$validate_admin) {
-                throw new Error("Wrong username or password");
-            }
-
-            $customClaims = JWTFactory::customClaims([
-                'sub' => env('APP_ENV'),
-                'institute_id' => $institute->id
-            ]);
-
-            $payload = JWTFactory::make($customClaims);
-
-            $token = JWTAuth::encode($payload);
-
-            return ['token' => $token->get()];
+        if (!$validate_admin) {
+            throw new Error("Wrong username or password");
         }
 
-        throw new Error("No Institute found");
+        $customClaims = JWTFactory::customClaims([
+            'sub' => env('APP_ENV'),
+            'institute_id' => $institute->id
+        ]);
+
+        $payload = JWTFactory::make($customClaims);
+
+        $token = JWTAuth::encode($payload);
+
+        return ['token' => $token->get()];
     }
 
     public function addStudent(Request $request)
