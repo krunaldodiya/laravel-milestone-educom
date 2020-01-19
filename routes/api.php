@@ -35,3 +35,7 @@ Route::group(['prefix' => 'topics', 'middleware' => 'auth:api'], function () {
 Route::group(['prefix' => 'videos', 'middleware' => 'auth:api'], function () {
     Route::post('/by-topic-id', 'VideoController@getVideos');
 });
+
+Route::group(['prefix' => 'reseller'], function () {
+    Route::post("/login", "ResellerController@login")->name("login");
+});
