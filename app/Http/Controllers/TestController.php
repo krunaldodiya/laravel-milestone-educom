@@ -11,8 +11,9 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        $token = JWTAuth::getToken();
-        $data = JWTAuth::getPayload($token)->toArray();
+        $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
+
+        dd($reseller['institute_id']);
 
         $institute = Institute::with('students.info.subscriptions')->first();
 
