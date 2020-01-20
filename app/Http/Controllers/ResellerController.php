@@ -65,12 +65,18 @@ class ResellerController extends Controller
                 'password' => bcrypt(str_random(8))
             ]);
 
-            InstituteStudent::firstOrCreate([
-                'institute_id' => $reseller['institute_id'],
-                'student_id' => $user->id
-            ]);
+            $exists = InstituteStudent::where(['student_id' => $user->id])->first();
 
-            return $this->getInstitute($request);
+            if (!$exists) {
+                InstituteStudent::firstOrCreate([
+                    'institute_id' => $reseller['institute_id'],
+                    'student_id' => $user->id
+                ]);
+
+                return $this->getInstitute($request);
+            }
+
+            throw new Error("Students already added to another Institute");
         }
 
         throw new Error("Max {$institute->max_students} students are allowed");
