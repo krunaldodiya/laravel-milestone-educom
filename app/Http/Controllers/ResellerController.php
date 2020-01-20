@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RemoveStudentRequest;
 use App\Http\Requests\ToggleSubscriptionRequest;
 use App\Institute;
 use App\InstituteStudent;
@@ -43,7 +44,7 @@ class ResellerController extends Controller
         return ['token' => $token->get()];
     }
 
-    public function removeStudent(AddStudentRequest $request)
+    public function removeStudent(RemoveStudentRequest $request)
     {
         User::find($request->student_id)->delete();
 
