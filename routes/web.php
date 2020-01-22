@@ -17,7 +17,7 @@ Route::group(['prefix' => 'backup', 'middleware' => 'auth'], function () {
     Route::get("/download", "BackupController@backupDownload")->name("backup.download");
 });
 
-Route::get("/test", "TestController@test")->name("test")->middleware('reseller');
+Route::get("/test", "TestController@test")->name("test");
 Route::get("/play", "VideoController@play")->name("play");
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/terms', 'HomeController@terms')->name('terms');
