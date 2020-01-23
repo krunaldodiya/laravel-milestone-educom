@@ -72,7 +72,7 @@ class HomeController extends Controller
         foreach ($users as $user) {
             fputcsv($handle, [
                 $user['id'], $user['name'], $user['email'], $user['mobile'], $user['dob'], $user['gender'],
-                $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at'], json_encode($user->subscription)
+                $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at'], json_encode($user->subscriptions)
             ]);
         }
 
