@@ -100,6 +100,8 @@ class ResellerController extends Controller
             'category_id' => $request['category_id'],
         ];
 
+        dump($data);
+
         $subscription = Subscription::where($data);
 
         if ($subscription->count()) {
