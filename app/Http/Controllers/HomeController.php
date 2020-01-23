@@ -28,19 +28,19 @@ class HomeController extends Controller
     {
         if ($type == 1) { // No subscription
             $subscriptions = Subscription::pluck('user_id');
-            return User::with('subscription')->whereNotIn('id', $subscriptions)->get();
+            return User::with('subscriptions')->whereNotIn('id', $subscriptions)->get();
         }
 
         if ($type == 2) { // Active subscription
             $subscriptions =  Subscription::where('expires_at', '>', Carbon::now())
                 ->pluck('user_id');
-            return User::with('subscription')->whereIn('id', $subscriptions)->get();
+            return User::with('subscriptions')->whereIn('id', $subscriptions)->get();
         }
 
         if ($type == 3) { // Expired subscription
             $subscriptions =  Subscription::where('expires_at', '<=', Carbon::now())
                 ->pluck('user_id');
-            return User::with('subscription')->whereIn('id', $subscriptions)->get();
+            return User::with('subscriptions')->whereIn('id', $subscriptions)->get();
         }
     }
 
@@ -72,7 +72,7 @@ class HomeController extends Controller
         foreach ($users as $user) {
             fputcsv($handle, [
                 $user['id'], $user['name'], $user['email'], $user['mobile'], $user['dob'], $user['gender'],
-                $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at'], $user->subscription['expired_at']
+                $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at'], json_encode($user->subscription)
             ]);
         }
 
