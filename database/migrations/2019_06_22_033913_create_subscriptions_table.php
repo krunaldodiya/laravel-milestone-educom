@@ -16,12 +16,10 @@ class CreateSubscriptionsTable extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->bigInteger("category_id")->unsigned();
+
             $table->bigInteger("institute_id")->unsigned()->default(1);
             $table->foreign('institute_id')->references('id')->on('institutes')
-                ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->bigInteger("category_id")->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->bigInteger("user_id")->unsigned();
