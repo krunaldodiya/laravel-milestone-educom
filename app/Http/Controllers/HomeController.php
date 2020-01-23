@@ -70,9 +70,16 @@ class HomeController extends Controller
         ]);
 
         foreach ($users as $user) {
+            $subscriptions_data = $user->subscriptions->map(function ($subscription) {
+                return [
+                    'category_id' => $subscription['category_id'],
+                    'expired_at' => $subscription['expired_at'],
+                ];
+            });
+
             fputcsv($handle, [
                 $user['id'], $user['name'], $user['email'], $user['mobile'], $user['dob'], $user['gender'],
-                $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at'], json_encode($user->subscriptions)
+                $user['school'], $user['education'], $user['status'], $user['account_status'], $user['created_at'], json_encode($subscriptions_data)
             ]);
         }
 
