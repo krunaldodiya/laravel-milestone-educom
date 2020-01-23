@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Institute;
+use App\InstituteCategory;
 use Illuminate\Http\Request;
 use App\Subscription;
 use Carbon\Carbon;
@@ -21,10 +22,13 @@ class SubscriptionController extends Controller
     {
         $user = auth('api')->user();
         $category_id = $request->category_id;
-        $expires_at = $request->institute_id ? Institute::find($request->institute_id) : Carbon::now()->addDays($user->site_settings->expiry);
+        $institute_id = $request->institute_id ? $request->institute_id : 1;
+
+        $institute_category = InstituteCategory::where(['institute_id' => $institute_id, 'category_id' => $request->category_id])->first();
+        $expires_at = $institute_category ? $institute_category->expires_at : Carbon::now()->addDays($user->site_settings['trial_days']);
 
         Subscription::create([
-            'institute_id' => $request->institute_id,
+            'institute_id' => $institute_id,
             'category_id' => $category_id,
             'user_id' => $user->id,
             'expires_at' => $expires_at
