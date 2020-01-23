@@ -28,19 +28,19 @@ class HomeController extends Controller
     {
         if ($type == 1) { // No subscription
             $subscriptions = Subscription::pluck('user_id');
-            return User::with('subscriptions')->whereNotIn('id', $subscriptions)->get();
+            return User::with('subscriptions.category')->whereNotIn('id', $subscriptions)->get();
         }
 
         if ($type == 2) { // Active subscription
             $subscriptions =  Subscription::where('expires_at', '>', Carbon::now())
                 ->pluck('user_id');
-            return User::with('subscriptions')->whereIn('id', $subscriptions)->get();
+            return User::with('subscriptions.category')->whereIn('id', $subscriptions)->get();
         }
 
         if ($type == 3) { // Expired subscription
             $subscriptions =  Subscription::where('expires_at', '<=', Carbon::now())
                 ->pluck('user_id');
-            return User::with('subscriptions')->whereIn('id', $subscriptions)->get();
+            return User::with('subscriptions.category')->whereIn('id', $subscriptions)->get();
         }
     }
 
@@ -73,7 +73,8 @@ class HomeController extends Controller
             $subscriptions_data = $user->subscriptions->map(function ($subscription) {
                 return [
                     'category_id' => $subscription['category_id'],
-                    'expired_at' => $subscription['expired_at'],
+                    'category_name' => $subscription->category['name'],
+                    'expires_at' => $subscription['expires_at'],
                 ];
             });
 
