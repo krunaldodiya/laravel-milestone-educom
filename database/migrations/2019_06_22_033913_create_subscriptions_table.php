@@ -17,6 +17,8 @@ class CreateSubscriptionsTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger("category_id")->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')
+                ->onUpdate('cascade')->onDelete('cascade');
 
             $table->bigInteger("institute_id")->unsigned()->default(1);
             $table->foreign('institute_id')->references('id')->on('institutes')
