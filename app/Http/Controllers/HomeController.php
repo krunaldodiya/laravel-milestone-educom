@@ -73,7 +73,6 @@ class HomeController extends Controller
             $subscriptions_data = $user->subscriptions->map(function ($subscription) {
                 return [
                     'category_id' => $subscription['category_id'],
-                    'category_name' => $subscription->category['name'],
                     'expires_at' => $subscription['expires_at'],
                 ];
             });
