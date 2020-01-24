@@ -20,10 +20,12 @@ class VideoController extends Controller
 
         $url = $request->get('url');
 
+        // return view('play')->with('url', $url);
+
         if ($headers && $headers['download'] == 'none') {
             return view('play')->with('url', $url);
         }
 
-        return view('play')->with('url', "https://api.shendre.com/uploadfile/10th_Guj/Planexpirevideo.mp4");
+        return view('play')->with('url', "https://player.vimeo.com/video/346374153?title=0&portrait=0&byline=0&autoplay=1");
     }
 }
