@@ -17,10 +17,13 @@ class VideoController extends Controller
     public function play(Request $request)
     {
         $headers = $request->get('headers');
-        return ['headers' => $headers];
 
         $url = $request->get('url');
 
-        return view('play')->with('url', $url);
+        if ($headers && $headers['download'] == 'none') {
+            return view('play')->with('url', $url);
+        }
+
+        return view('play')->with('url', "https://api.shendre.com/uploadfile/10th_Guj/Planexpirevideo.mp4");
     }
 }
