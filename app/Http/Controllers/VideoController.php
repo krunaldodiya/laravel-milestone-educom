@@ -17,7 +17,7 @@ class VideoController extends Controller
     public function play(Request $request)
     {
         $headers = $request->get('headers');
-        return $headers;
+        return ['headers' => $headers];
 
         $url = $request->get('url');
 
