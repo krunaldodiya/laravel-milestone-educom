@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Exception;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class Reseller
 {
@@ -15,12 +17,12 @@ class Reseller
      */
     public function handle($request, Closure $next)
     {
-        if ($request->header('Authorization')) {
-            return $next($request);
+        try {
+            JWTAuth::parseToken();
+        } catch (Exception $e) {
+            return response()->json(['status' => 'Authorization Token not found']);
         }
 
-        return response()->json([
-            'message' => 'Not a valid Reseller account.',
-        ]);
+        return $next($request);
     }
 }
