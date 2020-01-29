@@ -79,7 +79,7 @@ class ResellerController extends Controller
             throw new Error("Students already added to another Institute");
         }
 
-        throw new Error("Max {$institute->max_students} students are allowed");
+        throw new Error("Max 1 students are allowed");
     }
 
     public function getInstitute(Request $request)
