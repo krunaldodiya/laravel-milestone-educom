@@ -78,12 +78,12 @@ class ResellerController extends Controller
                     return $this->getInstitute($request);
                 }
 
-                return response()->json(['error' => "Students already added to another Institute"], 422);
+                return response()->json(['message' => "Students already added to another Institute"], 422);
             }
 
-            return response()->json(['error' => "Max {$institute->max_students} students are allowed"], 422);
+            return response()->json(['message' => "Max {$institute->max_students} students are allowed"], 422);
         } catch (\Throwable $th) {
-            return response()->json(['error' => "Invalid Institute"], 422);
+            return response()->json(['message' => "Invalid Institute"], 422);
         }
     }
 
