@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Exceptions\MaxStudentLimit;
 use App\Exceptions\StudentAlreadyAdded;
 use App\Institute;
-use App\InstituteCategory;
 use App\InstituteStudent;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TestController extends Controller

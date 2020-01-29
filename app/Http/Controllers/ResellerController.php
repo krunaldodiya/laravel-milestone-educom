@@ -53,33 +53,35 @@ class ResellerController extends Controller
 
     public function addStudent(AddStudentRequest $request)
     {
-        $mobile = $request->mobile;
+        throw new Error("Max 1 students are allowed");
 
-        $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
+        // $mobile = $request->mobile;
 
-        $institute = Institute::with('students')->find($reseller['institute_id']);
+        // $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
 
-        if ($institute->max_students > $institute->students->count()) {
-            $user = User::firstOrCreate(['mobile' => $mobile], [
-                'mobile' => $mobile,
-                'password' => bcrypt(str_random(8))
-            ]);
+        // $institute = Institute::with('students')->find($reseller['institute_id']);
 
-            $exists = InstituteStudent::where(['student_id' => $user->id])->first();
+        // if ($institute->max_students > $institute->students->count()) {
+        //     $user = User::firstOrCreate(['mobile' => $mobile], [
+        //         'mobile' => $mobile,
+        //         'password' => bcrypt(str_random(8))
+        //     ]);
 
-            if (!$exists) {
-                InstituteStudent::firstOrCreate([
-                    'institute_id' => $reseller['institute_id'],
-                    'student_id' => $user->id
-                ]);
+        //     $exists = InstituteStudent::where(['student_id' => $user->id])->first();
 
-                return $this->getInstitute($request);
-            }
+        //     if (!$exists) {
+        //         InstituteStudent::firstOrCreate([
+        //             'institute_id' => $reseller['institute_id'],
+        //             'student_id' => $user->id
+        //         ]);
 
-            throw new Error("Students already added to another Institute");
-        }
+        //         return $this->getInstitute($request);
+        //     }
 
-        throw new Error("Max {$institute->max_students} students are allowed");
+        //     throw new Error("Students already added to another Institute");
+        // }
+
+        // throw new Error("Max {$institute->max_students} students are allowed");
     }
 
     public function getInstitute(Request $request)
