@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MaxStudentLimit;
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RemoveStudentRequest;
@@ -55,31 +56,35 @@ class ResellerController extends Controller
     {
         $mobile = $request->mobile;
 
-        $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
+        try {
+            $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
 
-        $institute = Institute::with('students')->find($reseller['institute_id']);
+            $institute = Institute::with('students')->find($reseller['institute_id']);
 
-        if ($institute->max_students > $institute->students->count()) {
-            $user = User::firstOrCreate(['mobile' => $mobile], [
-                'mobile' => $mobile,
-                'password' => bcrypt(str_random(8))
-            ]);
-
-            $exists = InstituteStudent::where(['student_id' => $user->id])->first();
-
-            if (!$exists) {
-                InstituteStudent::firstOrCreate([
-                    'institute_id' => $reseller['institute_id'],
-                    'student_id' => $user->id
+            if ($institute->max_students > $institute->students->count()) {
+                $user = User::firstOrCreate(['mobile' => $mobile], [
+                    'mobile' => $mobile,
+                    'password' => bcrypt(str_random(8))
                 ]);
 
-                return $this->getInstitute($request);
+                $exists = InstituteStudent::where(['student_id' => $user->id])->first();
+
+                if (!$exists) {
+                    InstituteStudent::firstOrCreate([
+                        'institute_id' => $reseller['institute_id'],
+                        'student_id' => $user->id
+                    ]);
+
+                    return $this->getInstitute($request);
+                }
+
+                return response()->json(['error' => "Students already added to another Institute"], 422);
             }
 
-            throw new Error("Students already added to another Institute");
+            return response()->json(['error' => "Max {$institute->max_students} students are allowed"], 422);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => "Invalid Institute"], 422);
         }
-
-        throw new Error("Max {$institute->max_students} students are allowed");
     }
 
     public function getInstitute(Request $request)
