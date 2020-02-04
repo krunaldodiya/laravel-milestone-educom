@@ -23,9 +23,14 @@ class SubscriptionController extends Controller
         $user = auth('api')->user();
         $category_id = $request->category_id;
         $institute_id = $request->institute_id ? $request->institute_id : 1;
+        $expires_at = null;
 
-        $institute_category = InstituteCategory::where(['institute_id' => $institute_id, 'category_id' => $request->category_id])->first();
-        $expires_at = $request->institute_id ? $institute_category->expires_at : Carbon::now()->addDays($user->site_settings['trial_days']);
+        if ($institute_id != 1) {
+            $institute_category = InstituteCategory::where(['institute_id' => $institute_id, 'category_id' => $request->category_id])->first();
+            $expires_at = $institute_category->expires_at;
+        } else {
+            $expires_at = Carbon::now()->addDays($user->site_settings['trial_days']);
+        }
 
         Subscription::create([
             'institute_id' => $institute_id,
