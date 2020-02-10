@@ -70,6 +70,8 @@ class ResellerController extends Controller
                 $exists = InstituteStudent::where(['student_id' => $user->id])->first();
 
                 if (!$exists) {
+                    Subscription::where(['user_id' => $user->id])->delete();
+
                     InstituteStudent::firstOrCreate([
                         'institute_id' => $reseller['institute_id'],
                         'student_id' => $user->id
