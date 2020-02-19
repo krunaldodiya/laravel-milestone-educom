@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Events\InstituteWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 
 class Institute extends Model
@@ -11,10 +10,6 @@ class Institute extends Model
 
     protected $dates = [
         'created_at', 'updated_at',
-    ];
-
-    protected $dispatchesEvents = [
-        'updated' => InstituteWasUpdated::class
     ];
 
     public function students()

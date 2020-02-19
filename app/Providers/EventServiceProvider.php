@@ -8,9 +8,8 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Events\UserWasCreated;
-use App\Events\InstituteWasUpdated;
-
-use App\Listeners\UpdateSubscription;
+use App\InstituteCategory;
+use App\Observers\InstituteCategoryObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,10 +26,6 @@ class EventServiceProvider extends ServiceProvider
         UserWasCreated::class => [
             //
         ],
-
-        InstituteWasUpdated::class => [
-            UpdateSubscription::class,
-        ],
     ];
 
     /**
@@ -42,6 +37,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        InstituteCategory::observe(InstituteCategoryObserver::class);
     }
 }
