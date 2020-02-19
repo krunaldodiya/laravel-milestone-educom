@@ -8,6 +8,9 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Events\UserWasCreated;
+use App\Events\InstituteWasUpdated;
+
+use App\Listeners\UpdateSubscription;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
 
         UserWasCreated::class => [
             //
+        ],
+
+        InstituteWasUpdated::class => [
+            UpdateSubscription::class,
         ],
     ];
 
