@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\InstituteCategory;
+use App\Subscription;
 
 class InstituteCategoryObserver
 {
@@ -25,7 +26,11 @@ class InstituteCategoryObserver
      */
     public function updated(InstituteCategory $instituteCategory)
     {
-        dump($instituteCategory->id);
+        $data = [
+            'category_id' => $instituteCategory->category_id, 'institute_id' => $instituteCategory->institute_id
+        ];
+
+        Subscription::where($data)->update(['expires_at' => $instituteCategory->expires_at]);
     }
 
     /**
