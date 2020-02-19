@@ -25,7 +25,7 @@ class InstituteObserver
      */
     public function updated(Institute $institute)
     {
-        dump($institute);
+        dump("testing");
     }
 
     /**
