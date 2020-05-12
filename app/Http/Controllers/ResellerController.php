@@ -74,10 +74,6 @@ class ResellerController extends Controller
                         'institute_id' => $reseller['institute_id']
                     ]);
 
-                    Subscription::where(['user_id' => $user->id])->update([
-                        'institute_id' => $reseller['institute_id']
-                    ]);
-
                     return $this->getInstitute($request);
                 }
 
