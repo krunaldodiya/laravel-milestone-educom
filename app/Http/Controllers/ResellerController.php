@@ -101,10 +101,7 @@ class ResellerController extends Controller
 
     public function toggleSubscription(ToggleSubscriptionRequest $request)
     {
-        $reseller = JWTAuth::getPayload(JWTAuth::getToken())->toArray();
-
         $data = [
-            'institute_id' => $reseller['institute_id'],
             'user_id' => $request['user_id'],
             'category_id' => $request['category_id'],
         ];
