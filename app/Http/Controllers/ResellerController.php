@@ -70,7 +70,7 @@ class ResellerController extends Controller
                 $exists = InstituteStudent::where(['student_id' => $user->id])->first();
 
                 if (!$exists || $exists->institute_id === 1) {
-                    InstituteStudent::updateOrCreate(['student_id' => $user->id], [
+                    InstituteStudent::where(['student_id' => $user->id])->update([
                         'institute_id' => $reseller['institute_id']
                     ]);
 
